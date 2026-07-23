@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEIPSUM — La capa de confianza que hace contratable el trabajo de los agentes de IA</title>
+<meta name="description" content="TEIPSUM es la capa de confianza para agentes de IA. Identidad, alcance y autoridad aplicados. Cada acción queda como registro firmado con estándar de auditoría. Para industrias reguladas.">
+<meta property="og:title" content="TEIPSUM — La confianza es el producto">
+<meta property="og:description" content="La capa de confianza que hace contratable el trabajo de los agentes de IA. Industrias reguladas primero.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://teipsum.com/es/">
+<meta property="og:image" content="https://teipsum.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://teipsum.com/og-image.png">
+<link rel="canonical" href="https://teipsum.com/es/">
+<link rel="alternate" hreflang="en" href="https://teipsum.com/">
+<link rel="alternate" hreflang="es" href="https://teipsum.com/es/">
+<link rel="alternate" hreflang="x-default" href="https://teipsum.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0c10'/%3E%3Ctext x='50%25' y='53%25' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='bold' fill='%23e8ecf3' text-anchor='middle' dominant-baseline='middle'%3ET%3C/text%3E%3Ccircle cx='47' cy='44' r='4.5' fill='%235e9efc'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0c10;--ink-2:#0e1219;--glow:#0e1f3b;--blue:#5e9efc;--blue-dim:#3f7ad4;
+  --text:#e8ecf3;--muted:#8794a8;--line:rgba(135,148,168,.18);--max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);
+  font-family:Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);
+  background:rgba(10,12,16,.82);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-weight:700;letter-spacing:.22em;font-size:14px}
+.logo span{color:var(--blue)}
+.nav-right{display:flex;align-items:center;gap:18px}
+.lang{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.06em}
+.lang a{text-decoration:none;color:var(--muted);transition:.2s}
+.lang a:hover{color:var(--blue)}
+.lang .on{color:var(--text);font-weight:500}
+.nav a.cta{font-size:14px;font-weight:600;text-decoration:none;color:var(--text);
+  border:1px solid var(--line);padding:9px 16px;border-radius:6px;transition:.2s}
+.nav a.cta:hover{border-color:var(--blue);color:var(--blue)}
+.hero{position:relative;overflow:hidden;padding:120px 0 96px}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(58% 62% at 78% 48%, var(--glow) 0%, rgba(10,12,16,0) 70%)}
+.hero .wrap{position:relative;z-index:1}
+h1{font-size:clamp(2.4rem,6.4vw,4.7rem);line-height:1.03;letter-spacing:-.035em;
+  font-weight:800;margin:0 0 26px;max-width:16ch}
+h1 .accent{color:var(--blue)}
+.sub{font-size:clamp(1rem,1.6vw,1.22rem);color:var(--muted);max-width:58ch;margin:0 0 38px}
+.sub strong{color:var(--text);font-weight:500}
+.row{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:15px;
+  padding:14px 24px;border-radius:7px;transition:.2s}
+.btn.primary{background:var(--blue);color:#06090f}
+.btn.primary:hover{background:#7db0ff}
+.btn.ghost{border:1px solid var(--line);color:var(--text)}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
+.ledger{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--ink-2);overflow:hidden;padding:14px 0}
+.ledger-track{display:flex;gap:44px;white-space:nowrap;font-family:"JetBrains Mono",monospace;
+  font-size:12px;color:var(--muted);animation:slide 46s linear infinite;width:max-content}
+.ledger-track span{opacity:.75}
+.ledger-track b{color:var(--blue-dim);font-weight:500}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ledger-track{animation:none}}
+section{padding:96px 0}
+.eyebrow{font-size:12px;letter-spacing:.19em;text-transform:uppercase;color:var(--blue);
+  font-weight:700;margin:0 0 18px}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.16;letter-spacing:-.02em;
+  font-weight:700;margin:0 0 20px;max-width:24ch}
+.lede{color:var(--muted);font-size:1.05rem;max-width:64ch;margin:0}
+.lede + .lede{margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+.card{border:1px solid var(--line);border-radius:10px;padding:28px;background:var(--ink-2);transition:border-color .2s}
+.card:hover{border-color:rgba(94,158,252,.42)}
+.card h3{font-size:1.05rem;margin:0 0 10px;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.card .num{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--blue);display:block;margin-bottom:14px}
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.panel{border:1px solid var(--line);border-radius:10px;background:var(--ink-2);overflow:hidden}
+.panel-head{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(135,148,168,.32)}
+.panel-head p{margin:0 0 0 8px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted)}
+.panel pre{margin:0;padding:22px 20px;font-family:"JetBrains Mono",monospace;font-size:12.4px;
+  line-height:1.85;color:var(--muted);overflow-x:auto}
+.panel pre b{color:var(--text);font-weight:500}
+.panel pre i{color:var(--blue);font-style:normal}
+.quote{border-left:2px solid var(--blue);padding-left:22px;margin:44px 0 0;font-size:1.15rem;color:var(--text);max-width:54ch}
+footer{border-top:1px solid var(--line);padding:56px 0 44px}
+.foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.foot a{color:var(--blue);text-decoration:none}
+.foot a:hover{text-decoration:underline}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+@media(max-width:880px){
+  .grid{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr;gap:34px}
+  .hero{padding:84px 0 68px}
+  section{padding:72px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">TEIPSUM<span>.</span></div>
+    <div class="nav-right">
+      <div class="lang"><a href="/">EN</a> / <a class="on" href="/es/">ES</a></div>
+      <a class="cta" href="mailto:contact@teipsum.com">Contacto</a>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Recordar es una commodity. La <span class="accent">confianza</span> es el producto.</h1>
+    <p class="sub">Los agentes de IA ya pueden hacer trabajo real. Lo que nadie ha resuelto es cómo dos partes se hacen responsables de ese trabajo. TEIPSUM es la capa de confianza que hace <strong>contratable</strong> el trabajo de los agentes: identidad, alcance y autoridad aplicados, y un registro firmado y auditable de cada acción.</p>
+    <div class="row">
+      <a class="btn primary" href="mailto:contact@teipsum.com?subject=TEIPSUM">Conversemos</a>
+      <a class="btn ghost" href="#como">Cómo funciona</a>
+    </div>
+  </div>
+</div>
+
+<div class="ledger" aria-hidden="true">
+  <div class="ledger-track">
+    <span>acción <b>resolve</b> · alcance <b>finanzas</b> · firmado <b>ed25519</b> · <b>verificado</b></span>
+    <span>autoridad <b>otorgada</b> · vence <b>2026-09-30</b> · <b>aplicada</b></span>
+    <span>registro <b>0f4c…a91e</b> · reproducible · <b>auditable</b></span>
+    <span>acción <b>certify</b> · quórum <b>2/3</b> · <b>registrado</b></span>
+    <span>acción <b>resolve</b> · alcance <b>finanzas</b> · firmado <b>ed25519</b> · <b>verificado</b></span>
+    <span>autoridad <b>otorgada</b> · vence <b>2026-09-30</b> · <b>aplicada</b></span>
+    <span>registro <b>0f4c…a91e</b> · reproducible · <b>auditable</b></span>
+    <span>acción <b>certify</b> · quórum <b>2/3</b> · <b>registrado</b></span>
+  </div>
+</div>
+
+<section id="como">
+  <div class="wrap">
+    <p class="eyebrow">El problema</p>
+    <h2>La industria resolvió cómo hablan los agentes. Se saltó cómo se contratan.</h2>
+    <p class="lede">Las plataformas de agentes ya pueden mover una tarea entre equipos, proveedores y organizaciones. Ninguna puede decirte, después, qué estaba autorizado a hacer el agente, sobre qué información actuó, ni quién respalda la decisión. Sin términos. Sin comprobantes. Sin trazabilidad.</p>
+    <p class="lede">En la mayoría de las empresas eso es una molestia. En un banco es la razón por la que el piloto nunca llega a producción.</p>
+
+    <div class="grid">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>Identidad gobernada</h3>
+        <p>Cada agente actúa bajo una identidad aplicada, con alcance y autoridad explícitos. El permiso es una propiedad de la llamada, no una promesa en un documento de política.</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>Registros firmados</h3>
+        <p>Cada acción genera un registro firmado y reproducible: qué se usó, quién lo certificó, bajo qué autoridad y en qué momento. Verificable, no declarativo.</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>Tu perímetro</h3>
+        <p>Opera donde ya viven tus datos. Cuando cambian tus reglas, rigen sobre tu decisión, no sobre el ciclo de releases de un proveedor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">La prueba</p>
+      <h2>Operamos toda la empresa sobre esta plataforma.</h2>
+      <p class="lede">Estrategia, ingeniería y operaciones en TEIPSUM ocurren sobre el mismo sustrato que vendemos. Cada decisión, revisión y cambio es un registro firmado sobre la misma infraestructura que desplegaría un cliente. Cuando decimos que una acción se puede reconstruir meses después, es porque lo hacemos con nosotros mismos todos los días.</p>
+      <p class="quote">La mayoría de los sistemas de IA te piden confianza. Nosotros creemos que la confianza debería poder demostrarse.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><i class="dot"></i><i class="dot"></i><i class="dot"></i><p>registro firmado</p></div>
+<pre><b>acción</b>    resolve
+<b>agente</b>    product_strategy
+<b>alcance</b>   company:strategy
+<b>autoridad</b> otorgada · acotada en el tiempo
+<b>insumos</b>   3 entidades certificadas
+<b>firma</b>     ed25519 · <i>verificada</i>
+<b>replay</b>    determinista
+</pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Para quién</p>
+    <h2>Construido primero para quienes no pueden desplegar agentes hasta poder auditarlos.</h2>
+    <p class="lede">Banca, servicios financieros, salud, gobierno y defensa. Organizaciones donde la decisión de un agente tiene que ser defendible ante un regulador, un auditor o un tribunal, y donde "lo dijo el sistema" no es una respuesta aceptable.</p>
+    <div class="row" style="margin-top:36px">
+      <a class="btn primary" href="mailto:contact@teipsum.com?subject=TEIPSUM%20-%20design%20partner">Ser design partner</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div><strong style="color:var(--text)">TEIPSUM</strong> · Santiago, Chile</div>
+    <div><a href="mailto:contact@teipsum.com">contact@teipsum.com</a></div>
+    <div>Agentes de IA demostrables para industrias reguladas</div>
+  </div>
+</footer>
+
+</body>
+</html>
