@@ -15,6 +15,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://teipsum.com/og-image.png">
 <link rel="canonical" href="https://teipsum.com">
+<link rel="alternate" hreflang="en" href="https://teipsum.com/">
+<link rel="alternate" hreflang="es" href="https://teipsum.com/es/">
+<link rel="alternate" hreflang="x-default" href="https://teipsum.com/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0c10'/%3E%3Ctext x='50%25' y='53%25' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='bold' fill='%23e8ecf3' text-anchor='middle' dominant-baseline='middle'%3ET%3C/text%3E%3Ccircle cx='47' cy='44' r='4.5' fill='%235e9efc'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,6 +50,11 @@ header{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);
 .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
 .logo{font-weight:700;letter-spacing:.22em;font-size:14px}
 .logo span{color:var(--blue)}
+.nav-right{display:flex;align-items:center;gap:18px}
+.lang{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.06em}
+.lang a{text-decoration:none;color:var(--muted);transition:.2s}
+.lang a:hover{color:var(--blue)}
+.lang .on{color:var(--text);font-weight:500}
 .nav a.cta{font-size:14px;font-weight:600;text-decoration:none;color:var(--text);
   border:1px solid var(--line);padding:9px 16px;border-radius:6px;transition:.2s}
 .nav a.cta:hover{border-color:var(--blue);color:var(--blue)}
@@ -131,7 +139,10 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--blue);outline-offset:
 <header>
   <div class="wrap nav">
     <div class="logo">TEIPSUM<span>.</span></div>
-    <a class="cta" href="mailto:contact@teipsum.com">Get in touch</a>
+    <div class="nav-right">
+      <div class="lang"><a class="on" href="/">EN</a> / <a href="/es/">ES</a></div>
+      <a class="cta" href="mailto:contact@teipsum.com">Get in touch</a>
+    </div>
   </div>
 </header>
 
