@@ -1,0 +1,90 @@
+---
+import Wordmark from './Wordmark.astro';
+import { NAV, WAITLIST_HREF, CTA_LABEL, LINKEDIN_URL } from '../config';
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <Wordmark />
+      <nav aria-label="Footer">
+        <ul>
+          {
+            NAV.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+          <li><a href={WAITLIST_HREF}>{CTA_LABEL}</a></li>
+          {
+            LINKEDIN_URL && (
+              <li>
+                <a href={LINKEDIN_URL} rel="noopener">
+                  LinkedIn
+                </a>
+              </li>
+            )
+          }
+        </ul>
+      </nav>
+    </div>
+    <div class="site-footer__bottom">
+      <p>TEIPSUM · Scito te ipsum</p>
+      <p>Four patents pending</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--hair-warm);
+    background: var(--ink);
+    padding-block: 48px 36px;
+  }
+
+  .site-footer__top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--hair-dark-faint);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 28px;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.9375rem;
+    color: var(--paper-strong);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--warm);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 32px;
+    padding-top: 28px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-sm);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--paper-soft);
+  }
+</style>

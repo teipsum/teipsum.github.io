@@ -1,0 +1,106 @@
+---
+// Loop figure: an outer ring in four segments with an unbroken inner line.
+// The gaps between segments close as the figure scrolls into view.
+---
+
+<svg class="loop" viewBox="-150 0 1060 760" fill="none" role="img" aria-label="The loop: identity, governed action, human attestation and verifiable evidence, closed into one ring. One record. One rulebook. One trail.">
+  <circle class="loop__track" cx="380" cy="380" r="270"></circle>
+  <circle class="loop__arcs" cx="380" cy="380" r="270" transform="rotate(-86 380 380)"></circle>
+  <circle class="loop__trace" cx="380" cy="380" r="232" pathLength="1" transform="rotate(-90 380 380)"></circle>
+  <g class="loop__nodes">
+    <circle cx="380" cy="148" r="6"></circle>
+    <circle cx="612" cy="380" r="6"></circle>
+    <circle cx="380" cy="612" r="6"></circle>
+    <circle cx="148" cy="380" r="6"></circle>
+  </g>
+  <g class="loop__labels">
+    <text x="380" y="68" text-anchor="middle">IDENTITY</text>
+    <text x="890" y="374" text-anchor="end">GOVERNED</text>
+    <text x="890" y="400" text-anchor="end">ACTION</text>
+    <text x="380" y="718" text-anchor="middle">HUMAN ATTESTATION</text>
+    <text x="-130" y="374">VERIFIABLE</text>
+    <text x="-130" y="400">EVIDENCE</text>
+  </g>
+  <g class="loop__center" text-anchor="middle">
+    <text x="380" y="352">One record.</text>
+    <text x="380" y="394">One rulebook.</text>
+    <text class="loop__warm" x="380" y="436">One trail.</text>
+  </g>
+</svg>
+
+<style>
+  .loop {
+    width: 100%;
+    max-width: 680px;
+    height: auto;
+    margin-inline: auto;
+  }
+  .loop__track {
+    stroke: rgba(247, 245, 240, 0.1);
+    stroke-width: 28;
+  }
+  .loop__arcs {
+    stroke: var(--accent);
+    stroke-width: 28;
+    stroke-dasharray: 392 32;
+    opacity: 0.6;
+  }
+  .loop__trace {
+    stroke: var(--warm);
+    stroke-width: 1.5;
+  }
+  .loop__nodes circle {
+    fill: var(--warm);
+  }
+  .loop__labels text {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    letter-spacing: 2.6px;
+    fill: var(--paper);
+  }
+  .loop__center text {
+    font-family: var(--font-sans);
+    font-size: 34px;
+    font-weight: 500;
+    fill: var(--paper);
+  }
+  .loop__center .loop__warm {
+    fill: var(--warm);
+  }
+
+  /* Where scroll-driven animation is supported, the seams close and the trace
+     draws as the ring scrolls into view. Elsewhere the ring is static. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .loop__arcs {
+        animation: loop-close linear both;
+        animation-timeline: view();
+        animation-range: entry 20% cover 50%;
+      }
+      .loop__trace {
+        stroke-dasharray: 1;
+        animation: loop-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 45%;
+      }
+    }
+  }
+
+  @keyframes loop-close {
+    from {
+      stroke-dasharray: 360 64;
+    }
+    to {
+      stroke-dasharray: 424 0;
+      opacity: 0.75;
+    }
+  }
+  @keyframes loop-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

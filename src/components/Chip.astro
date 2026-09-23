@@ -1,0 +1,10 @@
+---
+// Status chip: "Early access" or "Roadmap".
+interface Props {
+  status: 'early' | 'roadmap';
+}
+const { status } = Astro.props;
+const label = status === 'early' ? 'Early access' : 'Roadmap';
+---
+
+<span class:list={['chip', status === 'roadmap' && 'chip--roadmap']}>{label}</span>

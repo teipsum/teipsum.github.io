@@ -1,0 +1,48 @@
+/* Design tokens: palette, type and spacing for the whole site.
+   Measured contrast: warm/ink 7.7, accent/paper 5.1, accent/ink 3.1,
+   muted/ink 3.8, muted/paper 4.2, warm/paper 2.1. Text below 4.5 is only
+   allowed at large sizes (WCAG 2.2 AA); warm is not used as text on paper. */
+
+:root {
+  /* Palette */
+  --ink: #1a1a1a;
+  --paper: #f7f5f0;
+  --warm: #c4a882;
+  --accent: #8b5e3c;
+  --muted: #7a7570;
+  --rule: #d4cfc7;
+
+  /* Derived text tones (pre-mixed so contrast is exact) */
+  --paper-strong: #c6c5c1; /* paper at 78% on ink, 10.1:1 */
+  --paper-soft: #9f9d9a; /* paper at 60% on ink, 6.4:1 */
+  --ink-strong: #3d3935; /* on paper, 10.5:1 */
+  --ink-soft: #5f5a55; /* on paper, 6.3:1 */
+
+  /* Hairlines */
+  --hair-dark: rgba(247, 245, 240, 0.2);
+  --hair-dark-faint: rgba(247, 245, 240, 0.12);
+  --hair-warm: rgba(196, 168, 130, 0.18);
+
+  /* Type */
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+
+  --fs-display: clamp(2.5rem, 1.2rem + 5.4vw, 5.25rem);
+  --fs-h2: clamp(2rem, 1.3rem + 2.8vw, 3.25rem);
+  --fs-h3: clamp(1.375rem, 1.1rem + 1vw, 1.875rem);
+  --fs-lede: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --fs-body: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+  --fs-eyebrow: 0.8125rem;
+  --fs-mono-sm: 0.75rem;
+
+  /* Layout */
+  --max: 1280px;
+  --gutter: clamp(20px, 5.5vw, 80px);
+  --col-gap: 24px;
+  --band-y: clamp(64px, 4rem + 4vw, 112px);
+  --header-h: 72px;
+
+  /* Focus */
+  --focus: var(--warm);
+}

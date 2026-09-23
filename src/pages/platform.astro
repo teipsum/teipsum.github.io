@@ -1,0 +1,245 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import HeroTrace from '../components/HeroTrace.astro';
+import ProductFrame from '../components/ProductFrame.astro';
+import Band from '../components/Band.astro';
+import Callout from '../components/Callout.astro';
+import CloseCall from '../components/CloseCall.astro';
+
+const sub =
+  'Unica gives your organization AI agents that work inside the rules you set, an AI twin for every person, and a signed record of everything they do.';
+
+const loop = [
+  {
+    stage: 'Identity',
+    usually: 'An agent identity product: owner, purpose, expiring credentials, last activity, offboarding',
+    unica: 'Every agent and person is a governed identity in the same record',
+  },
+  {
+    stage: 'Governed action',
+    usually: 'An agent builder: fleet view, guardrails, a needs-you queue',
+    unica: 'Every act is a signed, governed record, not a log line',
+  },
+  {
+    stage: 'Human attestation',
+    usually: 'Approvals inside each tool, each with its own login',
+    unica: 'One passkey touch, bound to the person and the exact act',
+  },
+  {
+    stage: 'Verifiable evidence',
+    usually: 'A compliance tool that collects screenshots and exports',
+    unica: 'Evidence an auditor exports and verifies without asking us',
+  },
+  {
+    stage: 'Context',
+    usually: 'Copied between tools',
+    unica: 'One corporate brain underneath the whole loop',
+  },
+];
+---
+
+<Base title="Platform" description={sub}>
+  <PageHero eyebrow="THE UNICA PLATFORM" title="One platform. Every agent accountable." sub={sub} />
+
+  <section class="band band--paper" aria-labelledby="loop">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="loop">The whole loop, not one arc of it.</h2>
+        <p class="lede">
+          Most organizations would assemble this from an agent builder, an agent identity product and a compliance
+          evidence tool. Here is what changes when the loop is one fabric.
+        </p>
+      </div>
+      <table class="loop-table">
+        <thead>
+          <tr>
+            <th scope="col">Stage of the loop</th>
+            <th scope="col">Usually bought as</th>
+            <th scope="col">In Unica</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            loop.map((r) => (
+              <tr>
+                <th scope="row">{r.stage}</th>
+                <td data-label="Usually bought as">{r.usually}</td>
+                <td data-label="In Unica">{r.unica}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="loop-close">One record. One rulebook. One trail.</p>
+    </div>
+  </section>
+
+  <div class="rule-wrap"><div class="wrap"><hr class="rule" /></div></div>
+  <Band tone="paper" id="agents" heading="A workforce with job descriptions.">
+    <p class="lede">
+      Every agent has a role, a scope and a human owner. It reaches only what its scope allows, and it hands anything privileged back to a person. When its work is done, you can end it cleanly: its runs halt and its keys stop working.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="twins" heading="Someone in your corner." status="early">
+    <p class="lede">
+      A twin works for one person. It learns how they decide, drafts in their voice, and acts only with their consent. Their words stay theirs: readable by them and, where the law requires, their auditor. No one else.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="approvals" heading="The right yes, from the right person.">
+    <p class="lede">
+      Privileged actions go to the named people who may approve them. An approval is a touch of that person’s passkey, bound to them and to that exact action. It cannot be replayed, forwarded or borrowed.
+    </p>
+  </Band>
+
+  <section class="band band--dark" aria-labelledby="record">
+    <div class="wrap split">
+      <div class="split__text stack">
+        <h2 class="h2" id="record">Everything leaves a trace.</h2>
+        <p class="lede">
+          Every run, answer and approval becomes a governed record with its sources, its author and its time. Trace
+          any answer back to where it came from. Replay what was known on any day.
+        </p>
+      </div>
+      <div class="split__figure record-figure">
+        <HeroTrace />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--paper" aria-label="Console and app">
+    <div class="wrap">
+      <div class="cards cards--2">
+        <article class="card frame-card">
+          <ProductFrame title="Console" variant="console" />
+          <h2 class="card__title">Console</h2>
+          <p class="card__body">For Trustees, Administrators and Auditors. People, roles, approvals, the audit trail and the kill switch.</p>
+        </article>
+        <article class="card frame-card">
+          <ProductFrame title="App" variant="app" />
+          <h2 class="card__title">App</h2>
+          <p class="card__body">For everyone. What needs you, what your agents are doing, and what your twin has drafted.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <Band tone="dark" id="instance" heading="Yours alone.">
+    <p class="lede">
+      Each organization runs its own dedicated Unica instance, founded by its own Trustees. No shared tenant, no borrowed keys.
+    </p>
+  </Band>
+
+  <Callout
+    lead="The app is a window. Authority lives beneath it."
+    text="Unica’s console and app never decide who may do what. They show the substrate’s decision. Replace the app and every rule still holds."
+  />
+
+  <CloseCall />
+</Base>
+
+<style>
+  .loop-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid var(--ink);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+  .loop-table th,
+  .loop-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 18px 24px 18px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .loop-table thead th {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-block: 16px 12px;
+  }
+  .loop-table tbody th {
+    font-weight: 500;
+    width: 22%;
+  }
+  .loop-table td {
+    color: var(--ink-strong);
+    width: 39%;
+  }
+  .loop-table td:last-child {
+    color: var(--ink);
+    font-weight: 500;
+    border-left: 2px solid var(--accent);
+    padding-left: 20px;
+  }
+  .loop-close {
+    margin-top: 40px;
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  @media (max-width: 720px) {
+    .loop-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+    .loop-table,
+    .loop-table tbody,
+    .loop-table tr,
+    .loop-table th,
+    .loop-table td {
+      display: block;
+      width: auto;
+    }
+    .loop-table tr {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .loop-table tbody th,
+    .loop-table td {
+      border: 0;
+      padding: 0 0 12px;
+    }
+    .loop-table td::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .loop-table td:last-child {
+      border-left: 2px solid var(--accent);
+      padding: 0 0 0 14px;
+    }
+  }
+  .record-figure {
+    max-width: 480px;
+    justify-self: center;
+  }
+  .rule-wrap {
+    background: var(--paper);
+  }
+  .rule {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .frame-card {
+    gap: 20px;
+    border-top: 0;
+    padding-top: 0;
+  }
+</style>

@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { WAITLIST_HREF, CTA_LABEL } from '../config';
+---
+
+<Base title="Page not found" description="This page does not exist." noindex>
+  <section class="band--dark page-hero" aria-labelledby="page-title">
+    <div class="wrap stack stack--lg">
+      <p class="eyebrow">404</p>
+      <h1 class="display" id="page-title">Page not found.</h1>
+      <div class="actions">
+        <a class="btn btn--solid" href={WAITLIST_HREF}>{CTA_LABEL}</a>
+        <a class="link-under" href="/">Home</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,135 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Band from '../components/Band.astro';
+import CloseCall from '../components/CloseCall.astro';
+
+const sub =
+  'The oldest instruction in philosophy is our product description. We build the platform that lets organizations, and the people in them, know what they know, how they know it, and whether to trust it.';
+
+const beliefs = [
+  {
+    title: 'Trust should be provable.',
+    body: '“The system said so” should be something you can check, not take on faith.',
+  },
+  { title: 'Authority belongs to people.', body: 'AI can do the work. People hold the keys.' },
+  { title: 'Your context is yours.', body: 'What your organization knows should stay under your control.' },
+];
+
+// TODO(Michael): your one-line bio (what you built before, in your words).
+// While this is empty the page shows a visible TODO marker; fill it before launch.
+const founderBio = '';
+---
+
+<Base title="Company" description={sub} serif>
+  <PageHero eyebrow="TEIPSUM" title="Scito te ipsum. Know thyself." sub={sub}>
+    <Fragment slot="title"><span class="motto" lang="la">Scito te ipsum.</span> Know thyself.</Fragment>
+  </PageHero>
+
+  <section class="band band--paper" aria-labelledby="beliefs">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow" id="beliefs">What we believe</h2>
+      </div>
+      <ul class="cards cards--3 beliefs">
+        {
+          beliefs.map((b) => (
+            <li class="card card--warm">
+              <h3 class="card__title">{b.title}</h3>
+              <p class="card__body">{b.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Band tone="dark" id="uniquely" heading="Uniquely yourself">
+    <p class="lede">
+      For a person, Unica is a twin that remembers them the way they choose to be remembered. For an organization, it
+      is a record that cannot be lost, a rulebook that cannot be bypassed, and a trail that cannot be faked.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="run-on-it" eyebrow="We run on it" heading="Our first customer is us.">
+    <p class="lede">
+      Unica is built by a governed team of people and AI agents working inside the same substrate we sell. Every change
+      is proposed, attacked by reviewers, approved by a person and recorded. This is not a design document; our company
+      already runs this way.
+    </p>
+  </Band>
+
+  <section class="band band--paper band--flush-top" aria-labelledby="leadership">
+    <div class="wrap">
+      <div class="leadership">
+        <h2 class="eyebrow" id="leadership">Leadership</h2>
+        <div class="person">
+          <p class="person__name"><strong>Michael Cram</strong>, Founder and CEO.</p>
+          {founderBio ? <p class="person__bio">{founderBio}</p> : <p class="todo">TODO: one-line bio</p>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CloseCall smallPrint="Four patents pending." />
+</Base>
+
+<style>
+  .motto {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--warm);
+  }
+  .beliefs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .leadership {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 20px;
+    padding-top: var(--band-y);
+    border-top: 1px solid var(--rule);
+  }
+  .leadership > .eyebrow {
+    grid-column: span 5;
+  }
+  .person {
+    grid-column: 7 / span 6;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .person__name {
+    font-size: var(--fs-h3);
+    line-height: 1.3;
+  }
+  .person__name strong {
+    font-weight: 500;
+  }
+  .person__bio {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--ink-strong);
+  }
+  .todo {
+    width: fit-content;
+    padding: 6px 12px;
+    border: 1px dashed var(--accent);
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-sm);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  @media (max-width: 900px) {
+    .leadership > .eyebrow,
+    .person {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
