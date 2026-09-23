@@ -67,6 +67,7 @@ const outcomes = [
     body: 'When the cost of labor drops by an order of magnitude, the backlog becomes the opportunity: the projects, markets and service levels that never penciled out now do.',
     glance: {
       title: 'Backlog',
+      status: 'early',
       alt: 'Illustration: a long-shelved project, a contract audit across forty suppliers, now running as agent work.',
       head: 'Contract audit, 40 suppliers',
       state: { label: 'Running' },
@@ -189,7 +190,7 @@ const steps = [
               {o.status === 'early' && <Chip status="early" />}
               <p class="card__body">{o.body}</p>
               <div class="outcome__glance">
-                <Glance {...o.glance} status={o.status === 'early' ? 'early' : undefined} />
+                <Glance {...o.glance} status={o.status === 'early' || o.glance.status === 'early' ? 'early' : undefined} />
               </div>
             </li>
           ))
@@ -198,7 +199,7 @@ const steps = [
       <div class="ratio">
         <NumeralFigure
           numerals={ratioSource ? [
-            { value: '1/20', label: 'Raw price' },
+            { value: '≈1/20', label: 'Raw price' },
             { value: '?', label: 'Yours', quiet: true },
           ] : [{ value: '?', label: 'Yours', quiet: true }]}
         >

@@ -7,17 +7,20 @@ interface Props {
   action?: string;
   requester?: string;
   approver?: string;
+  /** How the alt text names the approver: "the CFO", or a person's name. */
+  approverRef?: string;
 }
 const {
   action = 'Contract renewal',
   requester = 'Procurement agent',
   approver = 'CFO',
+  approverRef = `the ${approver}`,
 } = Astro.props;
 ---
 
 <Vignette
   title="Approval"
-  alt={`Illustration: an approval request for “${action}”, raised by the ${requester} and waiting for the ${approver} to touch a passkey.`}
+  alt={`Illustration: an approval request for “${action}”, raised by the ${requester} and waiting for ${approverRef} to touch a passkey.`}
 >
   <div class="v-row">
     <span class="v-label v-signal">Needs your approval</span>

@@ -1,5 +1,6 @@
 ---
-// Diagram: agents and apps on top ask; one layer underneath decides.
+// Diagram: agents and apps on top ask; one layer underneath decides; your data
+// sits below it.
 import Icon from '../Icon.astro';
 import type { ComponentProps } from 'astro/types';
 
@@ -7,6 +8,7 @@ interface Props {
   top?: { label: string; icon: ComponentProps<typeof Icon>['name'] }[];
   base?: string[];
   baseLabel?: string;
+  dataLabel?: string;
   alt?: string;
 }
 const {
@@ -17,7 +19,8 @@ const {
   ],
   base = ['Identity', 'Permissions', 'Memory', 'Approvals', 'Record'],
   baseLabel = 'One layer underneath',
-  alt = 'Diagram: agents, twins and apps sit on top and can only ask. One layer underneath holds identity, permissions, memory, approvals and the record, and makes every decision.',
+  dataLabel = 'Your data',
+  alt = 'Diagram: agents, twins and apps sit on top and can only ask. One layer underneath holds identity, permissions, memory, approvals and the record, and makes every decision. Your data sits below that layer.',
 } = Astro.props;
 ---
 
@@ -51,6 +54,10 @@ const {
     <ul class="os__chips">
       {base.map((b) => <li>{b}</li>)}
     </ul>
+  </div>
+  <div class="os__data draw-fade">
+    <Icon name="layers" size={18} />
+    <span class="dg-label">{dataLabel}</span>
   </div>
 </div>
 
@@ -107,6 +114,17 @@ const {
     padding: 20px;
     border: 1px solid var(--d-signal);
     border-top-width: 3px;
+  }
+  .os__data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border: 1px solid var(--d-hair);
+    border-top: 0;
+    background: var(--d-lift);
+    color: var(--d-soft);
   }
   .os__chips {
     list-style: none;

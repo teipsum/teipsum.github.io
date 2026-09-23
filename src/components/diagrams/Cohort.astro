@@ -4,7 +4,7 @@
 import Icon from '../Icon.astro';
 
 const waves = ['Wave 1', 'Wave 2', 'Wave 3'];
-const seats = Array.from({ length: 6 });
+const orgs = Array.from({ length: 6 });
 ---
 
 <div
@@ -16,12 +16,12 @@ const seats = Array.from({ length: 6 });
   <p class="dg-label dg-label--signal cohort__title">Founding cohort</p>
   <div class="cohort__rows">
     {
-      waves.map((w, i) => (
-        <div class:list={['wave', 'draw-fade', `wave--${i + 1}`]}>
+      waves.map((w) => (
+        <div class="wave draw-fade">
           <span class="dg-label wave__label">{w}</span>
-          <span class="wave__seats">
-            {seats.map(() => (
-              <i class="seat" />
+          <span class="wave__orgs">
+            {orgs.map(() => (
+              <i class="org" />
             ))}
           </span>
           <span class="wave__line" />
@@ -33,7 +33,7 @@ const seats = Array.from({ length: 6 });
     }
   </div>
   <div class="cohort__key">
-    <span class="dg-label"><i class="seat seat--key"></i>Organization</span>
+    <span class="dg-label"><i class="org org--key"></i>Organization</span>
     <span class="dg-label"><i class="key-line"></i>Direct line</span>
   </div>
 </div>
@@ -61,29 +61,19 @@ const seats = Array.from({ length: 6 });
   .wave__label {
     white-space: nowrap;
   }
-  .wave__seats {
+  .wave__orgs {
     display: flex;
     gap: 6px;
   }
-  .seat {
+  .org {
     display: inline-block;
     width: 14px;
     height: 14px;
     border: 1px solid var(--d-signal);
   }
-  .wave--1 .seat {
-    background: rgba(196, 168, 130, 0.22);
-  }
-  .wave--3 .seat {
-    border-style: dashed;
-    border-color: var(--d-soft);
-  }
   .wave__line {
     height: 0;
     border-top: 1.5px solid var(--d-signal);
-  }
-  .wave--3 .wave__line {
-    border-top-style: dashed;
   }
   .wave__team {
     display: grid;
@@ -104,7 +94,7 @@ const seats = Array.from({ length: 6 });
     align-items: center;
     gap: 8px;
   }
-  .seat--key {
+  .org--key {
     width: 12px;
     height: 12px;
   }
@@ -118,10 +108,10 @@ const seats = Array.from({ length: 6 });
       grid-template-columns: 4rem auto minmax(8px, 1fr) auto;
       gap: 8px;
     }
-    .wave__seats {
+    .wave__orgs {
       gap: 4px;
     }
-    .seat {
+    .org {
       width: 12px;
       height: 12px;
     }
