@@ -1,0 +1,163 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Band from '../components/Band.astro';
+import Chip from '../components/Chip.astro';
+import Callout from '../components/Callout.astro';
+import CloseCall from '../components/CloseCall.astro';
+
+const sub =
+  'Unica starts with one person and one team, and grows from the inside out. Every capability you add makes every other one smarter.';
+---
+
+<Base title="Capabilities" description={sub}>
+  <PageHero eyebrow="CAPABILITIES" title="Empower yourself. Then your whole organization." sub={sub} />
+
+  <Band tone="paper" id="connect" eyebrow="01 · Connect" heading="Connect your tools and information to AI." status="early">
+    <p class="lede">
+      Bring in what your organization already knows, from the systems where it lives today. It arrives as governed
+      records with its origin attached, so AI can use it and nobody loses track of where it came from.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="twin" eyebrow="02 · Your twin" heading="A twin that works on your behalf." status="early">
+    <p class="lede">
+      Your twin drafts, follows up, prepares and remembers, in your voice and within the limits you set. It acts for
+      you and only you.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="brain" eyebrow="03 · The corporate brain" heading="One brain for the whole company.">
+    <p class="lede">
+      Everything your organization knows, decides and certifies lives in one governed record, a memory that cannot be
+      lost. Every agent starts its work briefed on what the company currently holds true, and stale information is
+      flagged before anyone acts on it. <Chip status="early" />
+    </p>
+    <ul class="points">
+      <li>
+        <em class="term">Certified knowledge:</em> the people accountable for a fact sign off on it, and everyone sees its
+        standing.
+      </li>
+      <li><em class="term">Rewind the company:</em> “What did we know on March 12th?” has an exact answer.</li>
+    </ul>
+  </Band>
+
+  <Band tone="dark" id="collaboration" eyebrow="Collaboration" heading="Collaboration without the copy-paste." status="early">
+    <p class="lede">
+      People and their twins work together through the shared record, not forwarded messages. When your twin needs a
+      colleague’s input, it asks their twin, and your colleague decides what to share. Teams start from the same facts
+      with the same standing, so meetings begin with agreement instead of reconciliation.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="business-areas" eyebrow="Business areas" heading="Every department owns its data. All of them share one brain." status="early">
+    <p class="lede">
+      Each business area keeps sovereignty over its own records. It decides what other areas can see and use, and it
+      can take that back. Collaboration happens through what each area chooses to share, never by pouring everything
+      into one bucket: Finance can let Legal’s agent read a contract’s terms without showing it the ledger.
+    </p>
+    <p class="tie-in">
+      The same rule that lets your departments share on their own terms is the one that will let your company share
+      with others.
+    </p>
+  </Band>
+
+  <div class="rule-wrap"><div class="wrap"><hr class="rule" /></div></div>
+  <Band tone="paper" id="privacy" eyebrow="Personal privacy" heading="Shared brain. Private minds." status="early">
+    <p class="lede">
+      The corporate brain is shared; your thoughts are not. What you tell your twin is readable by you and, where
+      required, your auditor. Administrators run the system but cannot read your personal record. You decide what
+      becomes shared knowledge.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="departments" eyebrow="04 · Departments build agents" heading="What headaches do you need fixed?" status="early">
+    <p class="lede">
+      Each department names its problem and gets an agent built for it, with a role, a scope and an owner. Budget
+      follows each department’s pain; no company-wide transformation program is required.
+    </p>
+    <p class="roadmap-line">
+      <Chip status="roadmap" />
+      <span>Agents will announce the services they offer, so the finance agent can ask the legal agent for help down the hall.</span>
+    </p>
+  </Band>
+
+  <Band tone="paper" id="autonomy" eyebrow="Adjustable autonomy" heading="Autonomy is a dial, not a leap of faith." status="early">
+    <p class="lede">
+      For each agent and each kind of action, the accountable people set how far it may go on its own: suggest only,
+      act with approval, or act and report. Turn it up as trust is earned and down in a second. Nothing irreversible
+      happens without a human fingerprint, and the kill switch sits at the end of the dial.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="resilience" eyebrow="Resilience" heading="The truth was never in its head." status="early">
+    <p class="lede">
+      Stop an agent mid-task, restart the machine or change the model, and the work resumes from the record, because
+      the record is where the truth lives.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="outward" eyebrow="05 · Turn outward" heading="Working with other organizations is just a wider circle of trust." status="roadmap">
+    <p class="lede">
+      The same rules that let your departments work together will let you work with partners, suppliers and customers
+      under explicit agreements. Each side keeps its own record and its own authority.
+    </p>
+    <p class="mono-line">Built on standards, so it works with the technology you already have.</p>
+  </Band>
+
+  <Callout
+    lead="Every department is both a customer and a supplier."
+    text="Each team that fixes its own headache makes every other team’s agents better informed. Unica grows from the inside out."
+  />
+
+  <CloseCall />
+</Base>
+
+<style>
+  .points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .points li {
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--ink-strong);
+  }
+  .lede :global(.chip) {
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  .tie-in {
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .rule-wrap {
+    background: var(--paper);
+  }
+  .rule {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .roadmap-line {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hair-dark);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    font-weight: 300;
+    color: var(--paper-strong);
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<a class:list={['wordmark', className]} href="/" aria-label="TEIPSUM Unica, home">
+  <span class="wordmark__company" aria-hidden="true">TEIPSUM</span>
+  <span class="wordmark__product" aria-hidden="true">UNICA</span>
+</a>
+
+<style>
+  .wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 14px;
+    min-height: 44px;
+    align-items: center;
+    text-decoration: none;
+    color: var(--paper);
+    white-space: nowrap;
+  }
+  .wordmark__company {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.0625rem;
+    letter-spacing: 0.28em;
+  }
+  .wordmark__product {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--warm);
+  }
+  @media (max-width: 420px) {
+    .wordmark__product {
+      display: none;
+    }
+    .wordmark__company {
+      font-size: 0.9375rem;
+      letter-spacing: 0.22em;
+    }
+  }
+</style>

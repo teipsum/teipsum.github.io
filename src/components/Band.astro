@@ -1,0 +1,53 @@
+---
+// A standard copy band: optional eyebrow, headline, status chip, body.
+import Chip from './Chip.astro';
+
+interface Props {
+  tone: 'dark' | 'paper';
+  id: string;
+  eyebrow?: string;
+  heading: string;
+  status?: 'early' | 'roadmap';
+  flushTop?: boolean;
+}
+const { tone, id, eyebrow, heading, status, flushTop = false } = Astro.props;
+---
+
+<section class:list={['band', `band--${tone}`, flushTop && 'band--flush-top']} aria-labelledby={id}>
+  <div class="wrap">
+    <div class="band-grid">
+      <div class="band-grid__head stack">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        <h2 class="h2" id={id}>{heading}</h2>
+        {status && <Chip status={status} />}
+      </div>
+      <div class="band-grid__body stack">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 28px;
+  }
+  .band-grid__head {
+    grid-column: span 5;
+    gap: 20px;
+  }
+  .band-grid__body {
+    grid-column: 7 / span 6;
+    gap: 20px;
+    padding-top: 6px;
+  }
+  @media (max-width: 900px) {
+    .band-grid__head,
+    .band-grid__body {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

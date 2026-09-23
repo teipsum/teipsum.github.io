@@ -1,0 +1,82 @@
+---
+// Timeline figure: versions along an axis with a marker on an earlier one.
+---
+
+<svg class="timeline" viewBox="0 0 640 220" fill="none" role="img" aria-label="Illustration: a record's versions kept in order along a timeline, with a past date read back exactly as it stood.">
+  <line class="tl-axis" x1="20" y1="120" x2="620" y2="120"></line>
+  <line class="tl-trace" x1="20" y1="120" x2="580" y2="120" pathLength="1"></line>
+  <g class="tl-versions">
+    <circle cx="100" cy="120" r="7"></circle>
+    <circle cx="240" cy="120" r="7"></circle>
+    <circle cx="400" cy="120" r="7"></circle>
+  </g>
+  <circle class="tl-now" cx="580" cy="120" r="9"></circle>
+  <line class="tl-asof" x1="240" y1="44" x2="240" y2="104"></line>
+  <circle class="tl-asof-ring" cx="240" cy="120" r="15"></circle>
+  <g class="tl-labels">
+    <text x="100" y="164" text-anchor="middle">v1</text>
+    <text x="240" y="164" text-anchor="middle">v2</text>
+    <text x="400" y="164" text-anchor="middle">v3</text>
+    <text x="580" y="164" text-anchor="middle">v4</text>
+    <text class="tl-warm" x="240" y="32" text-anchor="middle">AS OF</text>
+  </g>
+</svg>
+
+<style>
+  .timeline {
+    width: 100%;
+    height: auto;
+  }
+  .tl-axis {
+    stroke: rgba(247, 245, 240, 0.16);
+    stroke-width: 1;
+  }
+  .tl-trace {
+    stroke: var(--warm);
+    stroke-width: 1.5;
+  }
+  .tl-versions circle {
+    fill: var(--ink);
+    stroke: var(--paper-soft);
+    stroke-width: 1.5;
+  }
+  .tl-now {
+    fill: var(--warm);
+  }
+  .tl-asof {
+    stroke: var(--warm);
+    stroke-width: 1.5;
+    stroke-dasharray: 3 4;
+  }
+  .tl-asof-ring {
+    stroke: var(--warm);
+    stroke-width: 1.5;
+  }
+  .tl-labels text {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    letter-spacing: 2px;
+    fill: var(--paper-strong);
+  }
+  .tl-labels .tl-warm {
+    fill: var(--warm);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .tl-trace {
+        stroke-dasharray: 1;
+        animation: tl-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 20% cover 50%;
+      }
+    }
+  }
+  @keyframes tl-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

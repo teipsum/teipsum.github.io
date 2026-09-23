@@ -1,0 +1,29 @@
+---
+// Closing band with the waitlist button.
+import TraceRule from './TraceRule.astro';
+import { WAITLIST_HREF, CTA_LABEL } from '../config';
+
+interface Props {
+  heading?: string;
+  body?: string;
+  smallPrint?: string;
+}
+const { heading, body, smallPrint } = Astro.props;
+const id = heading ? 'close-heading' : undefined;
+---
+
+<section class="band band--dark close-band" aria-labelledby={id} aria-label={id ? undefined : CTA_LABEL}>
+  <div class="wrap close-call">
+    <TraceRule />
+    {heading && <h2 class="h2" id={id}>{heading}</h2>}
+    {body && <p class="lede">{body}</p>}
+    {smallPrint && <p class="small-print">{smallPrint}</p>}
+    <a class="btn btn--solid" href={WAITLIST_HREF}>{CTA_LABEL}</a>
+  </div>
+</section>
+
+<style>
+  .close-band {
+    padding-block: clamp(80px, 5rem + 4vw, 136px);
+  }
+</style>

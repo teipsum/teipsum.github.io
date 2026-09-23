@@ -1,0 +1,352 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroTrace from '../components/HeroTrace.astro';
+import LoopRing from '../components/LoopRing.astro';
+import RecordRow from '../components/RecordRow.astro';
+import TraceSteps from '../components/TraceSteps.astro';
+import Band from '../components/Band.astro';
+import Callout from '../components/Callout.astro';
+import CloseCall from '../components/CloseCall.astro';
+import Chip from '../components/Chip.astro';
+import { WAITLIST_HREF, CTA_LABEL } from '../config';
+
+const sub =
+  'Unica is the governed platform where AI agents, and every person’s AI twin, do real work. Every answer, action and approval can be traced, verified and reconstructed.';
+
+const pillars = [
+  {
+    label: 'Provable',
+    title: 'Every record carries its source, its author and its time, and it is signed: who wrote it is provable and any later change shows.',
+    body: 'Nothing is silently overwritten, so any decision can be reconstructed months later.',
+  },
+  {
+    label: 'Governed',
+    title: 'Authority, scope and approvals are enforced by the platform itself.',
+    body: 'Privileged actions need a fresh touch of a passkey. The kill switch stays pulled.',
+    status: 'early',
+  },
+  {
+    label: 'Sovereign',
+    title:
+      'Your own instance, your own store, your own rules, down to each business area, which owns its records and shares them by choice.',
+    body: 'Your context stays yours: portable, inspectable, never locked inside a vendor’s model.',
+  },
+];
+
+const outcomes = [
+  {
+    title: 'Move AI from pilots to payroll.',
+    body: 'Put agents on real work (approvals, finance, operations, commitments to customers) because every act is governed, signed and on the record.',
+  },
+  {
+    title: 'Take on work you could never afford.',
+    body: 'When the cost of labor drops by an order of magnitude, the backlog becomes the opportunity: the projects, markets and service levels that never penciled out now do.',
+  },
+  {
+    title: 'Pass the audit before it starts.',
+    body: 'Compliance evidence is produced as the work happens. Your auditors verify; nobody reconstructs.',
+  },
+  {
+    title: 'Scale judgment, not headcount.',
+    body: 'Your people set the rules and sign what matters. AI does the rest, inside those rules.',
+  },
+];
+
+// Footnote 1 of the ratio strip: the original publication only.
+// Without a source, the strip ships without its first sentence.
+const ratioSource: {
+  publisher: string;
+  series: string;
+  title: string;
+  date: string;
+  locator: string;
+  url: string;
+} | null = {
+  publisher: 'Goldman Sachs Research',
+  series: 'Top of Mind',
+  title: '“An AI Job Apocalypse?”',
+  date: 'June 25, 2026',
+  locator: 'p. 18, “AI agents vs. humans: who costs more?”',
+  url: 'https://www.goldmansachs.com/pdfs/insights/goldman-sachs-research/an-ai-job-apocalypse/report.pdf',
+};
+
+const steps = [
+  {
+    title: 'Found your organization.',
+    body: 'Your Trustees establish your Unica instance in a founding ceremony, each with their own passkey.',
+  },
+  {
+    title: 'Grant scopes, not blank cheques.',
+    body: 'Agents and twins act only inside the scopes your people grant. Anything privileged waits for a human touch.',
+  },
+  {
+    title: 'Work, with proof.',
+    body: 'Every answer and action lands as a governed record you can trace, audit and replay.',
+  },
+];
+---
+
+<Base title="TEIPSUM · Unica: AI that works for your company, and answers to it." description={sub}>
+  <section class="band--dark hero" aria-labelledby="page-title">
+    <div class="wrap split split--7-5">
+      <div class="split__text stack stack--lg">
+        <p class="eyebrow">THE OPERATING SYSTEM FOR ACCOUNTABLE AI</p>
+        <h1 class="display" id="page-title">AI that works for your company, and answers to it.</h1>
+        <p class="lede">{sub}</p>
+        <div class="actions">
+          <a class="btn btn--solid" href={WAITLIST_HREF}>{CTA_LABEL}</a>
+          <a class="link-under" href="#how-it-works">See how it works</a>
+        </div>
+        <p class="mono-line">Founding cohort now forming. Admission in waves.</p>
+      </div>
+      <div class="split__figure hero__figure">
+        <HeroTrace />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--paper" aria-labelledby="what-changes">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">WHAT CHANGES</p>
+        <h2 class="h2" id="what-changes">
+          The price of work just collapsed. The winners will be the ones who can trust AI with it.
+        </h2>
+        <p class="lede">
+          AI can already do a large share of the work in most organizations, at a fraction of the cost. What holds
+          companies back is not the models; it is trust. Nobody hands real work to a system they cannot govern, audit or
+          stop. Unica removes that ceiling.
+        </p>
+      </div>
+      <ul class="cards outcomes">
+        {
+          outcomes.map((o) => (
+            <li class="card card--warm">
+              <h3 class="card__title">{o.title}</h3>
+              <p class="card__body">{o.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="ratio">
+        <p class="ratio__text">
+          {
+            ratioSource && (
+              <>
+                On raw price, a coding agent costs about a twentieth of an engineer’s day.
+                <sup>
+                  <a href="#fn-ratio" id="fnref-ratio" aria-label="Footnote 1">
+                    1
+                  </a>
+                </sup>{' '}
+              </>
+            )
+          }
+          After review and rework the real number is lower, and it’s different for every company. Unica measures yours
+          from the record.
+        </p>
+        {
+          ratioSource && (
+            <p class="ratio__note" id="fn-ratio">
+              <span class="ratio__mark">1</span> {ratioSource.publisher}, <cite>{ratioSource.series}</cite>,{' '}
+              <a href={ratioSource.url} rel="noreferrer">
+                {ratioSource.title}
+              </a>
+              , {ratioSource.date}, {ratioSource.locator} <a class="ratio__back" href="#fnref-ratio" aria-label="Back to the text">↩</a>
+            </p>
+          )
+        }
+      </div>
+      <div class="changes-close">
+        <p class="h3">
+          Your competitors will run on AI labor. The question is whose AI can be trusted with the work that matters.
+        </p>
+        <p class="moat"><em>Intelligence is rented. Judgment, signed and governed, is owned.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <Band tone="paper" id="problem" heading="Most AI asks you to trust it.">
+    <p class="lede">
+      It forgets everything. You cannot prove afterwards what it did or why. And you would never let it near anything
+      irreversible. Unica was built to end all three.
+    </p>
+  </Band>
+
+  <section class="band band--dark" aria-labelledby="one-fabric">
+    <div class="wrap split">
+      <div class="split__text stack">
+        <p class="eyebrow">ONE FABRIC</p>
+        <h2 class="h2" id="one-fabric">Why buy three products and a clunky integration?</h2>
+        <p class="body">
+          Trusting AI with real work usually means an agent builder to run it, an identity product to account for
+          every agent, and a compliance tool to collect the evidence, stitched together and audited three times.
+          Unica closes the whole loop in one fabric: identity, governed action, human attestation, verifiable
+          evidence.
+        </p>
+      </div>
+      <div class="split__figure">
+        <LoopRing />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--dark band--flush-top" aria-label="Provable, governed, sovereign">
+    <div class="wrap">
+      <div class="cards cards--3">
+        {
+          pillars.map((p, i) => (
+            <article class="card card--warm">
+              <p class="card__label">
+                {String(i + 1).padStart(2, '0')} · {p.label}
+              </p>
+              <h3 class="card__title">{p.title}</h3>
+              <p class="card__body">{p.body}</p>
+              {p.status === 'early' && <Chip status="early" />}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--paper" aria-labelledby="one-record">
+    <div class="wrap stack stack--lg">
+      <h2 class="eyebrow" id="one-record">ONE RECORD, UNDERNEATH</h2>
+      <RecordRow
+        caption="This is what every action in Unica looks like underneath: who acted, on whose authority, from which sources, and when. Signed."
+      />
+    </div>
+  </section>
+
+  <section class="band band--dark" id="how-it-works" aria-labelledby="how-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="how-heading">How it works</h2>
+      </div>
+      <TraceSteps steps={steps} />
+    </div>
+  </section>
+
+  <Band tone="paper" id="twin" heading="An AI twin for every person" status="early">
+    <p class="lede">
+      Each person gets a twin that acts only for them, learns how they work, and keeps their words private. Not even an
+      administrator can read them.
+    </p>
+  </Band>
+
+  <Callout
+    lead="Authorization lives in the substrate."
+    text="Unica’s application layer cannot grant what the substrate refuses. Security is not a feature bolted onto the app; it is the ground the app stands on."
+  />
+
+  <Band tone="paper" id="built" heading="Built the way we ask you to build">
+    <p class="lede">
+      Unica is engineered by a governed team of people and AI agents. Every change is reviewed adversarially and
+      recorded in the same substrate you will run on.
+    </p>
+  </Band>
+
+  <CloseCall
+    heading="The founding cohort is forming."
+    body="We are admitting a limited number of organizations in waves, so each one gets hands-on onboarding. Join the waitlist to hold your place."
+  />
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(56px, 3rem + 5vw, 120px);
+  }
+  .hero .display {
+    max-width: 14ch;
+  }
+  .hero__figure {
+    max-width: 520px;
+    width: 100%;
+    justify-self: end;
+  }
+  .outcomes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  @media (max-width: 1100px) {
+    .outcomes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .outcomes {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .ratio {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: clamp(48px, 6vw, 80px);
+    padding-block: 32px;
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+  }
+  .ratio__text {
+    max-width: 52rem;
+    font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .ratio__text sup {
+    font-size: 0.6em;
+    line-height: 0;
+  }
+  .ratio__text sup a,
+  .ratio__note a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  /* 24 px target from padding; the negative margin keeps the text spacing. */
+  .ratio__text sup a {
+    padding: 6px 9px;
+    margin-inline: -9px;
+  }
+  .ratio__note a {
+    padding-block: 3px;
+  }
+  .ratio__note .ratio__back {
+    display: inline-block;
+    min-width: 24px;
+    min-height: 24px;
+    padding-block: 0;
+    text-align: center;
+  }
+  .ratio__note {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .ratio__mark {
+    font-family: var(--font-mono);
+    color: var(--accent);
+  }
+  .changes-close {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 48rem;
+    margin-top: clamp(48px, 6vw, 80px);
+  }
+  .moat {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 900px) {
+    .hero__figure {
+      justify-self: center;
+      max-width: 440px;
+    }
+  }
+</style>

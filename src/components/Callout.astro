@@ -1,0 +1,18 @@
+---
+// Full-width bordered callout with an optional mono small-print line.
+interface Props {
+  lead: string;
+  text?: string;
+  smallPrint?: string;
+}
+const { lead, text, smallPrint } = Astro.props;
+---
+
+<section class="band band--dark band--tight">
+  <div class="wrap">
+    <div class="callout">
+      <p class="callout__text"><strong>{lead}</strong>{text && ` ${text}`}</p>
+      {smallPrint && <p class="small-print">{smallPrint}</p>}
+    </div>
+  </div>
+</section>

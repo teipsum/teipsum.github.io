@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Band from '../components/Band.astro';
+import Scenario from '../components/Scenario.astro';
+import CloseCall from '../components/CloseCall.astro';
+
+const sub =
+  'Unica gives a small firm a big team’s reach and gives an enterprise the controls its auditors expect, on the same governed foundation.';
+
+const sectors = [
+  { name: 'Financial services', body: 'Approvals that cannot be borrowed, and a trail a regulator can follow.' },
+  { name: 'Healthcare', body: 'Personal information that stays personal, by design.' },
+  { name: 'Legal and professional services', body: 'Every claim with its citation and its standing.' },
+  { name: 'Public sector', body: 'A dedicated instance, and authority that stays with your people.' },
+];
+---
+
+<Base title="Solutions" description={sub}>
+  <PageHero eyebrow="SOLUTIONS" title="From ten people to ten thousand. Same proof." sub={sub} />
+
+  <Band tone="paper" id="smb" eyebrow="SMB" heading="A small team with a big team’s reach.">
+    <p class="lede">
+      Give every person a twin and hand the back office to agents that work inside the limits you set. We run your
+      dedicated instance for you, so no IT department is needed.
+    </p>
+    <Scenario
+      text="A twelve-person accounting firm lets agents prepare client files overnight. Each partner approves with a touch in the morning, and every figure links back to its source document."
+    />
+  </Band>
+
+  <Band tone="dark" id="enterprise" eyebrow="Enterprise" heading="Governed AI at the scale of your org chart.">
+    <p class="lede">
+      Roles, scopes and approvals follow your structure. Separation of duties is enforced, not documented. Audit
+      evidence is produced as work happens, not reconstructed after.
+    </p>
+    <Scenario
+      text="A procurement agent drafts a vendor renewal from three contracts and routes it to the CFO. The approval is bound to her, the action and that moment, and the auditor can replay all of it next quarter."
+    />
+  </Band>
+
+  <section class="band band--paper" aria-labelledby="regulated">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Regulated industries</p>
+        <h2 class="h2" id="regulated">When “the model said so” is not an answer.</h2>
+      </div>
+      <ul class="cards sectors">
+        {
+          sectors.map((s) => (
+            <li class="card card--warm">
+              <h3 class="card__title">{s.name}</h3>
+              <p class="card__body">{s.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CloseCall
+    heading="Tell us what you would hand to Unica first."
+    body="The waitlist asks one question about your first use case, so the founding cohort starts where it matters."
+  />
+</Base>
+
+<style>
+  .sectors {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  @media (max-width: 1100px) {
+    .sectors {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .sectors {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

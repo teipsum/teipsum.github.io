@@ -1,0 +1,140 @@
+---
+// Provenance trace figure: a decision node linked to three source nodes and a
+// signature mark. Decorative sample content. The bronze lines draw in once
+// unless reduced motion is requested.
+interface Props {
+  label?: string;
+}
+const { label = 'Illustration: a decision traced back to its three sources and signed by a passkey.' } = Astro.props;
+---
+
+<svg class="hero-trace" viewBox="0 0 520 560" fill="none" role="img" aria-label={label}>
+  <g class="ht-mesh">
+    <line x1="60" y1="90" x2="200" y2="170"></line>
+    <line x1="200" y1="170" x2="120" y2="300"></line>
+    <line x1="200" y1="170" x2="360" y2="120"></line>
+    <line x1="360" y1="120" x2="470" y2="220"></line>
+    <line x1="120" y1="300" x2="260" y2="380"></line>
+    <line x1="470" y1="220" x2="400" y2="400"></line>
+    <line x1="60" y1="440" x2="120" y2="300"></line>
+    <line x1="400" y1="400" x2="480" y2="500"></line>
+    <line x1="260" y1="380" x2="180" y2="500"></line>
+  </g>
+  <g class="ht-trace">
+    <line pathLength="1" x1="260" y1="380" x2="200" y2="170"></line>
+    <line pathLength="1" x1="260" y1="380" x2="360" y2="120"></line>
+    <line pathLength="1" x1="260" y1="380" x2="400" y2="400"></line>
+    <line pathLength="1" x1="260" y1="380" x2="300" y2="520"></line>
+  </g>
+  <g class="ht-node">
+    <circle cx="60" cy="90" r="3"></circle>
+    <circle cx="120" cy="300" r="3"></circle>
+    <circle cx="470" cy="220" r="3"></circle>
+    <circle cx="60" cy="440" r="3"></circle>
+    <circle cx="480" cy="500" r="3"></circle>
+    <circle cx="180" cy="500" r="3"></circle>
+  </g>
+  <g class="ht-source">
+    <circle cx="200" cy="170" r="5"></circle>
+    <circle cx="360" cy="120" r="5"></circle>
+    <circle cx="400" cy="400" r="5"></circle>
+  </g>
+  <circle class="ht-decision-ring" cx="260" cy="380" r="11"></circle>
+  <circle class="ht-decision" cx="260" cy="380" r="4"></circle>
+  <g class="ht-seal">
+    <circle cx="300" cy="520" r="14"></circle>
+    <path d="M293 520 l5 5 l9 -10"></path>
+  </g>
+  <g class="ht-labels">
+    <text x="212" y="160">SOURCE · MSA_2024.pdf</text>
+    <text x="372" y="110" text-anchor="end" dx="146">SOURCE · RENEWAL TERMS v3</text>
+    <text x="412" y="386" text-anchor="end" dx="106">SOURCE · Q3 SPEND</text>
+    <text class="ht-label-warm" x="118" y="376">DECISION</text>
+    <text class="ht-label-warm" x="324" y="524">SIGNED · CFO PASSKEY</text>
+  </g>
+</svg>
+
+<style>
+  .hero-trace {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .ht-mesh line {
+    stroke: rgba(247, 245, 240, 0.16);
+    stroke-width: 1;
+  }
+  .ht-trace line {
+    stroke: var(--warm);
+    stroke-width: 1.5;
+  }
+  .ht-node circle {
+    fill: rgba(247, 245, 240, 0.35);
+  }
+  .ht-source circle,
+  .ht-decision {
+    fill: var(--warm);
+  }
+  .ht-decision-ring {
+    fill: var(--ink);
+    stroke: var(--warm);
+    stroke-width: 2;
+  }
+  .ht-seal circle,
+  .ht-seal path {
+    stroke: var(--warm);
+    stroke-width: 1.5;
+    fill: none;
+  }
+  .ht-labels text {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 1.2px;
+    fill: rgba(247, 245, 240, 0.72);
+  }
+  .ht-labels .ht-label-warm {
+    fill: var(--warm);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ht-mesh,
+    .ht-node {
+      animation: ht-fade 0.8s ease-out both;
+    }
+    .ht-trace line {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: ht-draw 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .ht-trace line:nth-child(1) {
+      animation-delay: 0.5s;
+    }
+    .ht-trace line:nth-child(2) {
+      animation-delay: 0.75s;
+    }
+    .ht-trace line:nth-child(3) {
+      animation-delay: 1s;
+    }
+    .ht-trace line:nth-child(4) {
+      animation-delay: 1.4s;
+    }
+    .ht-source,
+    .ht-labels {
+      animation: ht-fade 0.6s ease-out 1.2s both;
+    }
+    .ht-seal {
+      animation: ht-fade 0.5s ease-out 2.1s both;
+    }
+  }
+
+  @keyframes ht-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes ht-fade {
+    from {
+      opacity: 0;
+    }
+  }
+</style>
