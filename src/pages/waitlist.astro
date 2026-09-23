@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Cohort from '../components/diagrams/Cohort.astro';
 import { WAITLIST_ENDPOINT, PRIVACY_HREF } from '../config';
 
 const sub =
@@ -32,6 +33,7 @@ const industries = [
         <p class="eyebrow">EARLY ACCESS</p>
         <h1 class="display" id="page-title">Join the founding cohort.</h1>
         <p class="lede">{sub}</p>
+        <Cohort />
       </div>
 
       <div class="form-card card-paper">
@@ -175,7 +177,7 @@ const industries = [
 
 <style>
   .waitlist {
-    padding-block: clamp(56px, 3rem + 5vw, 120px);
+    padding-block: clamp(40px, 2rem + 3.4vw, 80px);
   }
   .waitlist__grid {
     display: grid;

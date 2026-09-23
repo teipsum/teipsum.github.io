@@ -1,0 +1,104 @@
+---
+// Diagram: a model forgets between calls; the record keeps each fact with its
+// source, confidence and standing.
+---
+
+<div
+  class="dg mr"
+  role="img"
+  aria-label="Diagram: a model on one side, whose memory fades after each call; a record on the other, which keeps every fact with its source, its confidence and its standing."
+  data-draw
+>
+  <div class="mr__model">
+    <span class="dg-label">Model</span>
+    <svg viewBox="0 0 160 110" fill="none" aria-hidden="true">
+      <circle cx="80" cy="55" r="40" class="mr__fade1"></circle>
+      <circle cx="80" cy="55" r="28" class="mr__fade2"></circle>
+      <circle cx="80" cy="55" r="14" class="mr__core"></circle>
+    </svg>
+  </div>
+  <svg class="mr__arrow" viewBox="0 0 60 20" fill="none" aria-hidden="true">
+    <path class="dg-line draw-line" d="M2 10 H54 M46 3 L54 10 L46 17" pathLength="1"></path>
+  </svg>
+  <div class="mr__record draw-fade">
+    <span class="dg-label dg-label--signal">Record</span>
+    <span class="mr__fact">A fact</span>
+    <ul>
+      <li><span class="dg-label">Source</span></li>
+      <li><span class="dg-label">Confidence</span></li>
+      <li><span class="dg-label">Standing</span></li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .mr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1.2fr);
+    align-items: center;
+    gap: 12px;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .mr__model,
+  .mr__record {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    border: 1px solid var(--d-hair);
+  }
+  .mr__model {
+    border-style: dashed;
+  }
+  .mr__model svg {
+    width: 100%;
+    height: auto;
+  }
+  .mr__fade1 {
+    stroke: var(--d-hair);
+    stroke-dasharray: 3 6;
+  }
+  .mr__fade2 {
+    stroke: var(--d-soft);
+    stroke-dasharray: 4 5;
+    opacity: 0.6;
+  }
+  .mr__core {
+    stroke: var(--d-soft);
+  }
+  .mr__arrow {
+    width: 100%;
+    height: auto;
+  }
+  .mr__record {
+    border-color: var(--d-signal);
+    background: var(--d-lift);
+  }
+  .mr__fact {
+    font-weight: 500;
+    color: var(--d-ink);
+  }
+  .mr__record ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mr__record li {
+    padding: 5px 10px;
+    border-left: 2px solid var(--d-signal);
+  }
+  @media (max-width: 400px) {
+    .mr {
+      grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1.3fr);
+      gap: 6px;
+    }
+    .mr__model,
+    .mr__record {
+      padding: 12px 10px;
+    }
+  }
+</style>

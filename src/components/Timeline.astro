@@ -2,9 +2,9 @@
 // Timeline figure: versions along an axis with a marker on an earlier one.
 ---
 
-<svg class="timeline" viewBox="0 0 640 220" fill="none" role="img" aria-label="Illustration: a record's versions kept in order along a timeline, with a past date read back exactly as it stood.">
+<svg class="timeline" data-draw viewBox="0 0 640 220" fill="none" role="img" aria-label="Illustration: a record's versions kept in order along a timeline, with a past date read back exactly as it stood.">
   <line class="tl-axis" x1="20" y1="120" x2="620" y2="120"></line>
-  <line class="tl-trace" x1="20" y1="120" x2="580" y2="120" pathLength="1"></line>
+  <line class="tl-trace draw-line" x1="20" y1="120" x2="580" y2="120" pathLength="1"></line>
   <g class="tl-versions">
     <circle cx="100" cy="120" r="7"></circle>
     <circle cx="240" cy="120" r="7"></circle>
@@ -60,23 +60,5 @@
   }
   .tl-labels .tl-warm {
     fill: var(--warm);
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .tl-trace {
-        stroke-dasharray: 1;
-        animation: tl-draw linear both;
-        animation-timeline: view();
-        animation-range: entry 20% cover 50%;
-      }
-    }
-  }
-  @keyframes tl-draw {
-    from {
-      stroke-dashoffset: 1;
-    }
-    to {
-      stroke-dashoffset: 0;
-    }
   }
 </style>

@@ -1,11 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import HeroTrace from '../components/HeroTrace.astro';
-import ProductFrame from '../components/ProductFrame.astro';
 import Band from '../components/Band.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
+import Icon from '../components/Icon.astro';
+import OsLayer from '../components/diagrams/OsLayer.astro';
+import InstanceSeal from '../components/diagrams/InstanceSeal.astro';
+import FleetRow from '../components/vignettes/FleetRow.astro';
+import NeedsYou from '../components/vignettes/NeedsYou.astro';
+import TwinConversation from '../components/vignettes/TwinConversation.astro';
+import PasskeyApproval from '../components/vignettes/PasskeyApproval.astro';
+import RecordCard from '../components/vignettes/RecordCard.astro';
 import Chip from '../components/Chip.astro';
 
 const sub =
@@ -14,34 +20,40 @@ const sub =
 const loop = [
   {
     stage: 'Identity',
+    icon: 'fingerprint',
     usually: 'An agent identity product: owner, purpose, expiring credentials, last activity, offboarding',
     unica: 'Every agent and person is a governed identity in the same record',
   },
   {
     stage: 'Governed action',
+    icon: 'build',
     usually: 'An agent builder: fleet view, guardrails, a needs-you queue',
     unica: 'Every act is a signed, governed record, not a log line',
     status: 'early',
   },
   {
     stage: 'Human attestation',
+    icon: 'key',
     usually: 'Approvals inside each tool, each with its own login',
     unica: 'One passkey touch, bound to the person and the exact act',
   },
   {
     stage: 'Verifiable evidence',
+    icon: 'evidence',
     usually: 'A compliance tool that collects screenshots and exports',
     unica: 'Evidence an auditor exports and verifies without asking us',
     status: 'early',
   },
   {
     stage: 'Context',
+    icon: 'brain',
     usually: 'Copied between tools',
     unica: 'One corporate brain underneath the whole loop',
     status: 'early',
   },
   {
     stage: 'Data ownership',
+    icon: 'areas',
     usually: 'Each tool’s own silo, or one shared bucket',
     unica: 'Each business area owns its records and shares them by choice',
     status: 'early',
@@ -54,8 +66,9 @@ const loop = [
     <Chip status="early" />
   </PageHero>
 
-  <Band tone="dark" id="why-os" eyebrow="WHY AN OPERATING SYSTEM" heading="The rules live underneath, where no app can reach them.">
-    <p class="lede">
+  <Band tone="dark" id="why-os" eyebrow="WHY AN OPERATING SYSTEM" heading="The rules live underneath, where no app can reach them." icon="layers" ratio="7-5">
+    <OsLayer slot="figure" />
+    <p class="body">
       On a computer, an app can ask for a file, but only the operating system decides whether it gets it. Unica works
       the same way for your company’s AI. Identity, permissions, memory, approvals and the record sit in one layer
       underneath every agent and app, so none of them can give itself more authority than it was granted. The apps on
@@ -69,7 +82,7 @@ const loop = [
 
   <section class="band band--paper" aria-labelledby="loop">
     <div class="wrap">
-      <div class="section-head">
+      <div class="loop-head">
         <h2 class="h2" id="loop">The whole loop, not one arc of it.</h2>
         <p class="lede">
           Most organizations would assemble this from an agent builder, an agent identity product and a compliance
@@ -89,7 +102,10 @@ const loop = [
             loop.map((r) => (
               <tr>
                 <th scope="row">
-                  {r.stage}
+                  <span class="stage">
+                    <Icon name={r.icon} size={22} />
+                    {r.stage}
+                  </span>
                   {r.status === 'early' && <Chip status="early" />}
                 </th>
                 <td data-label="Usually bought as">{r.usually}</td>
@@ -99,31 +115,37 @@ const loop = [
           }
         </tbody>
       </table>
-      <p class="loop-close">One record. One rulebook. One trail.</p>
+      <p class="loop-close" data-draw>
+        <span class="draw-fade">One record.</span>
+        <span class="draw-fade">One rulebook.</span>
+        <span class="draw-fade">One trail.</span>
+      </p>
     </div>
   </section>
 
-  <div class="rule-wrap"><div class="wrap"><hr class="rule" /></div></div>
-  <Band tone="paper" id="agents" heading="A workforce with job descriptions." status="early">
+  <Band tone="paper" id="agents" heading="A workforce with job descriptions." icon="build" status="early">
+    <FleetRow slot="figure" />
     <p class="lede">
       Every agent has a role, a scope and a human owner. It reaches only what its scope allows, and it hands anything privileged back to a person. When its work is done, you can end it cleanly: its runs halt and its keys stop working.
     </p>
   </Band>
 
-  <Band tone="dark" id="twins" heading="Someone in your corner." status="early">
+  <Band tone="dark" id="twins" heading="Someone in your corner." status="early" icon="twin" flip>
+    <TwinConversation slot="figure" />
     <p class="lede">
       A twin works for one person. It learns how they decide, drafts in their voice, and acts only with their consent. Their words stay theirs: readable by them and, where the law requires, their auditor. No one else.
     </p>
   </Band>
 
-  <Band tone="paper" id="approvals" heading="The right yes, from the right person.">
+  <Band tone="paper" id="approvals" heading="The right yes, from the right person." icon="fingerprint">
+    <PasskeyApproval slot="figure" />
     <p class="lede">
       Privileged actions go to the named people who may approve them. An approval is a touch of that person’s passkey, bound to them and to that exact action. It cannot be replayed, forwarded or borrowed.
     </p>
   </Band>
 
   <section class="band band--dark" aria-labelledby="record">
-    <div class="wrap split">
+    <div class="wrap split split--flip">
       <div class="split__text stack">
         <h2 class="h2" id="record">Everything leaves a trace.</h2>
         <p class="lede">
@@ -131,36 +153,48 @@ const loop = [
           any answer back to where it came from. Replay what was known on any day.
         </p>
       </div>
-      <div class="split__figure record-figure">
-        <HeroTrace />
+      <div class="split__figure">
+        <RecordCard />
       </div>
     </div>
   </section>
 
   <section class="band band--paper" aria-label="Console and app">
     <div class="wrap">
-      <div class="cards cards--2">
+      <div class="cards cards--2 frames">
         <article class="card frame-card">
-          <ProductFrame title="Console" variant="console" />
+          <span class="card__icon"><Icon name="roles" /></span>
           <h2 class="card__title">Console</h2>
           <p class="card__body">For Trustees, Administrators and Auditors. People, roles, approvals, the audit trail and the kill switch.</p>
+          <FleetRow
+            title="Console"
+            status="early"
+            alt="Illustration: the console's view of agents, each with its area, owner and last activity, and one agent stopped."
+            agents={[
+              { name: 'Invoice intake agent', owner: 'Dana Ortiz', area: 'Finance', idle: 'Now', state: 'working' },
+              { name: 'Supplier follow-up agent', owner: 'Lee Park', area: 'Operations', idle: '11:05', state: 'stopped' },
+            ]}
+          />
         </article>
         <article class="card frame-card">
-          <ProductFrame title="App" variant="app" />
+          <span class="card__icon"><Icon name="window" /></span>
           <h2 class="card__title">App</h2>
           <p class="card__body">For everyone. What needs you, what your agents are doing, and what your twin has drafted.</p>
+          <NeedsYou status="early" />
         </article>
       </div>
     </div>
   </section>
 
-  <Band tone="dark" id="instance" heading="Yours alone.">
+  <Band tone="dark" id="instance" heading="Yours alone." icon="instance" flip>
+    <InstanceSeal slot="figure" />
     <p class="lede">
       Each organization runs its own dedicated Unica instance, founded by its own Trustees. No shared tenant, no borrowed keys.
     </p>
   </Band>
 
   <Callout
+    icon="window"
     lead="The app is a window. Authority lives beneath it."
     text="Unica’s console and app never decide who may do what. They show the substrate’s decision. Replace the app and every rule still holds."
   />
@@ -211,11 +245,49 @@ const loop = [
     margin-top: 8px;
     white-space: nowrap;
   }
+  .loop-head {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 16px;
+    align-items: end;
+    margin-bottom: clamp(28px, 3.4vw, 44px);
+  }
+  .loop-head .h2 {
+    grid-column: span 6;
+  }
+  .loop-head .lede {
+    grid-column: 7 / span 6;
+  }
+  @media (max-width: 900px) {
+    .loop-head .h2,
+    .loop-head .lede {
+      grid-column: 1 / -1;
+    }
+  }
+  .stage {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .stage :global(.icon) {
+    color: var(--accent);
+  }
+  /* The close line as a typographic moment. */
   .loop-close {
-    margin-top: 40px;
-    font-size: var(--fs-h3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.35em;
+    margin-top: clamp(32px, 4vw, 52px);
+    padding-top: clamp(24px, 3vw, 36px);
+    border-top: 1px solid var(--accent);
+    font-size: clamp(2.25rem, 1.2rem + 4.2vw, 4.5rem);
     font-weight: 500;
-    line-height: 1.3;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .loop-close span:last-child {
+    color: var(--accent);
   }
   @media (max-width: 720px) {
     .loop-table thead {
@@ -259,28 +331,24 @@ const loop = [
     }
   }
   .os-close {
-    padding-top: 20px;
+    max-width: 40rem;
+    padding-top: 18px;
     border-top: 1px solid var(--hair-dark);
     font-size: var(--fs-body);
     line-height: 1.6;
     font-weight: 500;
     color: var(--paper);
   }
-  .record-figure {
-    max-width: 480px;
-    justify-self: center;
-  }
-  .rule-wrap {
-    background: var(--paper);
-  }
-  .rule {
-    margin: 0;
-    border: 0;
-    border-top: 1px solid var(--rule);
-  }
   .frame-card {
-    gap: 20px;
-    border-top: 0;
-    padding-top: 0;
+    gap: 14px;
+  }
+  .frame-card :global(.vig) {
+    max-width: none;
+    margin-top: 12px;
+  }
+  .frame-card__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 </style>

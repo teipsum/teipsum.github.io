@@ -1,0 +1,76 @@
+---
+// Vignette: the queue of things waiting on one person.
+import Vignette from './Vignette.astro';
+
+interface Item {
+  title: string;
+  from: string;
+  action: string;
+}
+interface Props {
+  items?: Item[];
+  alt?: string;
+  status?: 'early' | 'roadmap';
+}
+const {
+  items = [
+    { title: 'Approve contract renewal', from: 'Procurement agent', action: 'Approve' },
+    { title: 'Reply to a supplier, drafted', from: 'Your twin', action: 'Review' },
+    { title: 'Q3 spend figures', from: 'Finance', action: 'Certify' },
+  ],
+  alt = 'Illustration: a short queue of items waiting on one person: an approval, a drafted reply to review, and figures to certify.',
+  status,
+} = Astro.props;
+---
+
+<Vignette title="Needs you" alt={alt} status={status}>
+  <div class="v-row">
+    <span class="v-label">Waiting on you</span>
+    <span class="nq__count">{items.length}</span>
+  </div>
+  <ul class="v-list">
+    {
+      items.map((it, i) => (
+        <li class="nq__item">
+          <span class="nq__text">
+            <span class="v-strong">{it.title}</span>
+            <span class="v-meta">{it.from}</span>
+          </span>
+          <span class:list={['v-btn', i > 0 && 'v-btn--ghost']}>{it.action}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Vignette>
+
+<style>
+  .nq__count {
+    display: grid;
+    place-items: center;
+    min-width: 24px;
+    height: 24px;
+    padding-inline: 6px;
+    border-radius: 12px;
+    background: var(--v-signal);
+    color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+  .nq__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-left: 2px solid transparent;
+  }
+  .nq__item:first-child {
+    border-left-color: var(--v-signal);
+    padding-left: 10px;
+  }
+  .nq__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+</style>

@@ -3,31 +3,78 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Band from '../components/Band.astro';
 import Chip from '../components/Chip.astro';
+import Icon from '../components/Icon.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
+import RungLadder from '../components/diagrams/RungLadder.astro';
+import ConnectFlow from '../components/diagrams/ConnectFlow.astro';
+import ProvenanceFan from '../components/diagrams/ProvenanceFan.astro';
+import SovereignCells from '../components/diagrams/SovereignCells.astro';
+import ReadAccess from '../components/diagrams/ReadAccess.astro';
+import StepTrace from '../components/diagrams/StepTrace.astro';
+import TrustCircles from '../components/diagrams/TrustCircles.astro';
+import TwinConversation from '../components/vignettes/TwinConversation.astro';
+import FleetRow from '../components/vignettes/FleetRow.astro';
+import AutonomyDial from '../components/vignettes/AutonomyDial.astro';
+import Glance from '../components/vignettes/Glance.astro';
 
 const sub =
   'Unica starts with one person and one team, and grows from the inside out. Every capability you add makes every other one smarter.';
 ---
 
 <Base title="Capabilities" description={sub}>
-  <PageHero eyebrow="CAPABILITIES" title="Empower yourself. Then your whole organization." sub={sub} />
+  <PageHero eyebrow="CAPABILITIES" title="Empower yourself. Then your whole organization." sub={sub}>
+    <RungLadder slot="figure" />
+  </PageHero>
 
-  <Band tone="paper" id="connect" eyebrow="01 · Connect" heading="Connect your tools and information to AI." status="early">
+  <Band tone="paper" id="connect" eyebrow="01 · Connect" icon="connect" heading="Connect your tools and information to AI." status="early">
+    <ConnectFlow slot="figure" />
     <p class="lede">
       Bring in what your organization already knows, from the systems where it lives today. It arrives as governed
       records with its origin attached, so AI can use it and nobody loses track of where it came from.
     </p>
+    <div class="rung-glance">
+      <Glance
+        title="Record"
+        status="early"
+        alt="Illustration: a supplier contract brought in from a shared drive, now a governed record with its origin attached."
+        head="Supplier contract, renewal terms"
+        state={{ label: 'Governed', tone: 'quiet' }}
+        facts={[
+          { label: 'Origin', value: 'Shared drive, Contracts' },
+          { label: 'Brought in', value: 'Mar 4, 09:12' },
+        ]}
+      />
+    </div>
   </Band>
 
-  <Band tone="dark" id="twin" eyebrow="02 · Your twin" heading="A twin that works on your behalf." status="early">
+  <Band tone="dark" id="twin" eyebrow="02 · Your twin" icon="twin" heading="A twin that works on your behalf." status="early" flip>
+    <TwinConversation
+      slot="figure"
+      messages={[
+        { from: 'you', text: 'Get me ready for tomorrow’s supplier call.' },
+        { from: 'twin', text: 'Your brief is ready: our last three calls, the renewal terms, and two follow-ups drafted for you.' },
+      ]}
+      actions={['Review']}
+      alt="Illustration: a person asks their twin to prepare for a call; the twin has prepared a brief and drafted follow-ups for the person to review."
+    />
     <p class="lede">
       Your twin drafts, follows up, prepares and remembers, in your voice and within the limits you set. It acts for
       you and only you.
     </p>
   </Band>
 
-  <Band tone="paper" id="brain" eyebrow="03 · The corporate brain" heading="One brain for the whole company.">
+  <Band tone="paper" id="brain" eyebrow="03 · The corporate brain" icon="brain" heading="One brain for the whole company.">
+    <ProvenanceFan
+      slot="figure"
+      answer="Supplier payment terms"
+      facets={[
+        { label: 'Standing', value: 'Certified' },
+        { label: 'Certified by', value: 'Finance lead' },
+        { label: 'As of', value: 'March 12' },
+      ]}
+      alt="Diagram: one fact in the company's shared record, showing its standing as certified, who certified it, and the date it can be read back as of."
+    />
     <p class="lede">
       Everything your organization knows, decides and certifies lives in one governed record, a memory that cannot be
       lost. Every agent starts its work briefed on what the company currently holds true, and stale information is
@@ -35,14 +82,40 @@ const sub =
     </p>
     <ul class="points">
       <li>
-        <em class="term">Certified knowledge:</em> the people accountable for a fact sign off on it, and everyone sees its
-        standing.
+        <Icon name="certify" />
+        <span><em class="term">Certified knowledge:</em> the people accountable for a fact sign off on it, and everyone sees its
+        standing.</span>
       </li>
-      <li><em class="term">Rewind the company:</em> “What did we know on March 12th?” has an exact answer.</li>
+      <li>
+        <Icon name="resume" />
+        <span><em class="term">Rewind the company:</em> “What did we know on March 12th?” has an exact answer.</span>
+      </li>
     </ul>
+    <div class="rung-glance">
+      <Glance
+        title="Agent briefing"
+        status="early"
+        alt="Illustration: an agent starting a task is briefed on what the company currently holds true, with one stale fact flagged."
+        head="Briefed: supplier renewal"
+        state={{ label: '1 stale', tone: 'solid' }}
+        facts={[
+          { label: 'Certified facts', value: '14' },
+          { label: 'Flagged stale', value: 'Old payment terms' },
+        ]}
+      />
+    </div>
   </Band>
 
-  <Band tone="dark" id="collaboration" eyebrow="Collaboration" heading="Collaboration without the copy-paste." status="early">
+  <Band tone="dark" id="collaboration" eyebrow="Collaboration" icon="collaborate" heading="Collaboration without the copy-paste." status="early" flip>
+    <TwinConversation
+      slot="figure"
+      messages={[
+        { from: 'you', text: 'Can you get the renewal terms from Finance?' },
+        { from: 'twin', text: 'I asked Dana’s twin. Dana chose to share the contract terms.' },
+      ]}
+      actions={['View terms']}
+      alt="Illustration: a person's twin asks a colleague's twin for input, and the colleague decides what to share."
+    />
     <p class="lede">
       People and their twins work together through the shared record, not forwarded messages. When your twin needs a
       colleague’s input, it asks their twin, and your colleague decides what to share. Teams start from the same facts
@@ -50,7 +123,8 @@ const sub =
     </p>
   </Band>
 
-  <Band tone="paper" id="business-areas" eyebrow="Business areas" heading="Every department owns its data. All of them share one brain." status="early">
+  <Band tone="paper" id="business-areas" eyebrow="Business areas" icon="areas" heading="Every department owns its data. All of them share one brain." status="early" ratio="5-7">
+    <SovereignCells slot="figure" />
     <p class="lede">
       Each business area keeps sovereignty over its own records. It decides what other areas can see and use, and it
       can take that back. Collaboration happens through what each area chooses to share, never by pouring everything
@@ -62,8 +136,8 @@ const sub =
     </p>
   </Band>
 
-  <div class="rule-wrap"><div class="wrap"><hr class="rule" /></div></div>
-  <Band tone="paper" id="privacy" eyebrow="Personal privacy" heading="Shared brain. Private minds." status="early">
+  <Band tone="paper" id="privacy" eyebrow="Personal privacy" icon="lock" heading="Shared brain. Private minds." status="early" flip>
+    <ReadAccess slot="figure" />
     <p class="lede">
       The corporate brain is shared; your thoughts are not. What you tell your twin is readable by you and, where
       required, your auditor. Administrators run the system but cannot read your personal record. You decide what
@@ -71,7 +145,17 @@ const sub =
     </p>
   </Band>
 
-  <Band tone="dark" id="departments" eyebrow="04 · Departments build agents" heading="What headaches do you need fixed?" status="early">
+  <Band tone="dark" id="departments" eyebrow="04 · Departments build agents" icon="build" heading="What headaches do you need fixed?" status="early">
+    <FleetRow
+      slot="figure"
+      title="Department agents"
+      alt="Illustration: agents built for different departments, each with its own area, human owner and last activity."
+      agents={[
+        { name: 'Month-end close agent', owner: 'Dana Ortiz', area: 'Finance', idle: 'Now', state: 'working' },
+        { name: 'Contract intake agent', owner: 'Sam Reyes', area: 'Legal', idle: '08:15', state: 'idle' },
+        { name: 'New-hire setup agent', owner: 'Lee Park', area: 'People', idle: 'Tue 17:30', state: 'idle' },
+      ]}
+    />
     <p class="lede">
       Each department names its problem and gets an agent built for it, with a role, a scope and an owner. Budget
       follows each department’s pain; no company-wide transformation program is required.
@@ -82,7 +166,8 @@ const sub =
     </p>
   </Band>
 
-  <Band tone="paper" id="autonomy" eyebrow="Adjustable autonomy" heading="Autonomy is a dial, not a leap of faith." status="early">
+  <Band tone="paper" id="autonomy" eyebrow="Adjustable autonomy" icon="dial" heading="Autonomy is a dial, not a leap of faith." status="early" flip>
+    <AutonomyDial slot="figure" />
     <p class="lede">
       For each agent and each kind of action, the accountable people set how far it may go on its own: suggest only,
       act with approval, or act and report. Turn it up as trust is earned and down in a second. Nothing irreversible
@@ -90,22 +175,47 @@ const sub =
     </p>
   </Band>
 
-  <Band tone="dark" id="resilience" eyebrow="Resilience" heading="The truth was never in its head." status="early">
+  <Band tone="dark" id="resilience" eyebrow="Resilience" icon="resume" heading="The truth was never in its head." status="early">
+    <StepTrace
+      slot="figure"
+      alt="Diagram: an agent is stopped, its machine restarted and its model changed, and the work resumes from the record."
+      steps={[
+        { label: 'Stopped', icon: 'power' },
+        { label: 'Restarted', icon: 'resume' },
+        { label: 'Model changed', icon: 'brain' },
+      ]}
+      end="Resumed"
+    />
     <p class="lede">
       Stop an agent mid-task, restart the machine or change the model, and the work resumes from the record, because
       the record is where the truth lives.
     </p>
   </Band>
 
-  <Band tone="paper" id="outward" eyebrow="05 · Turn outward" heading="Working with other organizations is just a wider circle of trust." status="roadmap">
+  <Band tone="paper" id="outward" eyebrow="05 · Turn outward" icon="circles" heading="Working with other organizations is just a wider circle of trust." status="roadmap" flip>
+    <TrustCircles slot="figure" />
     <p class="lede">
       The same rules that let your departments work together will let you work with partners, suppliers and customers
       under explicit agreements. Each side keeps its own record and its own authority.
     </p>
     <p class="mono-line">Built on standards, so it works with the technology you already have.</p>
+    <div class="rung-glance">
+      <Glance
+        title="Partner request"
+        status="roadmap"
+        alt="Illustration: a supplier's agent asks for a delivery schedule under an agreement, and Operations shares it by choice."
+        head="Delivery schedule, week 42"
+        state={{ label: 'Shared by choice', tone: 'quiet' }}
+        facts={[
+          { label: 'Asked by', value: 'Supplier’s agent' },
+          { label: 'Under', value: 'Explicit agreement' },
+        ]}
+      />
+    </div>
   </Band>
 
   <Callout
+    icon="areas"
     lead="Every department is both a customer and a supplier."
     text="Each team that fixes its own headache makes every other team’s agents better informed. Unica grows from the inside out."
   />
@@ -118,46 +228,53 @@ const sub =
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
   }
   .points li {
-    padding-top: 16px;
-    border-top: 1px solid var(--rule);
-    font-size: var(--fs-body);
-    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    border: 1px solid var(--rule);
+    background: #fdfcf9;
+    font-size: 1rem;
+    line-height: 1.55;
     color: var(--ink-strong);
+  }
+  @media (max-width: 560px) {
+    .points {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
   .lede :global(.chip) {
     vertical-align: middle;
     margin-left: 6px;
   }
+  .rung-glance {
+    max-width: 380px;
+    margin-top: 8px;
+  }
   .tie-in {
-    padding-top: 20px;
+    padding-top: 18px;
     border-top: 1px solid var(--rule);
     font-size: var(--fs-body);
     line-height: 1.6;
     font-weight: 500;
     color: var(--ink);
-  }
-  .rule-wrap {
-    background: var(--paper);
-  }
-  .rule {
-    margin: 0;
-    border: 0;
-    border-top: 1px solid var(--rule);
+    max-width: 40rem;
   }
   .roadmap-line {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding-top: 20px;
+    padding-top: 18px;
     border-top: 1px solid var(--hair-dark);
     font-size: var(--fs-body);
     line-height: 1.6;
     font-weight: 300;
     color: var(--paper-strong);
+    max-width: 40rem;
   }
 </style>

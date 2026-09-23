@@ -1,0 +1,112 @@
+---
+// Diagram: the three places most AI stops short. It forgets between
+// sessions, it leaves no proof, and it is kept away from the irreversible.
+---
+
+<div
+  class="dg gaps"
+  role="img"
+  aria-label="Diagram: three gaps where most AI stops short. It forgets what it knew when a session ends, it leaves no proof of what it did or why, and it is kept away from anything irreversible."
+  data-draw
+>
+  <div class="gap draw-fade">
+    <svg viewBox="0 0 160 96" fill="none" aria-hidden="true" focusable="false">
+      <path class="dg-line draw-line" d="M14 60 L42 38 L70 52" pathLength="1"></path>
+      <circle class="dg-node" cx="14" cy="60" r="5"></circle>
+      <circle class="dg-node" cx="42" cy="38" r="5"></circle>
+      <circle class="dg-node" cx="70" cy="52" r="5"></circle>
+      <line class="gap__wall" x1="86" y1="14" x2="86" y2="84"></line>
+      <circle class="gap__lost" cx="104" cy="60" r="5"></circle>
+      <circle class="gap__lost" cx="126" cy="38" r="5"></circle>
+      <circle class="gap__lost" cx="148" cy="52" r="5"></circle>
+    </svg>
+    <span class="dg-label"><span class="gap__n">01</span>Forgets</span>
+  </div>
+  <div class="gap draw-fade">
+    <svg viewBox="0 0 160 96" fill="none" aria-hidden="true" focusable="false">
+      <circle class="gap__lost" cx="16" cy="28" r="5"></circle>
+      <circle class="gap__lost" cx="16" cy="68" r="5"></circle>
+      <path class="gap__hair" d="M21 30 L58 44 M21 66 L58 52"></path>
+      <path class="dg-line draw-line" d="M102 48 H146" pathLength="1"></path>
+      <circle class="dg-dot" cx="146" cy="48" r="6"></circle>
+      <text class="gap__q" x="80" y="54" text-anchor="middle">?</text>
+    </svg>
+    <span class="dg-label"><span class="gap__n">02</span>No proof</span>
+  </div>
+  <div class="gap draw-fade">
+    <svg viewBox="0 0 160 96" fill="none" aria-hidden="true" focusable="false">
+      <circle class="dg-node" cx="16" cy="48" r="5"></circle>
+      <path class="dg-line draw-line" d="M21 48 H92" pathLength="1"></path>
+      <line class="gap__stop" x1="100" y1="30" x2="100" y2="66"></line>
+      <rect class="gap__lost" x="122" y="34" width="28" height="28"></rect>
+      <path class="gap__hair" d="M130 42l12 12M142 42l-12 12"></path>
+    </svg>
+    <span class="dg-label"><span class="gap__n">03</span>Kept away</span>
+  </div>
+</div>
+
+<style>
+  .gaps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .gap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 12px 12px;
+    border-top: 1px solid var(--d-hair);
+  }
+  .gap svg {
+    width: 100%;
+    height: auto;
+  }
+  .gap__n {
+    margin-right: 8px;
+    color: var(--d-signal-text);
+  }
+  .gap__wall {
+    stroke: var(--d-soft);
+    stroke-width: 1;
+    stroke-dasharray: 4 5;
+  }
+  .gap__lost {
+    stroke: var(--d-soft);
+    stroke-width: 1.25;
+    stroke-dasharray: 3 4;
+  }
+  .gap__hair {
+    stroke: var(--d-soft);
+    stroke-width: 1.25;
+    stroke-dasharray: 4 5;
+  }
+  .gap__stop {
+    stroke: var(--d-signal);
+    stroke-width: 2.5;
+  }
+  .gaps svg .gap__q {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    letter-spacing: 0;
+    fill: var(--d-signal);
+  }
+  @media (max-width: 560px) {
+    .gaps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+    }
+    .gap {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 0;
+    }
+    .gap svg {
+      width: 128px;
+      flex: none;
+    }
+  }
+</style>

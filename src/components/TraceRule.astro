@@ -2,8 +2,8 @@
 // Short decorative line: three nodes and the seal icon.
 ---
 
-<svg class="trace-rule" viewBox="0 0 240 24" width="240" height="24" fill="none" aria-hidden="true" focusable="false">
-  <line class="tr-line" x1="4" y1="12" x2="212" y2="12" pathLength="1"></line>
+<svg class="trace-rule" viewBox="0 0 240 24" width="240" height="24" fill="none" aria-hidden="true" focusable="false" data-draw>
+  <line class="tr-line draw-line" x1="4" y1="12" x2="212" y2="12" pathLength="1"></line>
   <circle class="tr-node" cx="4" cy="12" r="3.5"></circle>
   <circle class="tr-node" cx="72" cy="12" r="3.5"></circle>
   <circle class="tr-node" cx="140" cy="12" r="3.5"></circle>
@@ -26,23 +26,5 @@
   .tr-seal {
     stroke: var(--warm);
     stroke-width: 1.5;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .tr-line {
-        stroke-dasharray: 1;
-        animation: tr-draw linear both;
-        animation-timeline: view();
-        animation-range: entry 10% cover 35%;
-      }
-    }
-  }
-  @keyframes tr-draw {
-    from {
-      stroke-dashoffset: 1;
-    }
-    to {
-      stroke-dashoffset: 0;
-    }
   }
 </style>

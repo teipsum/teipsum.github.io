@@ -1,0 +1,119 @@
+---
+// Diagram: the founding cohort, admitted in waves. Each wave is a small group
+// of organizations with its own direct line to the people building Unica.
+import Icon from '../Icon.astro';
+
+const waves = ['Wave 1', 'Wave 2', 'Wave 3'];
+const orgs = Array.from({ length: 6 });
+---
+
+<div
+  class="dg cohort"
+  role="img"
+  aria-label="Diagram: the founding cohort admitted in three waves. Each wave is a small group of organizations, and each wave has its own direct line to the people building Unica."
+  data-draw
+>
+  <p class="dg-label dg-label--signal cohort__title">Founding cohort</p>
+  <div class="cohort__rows">
+    {
+      waves.map((w) => (
+        <div class="wave draw-fade">
+          <span class="dg-label wave__label">{w}</span>
+          <span class="wave__orgs">
+            {orgs.map(() => (
+              <i class="org" />
+            ))}
+          </span>
+          <span class="wave__line" />
+          <span class="wave__team">
+            <Icon name="roles" size={18} />
+          </span>
+        </div>
+      ))
+    }
+  </div>
+  <div class="cohort__key">
+    <span class="dg-label"><i class="org org--key"></i>Organization</span>
+    <span class="dg-label"><i class="key-line"></i>Direct line</span>
+  </div>
+</div>
+
+<style>
+  .cohort {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 440px;
+    padding-top: 20px;
+    border-top: 1px solid var(--d-hair);
+  }
+  .cohort__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .wave {
+    display: grid;
+    grid-template-columns: 4.5rem auto minmax(16px, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+  }
+  .wave__label {
+    white-space: nowrap;
+  }
+  .wave__orgs {
+    display: flex;
+    gap: 6px;
+  }
+  .org {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--d-signal);
+  }
+  .wave__line {
+    height: 0;
+    border-top: 1.5px solid var(--d-signal);
+  }
+  .wave__team {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--d-signal);
+    border-radius: 50%;
+    color: var(--d-signal);
+  }
+  .cohort__key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+  }
+  .cohort__key .dg-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .org--key {
+    width: 12px;
+    height: 12px;
+  }
+  .key-line {
+    display: inline-block;
+    width: 18px;
+    border-top: 1.5px solid var(--d-signal);
+  }
+  @media (max-width: 400px) {
+    .wave {
+      grid-template-columns: 4rem auto minmax(8px, 1fr) auto;
+      gap: 8px;
+    }
+    .wave__orgs {
+      gap: 4px;
+    }
+    .org {
+      width: 12px;
+      height: 12px;
+    }
+  }
+</style>

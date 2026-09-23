@@ -1,0 +1,115 @@
+---
+// Diagram: separation of duties. Three roles, each with its own power; every
+// line toward "every key" stops short, because no one can grant themselves more.
+import Icon from '../Icon.astro';
+
+const roles = [
+  { name: 'Trustees', power: 'Govern', icon: 'key' },
+  { name: 'Administrators', power: 'Operate', icon: 'roles' },
+  { name: 'Auditors', power: 'Verify', icon: 'find' },
+] as const;
+---
+
+<div
+  class="dg duties"
+  role="img"
+  aria-label="Diagram: Trustees, Administrators and Auditors as three separate roles, each with its own power: Trustees govern, Administrators operate, Auditors verify. Each role's line toward every key stops short: none of them holds them all, and none can grant itself more."
+  data-draw
+>
+  <div class="duties__roles">
+    {
+      roles.map((r) => (
+        <div class="duty draw-fade">
+          <span class="duty__node">
+            <Icon name={r.icon} size={22} />
+          </span>
+          <span class="duty__name">{r.name}</span>
+          <span class="dg-label">{r.power}</span>
+        </div>
+      ))
+    }
+  </div>
+  <svg class="duties__links" viewBox="0 0 300 96" preserveAspectRatio="none" fill="none" aria-hidden="true" focusable="false">
+    <path class="dg-line draw-line" d="M50 0 L122 69" pathLength="1"></path>
+    <path class="dg-line draw-line" d="M150 0 V69" pathLength="1"></path>
+    <path class="dg-line draw-line" d="M250 0 L178 69" pathLength="1"></path>
+    <path class="duties__stop" d="M112 72 H132 M140 72 H160 M168 72 H188"></path>
+  </svg>
+  <div class="duties__core draw-fade">
+    <span class="duties__lock"><Icon name="lock" size={22} /></span>
+    <span class="dg-label">Every key</span>
+  </div>
+</div>
+
+<style>
+  .duties {
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .duties__roles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .duty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    min-width: 0;
+  }
+  .duty__node {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 4px;
+    border: 1px solid var(--d-signal);
+    border-radius: 50%;
+    background: var(--d-lift);
+    color: var(--d-signal);
+  }
+  .duty__name {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.3;
+    color: var(--d-ink);
+  }
+  .duties__links {
+    display: block;
+    width: 100%;
+    height: 96px;
+    margin-top: 14px;
+  }
+  .duties__links path {
+    vector-effect: non-scaling-stroke;
+  }
+  .duties__stop {
+    stroke: var(--d-signal);
+    stroke-width: 3;
+  }
+  .duties__core {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .duties__lock {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 1px dashed var(--d-soft);
+    border-radius: 50%;
+    color: var(--d-soft);
+  }
+  .duties__lock :global(.icon) {
+    color: var(--d-soft);
+  }
+  @media (max-width: 420px) {
+    .duty__name {
+      font-size: 0.8125rem;
+    }
+  }
+</style>

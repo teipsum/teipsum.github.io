@@ -1,0 +1,112 @@
+---
+// Diagram: one answer, traced to what stands behind it. The values are sample
+// data, so the figure carries the Illustrative tag.
+interface Props {
+  answer?: string;
+  facets?: { label: string; value: string }[];
+  alt?: string;
+}
+const {
+  answer = 'Q3 supplier spend',
+  facets = [
+    { label: 'Sources', value: '3 documents' },
+    { label: 'Confidence', value: 'High' },
+    { label: 'Certified by', value: 'Finance lead' },
+  ],
+  alt = 'Diagram: an answer with a trace to each thing behind it: its sources, how confident to be, and who certified it.',
+} = Astro.props;
+const n = facets.length;
+const ys = facets.map((_, i) => ((i + 0.5) / n) * 100);
+---
+
+<div class="fan-wrap">
+<div class="dg fan" role="img" aria-label={alt} data-draw>
+  <div class="fan__answer draw-fade">
+    <span class="dg-label dg-label--signal">Answer</span>
+    <span class="fan__q">{answer}</span>
+  </div>
+  <svg class="fan__lines" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" aria-hidden="true">
+    {ys.map((y) => <path class="dg-line draw-line" d={`M0 50 C 50 50, 50 ${y}, 100 ${y}`} pathLength="1" />)}
+  </svg>
+  <ul class="fan__facets">
+    {
+      facets.map((f) => (
+        <li class="draw-fade">
+          <span class="dg-label">{f.label}</span>
+          <span class="fan__v">{f.value}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+<p class="dg-label fan__tag">Illustrative</p>
+</div>
+
+<style>
+  .fan-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+  .fan-wrap .fan {
+    width: 100%;
+  }
+  .fan__tag {
+    align-self: flex-end;
+    margin: 0;
+    padding: 2px 7px;
+    border: 1px solid var(--d-soft);
+    letter-spacing: 0.16em;
+  }
+  .fan {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(40px, 0.6fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+  .fan__answer {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px 16px;
+    border: 1px solid var(--d-signal);
+    background: var(--d-lift);
+  }
+  .fan__q {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .fan__lines {
+    width: 100%;
+    height: 100%;
+  }
+  .fan__lines path {
+    vector-effect: non-scaling-stroke;
+  }
+  .fan__facets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-auto-rows: 1fr;
+    gap: 10px;
+  }
+  .fan__facets li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 10px 14px;
+    border-left: 2px solid var(--d-signal);
+    background: var(--d-lift);
+  }
+  .fan__v {
+    font-size: 0.9375rem;
+    color: var(--d-ink);
+  }
+</style>

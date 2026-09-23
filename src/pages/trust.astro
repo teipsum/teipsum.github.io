@@ -3,18 +3,28 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Band from '../components/Band.astro';
 import Chip from '../components/Chip.astro';
-import RecordRow from '../components/RecordRow.astro';
+import Icon from '../components/Icon.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
+import InstanceSeal from '../components/diagrams/InstanceSeal.astro';
+import ReadAccess from '../components/diagrams/ReadAccess.astro';
+import StepTrace from '../components/diagrams/StepTrace.astro';
+import PasskeyApproval from '../components/vignettes/PasskeyApproval.astro';
+import FleetRow from '../components/vignettes/FleetRow.astro';
+import EvidenceExport from '../components/vignettes/EvidenceExport.astro';
+import RecordCard from '../components/vignettes/RecordCard.astro';
+import Duties from '../components/diagrams/Duties.astro';
 
 const sub =
   'Unica is built so that every claim it makes about itself can be verified: who acted, on whose authority, and why.';
+
 ---
 
 <Base title="Trust and governance" description={sub}>
   <PageHero eyebrow="TRUST AND GOVERNANCE" title="Trust you can check." sub={sub} />
 
-  <Band tone="paper" id="identity" eyebrow="Identity" heading="No passwords. Real people.">
+  <Band tone="paper" id="identity" eyebrow="Identity" icon="fingerprint" heading="No passwords. Real people.">
+    <PasskeyApproval slot="figure" action="Grant a new scope" requester="Supplier follow-up agent" approver="Dana Ortiz" approverRef="Dana Ortiz" />
     <p class="lede">
       Everyone signs in with a passkey bound to their own device. Privileged actions ask for a fresh touch, so a
       stolen session is never enough.
@@ -24,21 +34,34 @@ const sub =
     </p>
   </Band>
 
-  <Band tone="dark" id="founding" eyebrow="Founding" heading="Founded by your people.">
+  <Band tone="dark" id="founding" eyebrow="Founding" icon="flag" heading="Founded by your people." flip>
+    <InstanceSeal
+      slot="figure"
+      alt="Diagram: an instance comes to life when its Trustees establish it, each with their own passkey."
+    />
     <p class="lede">
       Your Unica instance comes to life in a founding ceremony. Your Trustees establish it with their own passkeys, and
       governance belongs to them from the first minute.
     </p>
   </Band>
 
-  <Band tone="paper" id="duties" eyebrow="Separation of duties" heading="No one holds every key.">
+  <Band tone="paper" id="duties" eyebrow="Separation of duties" icon="roles" heading="No one holds every key.">
+    <Duties slot="figure" />
     <p class="lede">
       Trustees, Administrators and Auditors each hold distinct powers. No one can grant themselves more, and the last
       holder of a critical role cannot be removed by accident.
     </p>
   </Band>
 
-  <Band tone="dark" id="kill-switch" eyebrow="Kill switch" heading="One pull stops it. It stays pulled." status="early">
+  <Band tone="dark" id="kill-switch" eyebrow="Kill switch" icon="power" heading="One pull stops it. It stays pulled." status="early" flip>
+    <FleetRow
+      slot="figure"
+      alt="Illustration: a revoked agent shown as stopped, alongside an agent still working."
+      agents={[
+        { name: 'Supplier follow-up agent', owner: 'Lee Park', area: 'Operations', idle: '11:05', state: 'stopped' },
+        { name: 'Invoice intake agent', owner: 'Dana Ortiz', area: 'Finance', idle: 'Now', state: 'working' },
+      ]}
+    />
     <p class="lede">
       Revoke an agent or a machine and it stops, everywhere, until a person with the authority deliberately brings it
       back.
@@ -46,26 +69,44 @@ const sub =
   </Band>
 
   <section class="band band--paper" aria-labelledby="evidence">
-    <div class="wrap stack stack--lg">
-      <div class="section-head evidence-head">
-        <p class="eyebrow">Evidence</p>
-        <h2 class="h2" id="evidence">Evidence, not logs.</h2>
-        <p class="lede">
-          Every act is signed and attributable, and refusals are recorded too. <Chip status="early" /> Auditors export
-          evidence that stands on its own, months later. <Chip status="early" />
-        </p>
+    <div class="wrap">
+      <div class="split">
+        <div class="split__text stack evidence-text">
+          <p class="eyebrow evidence-eyebrow"><span class="card__icon"><Icon name="evidence" size={22} /></span>Evidence</p>
+          <h2 class="h2" id="evidence">Evidence, not logs.</h2>
+          <p class="lede">
+            Every act is signed and attributable, and refusals are recorded too. <Chip status="early" /> Auditors export
+            evidence that stands on its own, months later. <Chip status="early" />
+          </p>
+          <div class="evidence-record">
+            <RecordCard />
+          </div>
+        </div>
+        <div class="split__figure">
+          <EvidenceExport />
+        </div>
       </div>
-      <RecordRow />
     </div>
   </section>
 
-  <Band tone="dark" id="privacy" eyebrow="Privacy" heading="Personal means personal." status="early">
+  <Band tone="dark" id="privacy" eyebrow="Privacy" icon="lock" heading="Personal means personal." status="early" flip>
+    <ReadAccess slot="figure" />
     <p class="lede">
       A person’s words to their twin are readable by that person and their auditor. Not by an administrator.
     </p>
   </Band>
 
-  <Band tone="paper" id="build" eyebrow="How we build it" heading="Attacked before it ships.">
+  <Band tone="paper" id="build" eyebrow="How we build it" icon="shield" heading="Attacked before it ships.">
+    <StepTrace
+      slot="figure"
+      alt="Diagram: every change is proposed, attacked by a review team, and what they find is fixed before the change lands."
+      steps={[
+        { label: 'Proposed', icon: 'assert' },
+        { label: 'Attacked', icon: 'find' },
+        { label: 'Fixed', icon: 'build' },
+      ]}
+      end="Landed"
+    />
     <p class="lede">
       Every change to Unica is attacked by a dedicated review team before it lands. What they find is fixed, not
       waived.
@@ -73,6 +114,7 @@ const sub =
   </Band>
 
   <Callout
+    icon="shield"
     lead="A bug in the app cannot grant access."
     text="Rules are enforced beneath the application, in the substrate, so the interface can only show a decision. It can never make one."
   />
@@ -85,7 +127,22 @@ const sub =
     vertical-align: middle;
     margin-left: 6px;
   }
-  .evidence-head {
-    margin-bottom: 0;
+  .evidence-text {
+    gap: 18px;
+  }
+  .evidence-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .evidence-eyebrow .card__icon {
+    width: 44px;
+    height: 44px;
+  }
+  .evidence-record {
+    margin-top: 12px;
+  }
+  .evidence-record :global(.vig) {
+    margin-inline: 0;
   }
 </style>

@@ -1,0 +1,110 @@
+---
+// Vignette: one agent's autonomy setting, with the kill switch at the end.
+import Vignette from './Vignette.astro';
+import Icon from '../Icon.astro';
+
+const levels = ['Suggest only', 'Act with approval', 'Act and report'];
+const current = 1;
+---
+
+<Vignette
+  title="Autonomy"
+  alt="Illustration: an autonomy dial for one agent, set to act with approval, between suggest only and act and report, with the kill switch at the end of the dial."
+>
+  <div class="v-row">
+    <span class="v-strong">Invoice intake agent</span>
+    <span class="v-label">Payments</span>
+  </div>
+  <svg class="ad__arc" viewBox="0 0 320 156" fill="none" aria-hidden="true">
+    <path class="ad__track" d="M30 140 A130 130 0 0 1 290 140"></path>
+    <path class="ad__fill draw-line" d="M30 140 A130 130 0 0 1 95 27.4" pathLength="1"></path>
+    <g class="ad__ticks">
+      <circle cx="30" cy="140" r="5"></circle>
+      <circle cx="95" cy="27.4" r="7"></circle>
+      <circle cx="225" cy="27.4" r="5"></circle>
+    </g>
+    <line class="ad__needle" x1="160" y1="140" x2="107" y2="48.2"></line>
+    <circle class="ad__hub" cx="160" cy="140" r="7"></circle>
+    <circle class="ad__stop" cx="290" cy="140" r="9"></circle>
+  </svg>
+  <ol class="ad__levels">
+    {levels.map((l, i) => <li class:list={[i === current && 'is-set']}>{l}</li>)}
+    <li class="ad__kill"><Icon name="power" size={14} />Kill switch</li>
+  </ol>
+</Vignette>
+
+<style>
+  .ad__arc {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    margin-inline: auto;
+  }
+  .ad__track {
+    stroke: var(--v-hair);
+    stroke-width: 10;
+  }
+  .ad__fill {
+    stroke: var(--v-signal);
+    stroke-width: 10;
+    opacity: 0.85;
+  }
+  .ad__ticks circle {
+    fill: var(--paper);
+    stroke: var(--v-signal);
+    stroke-width: 1.5;
+  }
+  .ad__needle {
+    stroke: var(--v-ink);
+    stroke-width: 2;
+  }
+  .ad__hub {
+    fill: var(--v-ink);
+  }
+  .ad__stop {
+    fill: var(--v-ink);
+  }
+  .ad__levels {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border: 1px solid var(--v-hair);
+    font-size: 0.8125rem;
+    line-height: 1.3;
+  }
+  .ad__levels li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 8px;
+    color: var(--v-text);
+  }
+  .ad__levels li + li {
+    border-left: 1px solid var(--v-hair);
+  }
+  .ad__levels .is-set {
+    background: var(--v-signal);
+    color: var(--paper);
+    font-weight: 500;
+  }
+  .ad__kill {
+    color: var(--v-ink);
+    font-weight: 500;
+  }
+  .ad__kill :global(.icon) {
+    color: var(--v-ink);
+  }
+  @media (max-width: 400px) {
+    .ad__levels {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ad__levels li:nth-child(3) {
+      border-left: 0;
+    }
+    .ad__levels li:nth-child(n + 3) {
+      border-top: 1px solid var(--v-hair);
+    }
+  }
+</style>

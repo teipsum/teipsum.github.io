@@ -2,25 +2,112 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Band from '../components/Band.astro';
+import Icon from '../components/Icon.astro';
+import Seal from '../components/Seal.astro';
 import Scenario from '../components/Scenario.astro';
 import CloseCall from '../components/CloseCall.astro';
+import NeedsYou from '../components/vignettes/NeedsYou.astro';
+import PasskeyApproval from '../components/vignettes/PasskeyApproval.astro';
+import Glance from '../components/vignettes/Glance.astro';
 import Chip from '../components/Chip.astro';
 
 const sub =
   'Unica gives a small firm a big team’s reach and gives an enterprise the controls its auditors expect, on the same governed foundation.';
 
 const sectors = [
-  { name: 'Financial services', body: 'Approvals that cannot be borrowed, and a trail a regulator can follow.' },
-  { name: 'Healthcare', body: 'Personal information that stays personal, by design.' },
-  { name: 'Legal and professional services', body: 'Every claim with its citation and its standing.' },
-  { name: 'Public sector', body: 'A dedicated instance, and authority that stays with your people.' },
-];
+  {
+    name: 'Financial services',
+    body: 'Approvals that cannot be borrowed, and a trail a regulator can follow.',
+    icon: 'finance',
+    glance: {
+      title: 'Approval',
+      alt: 'Illustration: a payment release waiting for the treasury lead, who approves it with their own passkey, for this action only.',
+      head: 'Payment release, supplier batch',
+      state: { label: 'Needs you', tone: 'quiet' },
+      facts: [
+        { label: 'Approver', value: 'Treasury lead' },
+        { label: 'Bound to', value: 'This action only' },
+      ],
+      action: 'Approve with passkey',
+    },
+  },
+  {
+    name: 'Healthcare',
+    body: 'Personal information that stays personal, by design.',
+    icon: 'health',
+    glance: {
+      title: 'Your twin',
+      status: 'early',
+      alt: 'Illustration: a clinician’s notes to their twin, readable by the clinician and, where required, their auditor, and not by an administrator.',
+      head: 'Notes to your twin',
+      state: { label: 'Private to you', tone: 'quiet' },
+      facts: [
+        { label: 'Can read', value: 'You' },
+        { label: 'Your auditor', value: 'Where required' },
+        { label: 'Cannot read', value: 'Administrator' },
+      ],
+    },
+  },
+  {
+    name: 'Legal and professional services',
+    body: 'Every claim with its citation and its standing.',
+    icon: 'legal',
+    glance: {
+      title: 'Answer',
+      status: 'early',
+      alt: 'Illustration: an answer about a liability cap, citing clause 7 of a services agreement, with its standing shown as certified.',
+      head: 'Liability cap: 12 months of fees',
+      state: { label: 'Certified', tone: 'sealed' },
+      facts: [
+        { label: 'Source', value: 'Services agreement, cl. 7' },
+        { label: 'Certified by', value: 'General counsel' },
+      ],
+    },
+  },
+  {
+    name: 'Public sector',
+    body: 'A dedicated instance, and authority that stays with your people.',
+    icon: 'civic',
+    glance: {
+      title: 'Instance',
+      alt: 'Illustration: a dedicated instance for a city office, founded by three of its own Trustees.',
+      head: 'City permits office',
+      state: { label: 'Dedicated' },
+      facts: [
+        { label: 'Founded by', value: '3 Trustees' },
+        { label: 'Authority', value: 'Your people' },
+      ],
+    },
+  },
+] as const;
 ---
 
 <Base title="Solutions" description={sub}>
-  <PageHero eyebrow="SOLUTIONS" title="From ten people to ten thousand. Same proof." sub={sub} />
+  <PageHero eyebrow="SOLUTIONS" title="From ten people to ten thousand. Same proof." sub={sub}>
+    <div slot="figure" class="scale" aria-hidden="true" data-draw>
+      <div class="scale__fig draw-fade">
+        <span class="scale__n">10</span>
+        <span class="scale__bar scale__bar--s"></span>
+      </div>
+      <div class="scale__fig draw-fade">
+        <span class="scale__n">10,000</span>
+        <span class="scale__bar"></span>
+      </div>
+      <p class="scale__seal draw-fade"><Seal size={22} /><span>Same proof</span></p>
+    </div>
+  </PageHero>
 
-  <Band tone="paper" id="smb" eyebrow="SMB" heading="A small team with a big team’s reach.">
+  <Band tone="paper" id="smb" eyebrow="SMB" icon="small" heading="A small team with a big team’s reach.">
+    <NeedsYou
+      slot="figure"
+      status="early"
+      items={[
+        { title: 'Client file ready: Rivera', from: 'Prepared overnight', action: 'Approve' },
+        { title: 'Client file ready: Chen', from: 'Prepared overnight', action: 'Approve' },
+        { title: 'Client file ready: Okafor', from: 'Prepared overnight', action: 'Approve' },
+      ]}
+      alt="Illustration: a partner's morning queue of client files prepared overnight by agents, each waiting for a one-touch approval."
+    />
     <p class="lede">
       Give every person a twin and hand the back office to agents that work inside the limits you set. We run your
       dedicated instance for you, so no IT department is needed.
@@ -30,7 +117,8 @@ const sectors = [
     />
   </Band>
 
-  <Band tone="dark" id="enterprise" eyebrow="Enterprise" heading="Governed AI at the scale of your org chart.">
+  <Band tone="dark" id="enterprise" eyebrow="Enterprise" icon="enterprise" heading="Governed AI at the scale of your org chart." flip>
+    <PasskeyApproval slot="figure" action="Vendor renewal, from 3 contracts" requester="Procurement agent" approver="CFO" />
     <p class="lede">
       Roles, scopes and approvals follow your structure. Separation of duties is enforced, not documented. Audit
       evidence is produced as work happens, not reconstructed after. <Chip status="early" />
@@ -46,12 +134,18 @@ const sectors = [
         <p class="eyebrow">Regulated industries</p>
         <h2 class="h2" id="regulated">When “the model said so” is not an answer.</h2>
       </div>
-      <ul class="cards sectors">
+      <ul class="cards cards--4" data-draw>
         {
           sectors.map((s) => (
-            <li class="card card--warm">
-              <h3 class="card__title">{s.name}</h3>
+            <li class="card card--box draw-fade">
+              <span class="card__icon">
+                <Icon name={s.icon} />
+              </span>
+              <h3 class="card__title sector__title">{s.name}</h3>
               <p class="card__body">{s.body}</p>
+              <div class="sector__glance">
+                <Glance {...s.glance} />
+              </div>
             </li>
           ))
         }
@@ -70,20 +164,55 @@ const sectors = [
     vertical-align: middle;
     margin-left: 6px;
   }
-  .sectors {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .sector__glance {
+    margin-top: auto;
+    padding-top: 8px;
   }
-  @media (max-width: 1100px) {
-    .sectors {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .sector__title {
+    font-size: 1.25rem;
   }
-  @media (max-width: 560px) {
-    .sectors {
-      grid-template-columns: minmax(0, 1fr);
+  .scale {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 420px;
+    margin-left: auto;
+  }
+  .scale__fig {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .scale__n {
+    font-size: clamp(2.75rem, 1.6rem + 3.6vw, 4.75rem);
+    line-height: 0.95;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    color: var(--paper);
+  }
+  .scale__bar {
+    display: block;
+    height: 6px;
+    background: var(--warm);
+  }
+  .scale__bar--s {
+    width: 14%;
+  }
+  .scale__seal {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--hair-warm);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm);
+  }
+  @media (max-width: 900px) {
+    .scale {
+      margin-left: 0;
     }
   }
 </style>
