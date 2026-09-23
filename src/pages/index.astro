@@ -24,6 +24,7 @@ const pillars = [
     icon: 'seal',
     title: 'Every record carries its source, its author and its time, and it is signed: who wrote it is provable and any later change shows.',
     body: 'Nothing is silently overwritten, so any decision can be reconstructed months later.',
+    status: 'early',
   },
   {
     label: 'Governed',
@@ -38,6 +39,7 @@ const pillars = [
     title:
       'Your own instance, your own store, your own rules, down to each business area, which owns its records and shares them by choice.',
     body: 'Your context stays yours: portable, inspectable, never locked inside a vendor’s model.',
+    status: 'early',
   },
 ];
 
@@ -46,6 +48,7 @@ const outcomes = [
     title: 'Move AI from pilots to payroll.',
     icon: 'payroll',
     body: 'Put agents on real work (approvals, finance, operations, commitments to customers) because every act is governed, signed and on the record.',
+    status: 'early',
   },
   {
     title: 'Take on work you could never afford.',
@@ -56,6 +59,7 @@ const outcomes = [
     title: 'Pass the audit before it starts.',
     icon: 'audit',
     body: 'Compliance evidence is produced as the work happens. Your auditors verify; nobody reconstructs.',
+    status: 'early',
   },
   {
     title: 'Scale judgment, not headcount.',
@@ -143,6 +147,7 @@ const steps = [
                 <Icon name={o.icon} />
               </span>
               <h3 class="card__title outcome__title">{o.title}</h3>
+              {o.status === 'early' && <Chip status="early" />}
               <p class="card__body">{o.body}</p>
             </li>
           ))
@@ -169,7 +174,7 @@ const steps = [
               )
             }
             After review and rework the real number is lower, and it’s different for every company. Unica measures yours
-            from the record.
+            from the record. <Chip status="early" />
           </p>
           {
             ratioSource && (
@@ -345,6 +350,10 @@ const steps = [
     line-height: 1.4;
     font-weight: 400;
     color: var(--ink);
+  }
+  .ratio__text :global(.chip) {
+    vertical-align: middle;
+    margin-left: 6px;
   }
   .ratio__text sup {
     font-size: 0.6em;

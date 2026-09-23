@@ -103,15 +103,17 @@ export function initWaitlist(): void {
     button.setAttribute('aria-disabled', String(on));
   }
 
-  // Re-check a field as the visitor corrects it, once they have tried to submit.
+  // Update a field's error as the visitor corrects it. Errors only appear on
+  // submit, and nothing is re-checked on blur: a blur caused by pressing the
+  // submit button must not move the button out from under the pointer. The
+  // error summary stays until the next submit for the same reason.
   for (const name of Object.keys(checks)) {
     const el = field(name);
     const recheck = () => {
-      if (!attempted) return;
+      if (!attempted || el.getAttribute('aria-invalid') !== 'true') return;
       setError(name, checks[name](el));
-      if (!form.querySelector('[aria-invalid="true"]')) summary.hidden = true;
     };
-    el.addEventListener('blur', recheck);
+    el.addEventListener('input', recheck);
     el.addEventListener('change', recheck);
   }
 

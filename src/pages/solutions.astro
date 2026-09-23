@@ -8,6 +8,7 @@ import Scenario from '../components/Scenario.astro';
 import CloseCall from '../components/CloseCall.astro';
 import NeedsYou from '../components/vignettes/NeedsYou.astro';
 import PasskeyApproval from '../components/vignettes/PasskeyApproval.astro';
+import Chip from '../components/Chip.astro';
 
 const sub =
   'Unica gives a small firm a big team’s reach and gives an enterprise the controls its auditors expect, on the same governed foundation.';
@@ -58,7 +59,7 @@ const sectors = [
     <PasskeyApproval slot="figure" action="Vendor renewal, from 3 contracts" requester="Procurement agent" approver="CFO" />
     <p class="lede">
       Roles, scopes and approvals follow your structure. Separation of duties is enforced, not documented. Audit
-      evidence is produced as work happens, not reconstructed after.
+      evidence is produced as work happens, not reconstructed after. <Chip status="early" />
     </p>
     <Scenario
       text="A procurement agent drafts a vendor renewal from three contracts and routes it to the CFO. The approval is bound to her, the action and that moment, and the auditor can replay all of it next quarter."
@@ -94,6 +95,10 @@ const sectors = [
 </Base>
 
 <style>
+  .lede :global(.chip) {
+    vertical-align: middle;
+    margin-left: 6px;
+  }
   .sector__title {
     font-size: 1.25rem;
   }

@@ -1,4 +1,5 @@
 ---
+import '../styles/fonts.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -8,12 +9,12 @@ interface Props {
   /** Page title; the site name is appended except on the home page. */
   title: string;
   description: string;
-  /** Load the serif used only for the motto. */
+  /** Page shows the serif motto. The face is declared site-wide and only downloads where it is used. */
   serif?: boolean;
   noindex?: boolean;
 }
 
-const { title, description, serif = false, noindex = false } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 
 const path = Astro.url.pathname;
 const canonical = new URL(path, SITE_URL).href;
@@ -24,8 +25,8 @@ const endpointOrigin = WAITLIST_ENDPOINT ? new URL(WAITLIST_ENDPOINT).origin : '
 const csp = [
   "default-src 'self'",
   "script-src 'self' https://static.cloudflareinsights.com",
-  "style-src 'self' https://fonts.googleapis.com",
-  'font-src https://fonts.gstatic.com',
+  "style-src 'self'",
+  "font-src 'self'",
   "img-src 'self'",
   `connect-src 'self' https://cloudflareinsights.com${endpointOrigin ? ` ${endpointOrigin}` : ''}`,
   `form-action 'self'${endpointOrigin ? ` ${endpointOrigin}` : ''}`,
@@ -36,9 +37,8 @@ const csp = [
   'upgrade-insecure-requests',
 ].join('; ');
 
-const fonts =
-  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap';
-const serifFont = `https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&text=${encodeURIComponent('Scito te ipsum.')}&display=swap`;
+// Above the fold: the display headline (500) and the lede (300).
+const preloadFonts = ['/fonts/ibm-plex-sans-core-500-normal.woff2', '/fonts/ibm-plex-sans-core-300-normal.woff2'];
 ---
 
 <!doctype html>
@@ -71,10 +71,7 @@ const serifFont = `https://fonts.googleapis.com/css2?family=DM+Serif+Display:ita
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href={fonts} />
-    {serif && <link rel="stylesheet" href={serifFont} />}
+    {preloadFonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
     {
       CF_BEACON_TOKEN && (
         <script
@@ -95,6 +92,8 @@ const serifFont = `https://fonts.googleapis.com/css2?family=DM+Serif+Display:ita
     <Footer />
     <script>
       import '../scripts/draw';
+      import { initMenu } from '../scripts/menu';
+      initMenu();
     </script>
   </body>
 </html>

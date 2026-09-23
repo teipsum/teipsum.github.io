@@ -12,6 +12,7 @@ import FleetRow from '../components/vignettes/FleetRow.astro';
 import NeedsYou from '../components/vignettes/NeedsYou.astro';
 import TwinConversation from '../components/vignettes/TwinConversation.astro';
 import PasskeyApproval from '../components/vignettes/PasskeyApproval.astro';
+import Chip from '../components/Chip.astro';
 
 const sub =
   'Unica gives your organization AI agents that work inside the rules you set, an AI twin for every person, and a signed record of everything they do.';
@@ -28,6 +29,7 @@ const loop = [
     icon: 'build',
     usually: 'An agent builder: fleet view, guardrails, a needs-you queue',
     unica: 'Every act is a signed, governed record, not a log line',
+    status: 'early',
   },
   {
     stage: 'Human attestation',
@@ -40,24 +42,29 @@ const loop = [
     icon: 'evidence',
     usually: 'A compliance tool that collects screenshots and exports',
     unica: 'Evidence an auditor exports and verifies without asking us',
+    status: 'early',
   },
   {
     stage: 'Context',
     icon: 'brain',
     usually: 'Copied between tools',
     unica: 'One corporate brain underneath the whole loop',
+    status: 'early',
   },
   {
     stage: 'Data ownership',
     icon: 'areas',
     usually: 'Each tool’s own silo, or one shared bucket',
     unica: 'Each business area owns its records and shares them by choice',
+    status: 'early',
   },
 ];
 ---
 
 <Base title="Platform" description={sub}>
-  <PageHero eyebrow="THE UNICA PLATFORM" title="One platform. Every agent accountable." sub={sub} />
+  <PageHero eyebrow="THE UNICA PLATFORM" title="One platform. Every agent accountable." sub={sub}>
+    <Chip status="early" />
+  </PageHero>
 
   <Band tone="dark" id="why-os" eyebrow="WHY AN OPERATING SYSTEM" heading="The rules live underneath, where no app can reach them." icon="layers" ratio="7-5">
     <OsLayer slot="figure" />
@@ -99,6 +106,7 @@ const loop = [
                     <Icon name={r.icon} size={22} />
                     {r.stage}
                   </span>
+                  {r.status === 'early' && <Chip status="early" />}
                 </th>
                 <td data-label="Usually bought as">{r.usually}</td>
                 <td data-label="In Unica">{r.unica}</td>
@@ -115,7 +123,7 @@ const loop = [
     </div>
   </section>
 
-  <Band tone="paper" id="agents" heading="A workforce with job descriptions." icon="build">
+  <Band tone="paper" id="agents" heading="A workforce with job descriptions." icon="build" status="early">
     <FleetRow slot="figure" />
     <p class="lede">
       Every agent has a role, a scope and a human owner. It reaches only what its scope allows, and it hands anything privileged back to a person. When its work is done, you can end it cleanly: its runs halt and its keys stop working.
@@ -230,6 +238,11 @@ const loop = [
     font-weight: 500;
     border-left: 2px solid var(--accent);
     padding-left: 20px;
+  }
+  .loop-table th :global(.chip) {
+    display: flex;
+    margin-top: 8px;
+    white-space: nowrap;
   }
   .loop-head {
     display: grid;
