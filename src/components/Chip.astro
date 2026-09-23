@@ -1,10 +1,13 @@
 ---
 // Status chip: "Early access" or "Roadmap".
+import { UI, langOf } from '../i18n';
+
 interface Props {
   status: 'early' | 'roadmap';
 }
 const { status } = Astro.props;
-const label = status === 'early' ? 'Early access' : 'Roadmap';
+const t = UI[langOf(Astro.url)];
+const label = status === 'early' ? t.early : t.roadmap;
 ---
 
 <span class:list={['chip', status === 'roadmap' && 'chip--roadmap']}>{label}</span>

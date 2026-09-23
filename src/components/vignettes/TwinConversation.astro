@@ -2,6 +2,7 @@
 // Vignette: a person and their twin, privately.
 import Vignette from './Vignette.astro';
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
 interface Message {
   from: 'you' | 'twin';
@@ -12,29 +13,46 @@ interface Props {
   alt?: string;
   actions?: string[];
 }
-const {
-  messages = [
-    { from: 'you', text: 'Draft a reply to the supplier. Keep it short.' },
-    { from: 'twin', text: 'Here is a draft in your voice. Nothing goes out until you say so.' },
-  ],
-  actions = ['Send', 'Edit'],
-  alt = 'Illustration: a person asks their twin to draft a reply; the twin drafts it in their voice and waits for their go-ahead. The conversation is private to that person.',
-} = Astro.props;
+const t = pick<{ messages: Message[]; actions: string[]; alt: string; title: string; you: string; private: string }>(Astro.url, {
+  en: {
+    messages: [
+      { from: 'you', text: 'Draft a reply to the supplier. Keep it short.' },
+      { from: 'twin', text: 'Here is a draft in your voice. Nothing goes out until you say so.' },
+    ],
+    actions: ['Send', 'Edit'],
+    alt: 'Illustration: a person asks their twin to draft a reply; the twin drafts it in their voice and waits for their go-ahead. The conversation is private to that person.',
+    title: 'Your twin',
+    you: 'You',
+    private: 'Private to you',
+  },
+  es: {
+    messages: [
+      { from: 'you', text: 'Redacta una respuesta para el proveedor. Que sea breve.' },
+      { from: 'twin', text: 'Aquí tienes un borrador con tu voz. No sale nada hasta que tú lo digas.' },
+    ],
+    actions: ['Enviar', 'Editar'],
+    alt: 'Ilustración: una persona le pide a su gemelo que redacte una respuesta; el gemelo la redacta con su voz y espera su visto bueno. La conversación es privada para esa persona.',
+    title: 'Tu gemelo',
+    you: 'Tú',
+    private: 'Solo para ti',
+  },
+});
+const { messages = t.messages, actions = t.actions, alt = t.alt } = Astro.props;
 ---
 
-<Vignette title="Your twin" alt={alt}>
+<Vignette title={t.title} alt={alt}>
   <ol class="tw">
     {
       messages.map((m) => (
         <li class:list={['tw__msg', `tw__msg--${m.from}`]}>
-          <span class="v-label">{m.from === 'you' ? 'You' : 'Your twin'}</span>
+          <span class="v-label">{m.from === 'you' ? t.you : t.title}</span>
           <span class="tw__bubble">{m.text}</span>
         </li>
       ))
     }
   </ol>
   <div class="v-row v-divide tw__foot">
-    <span class="tw__private v-meta"><Icon name="lock" size={14} />Private to you</span>
+    <span class="tw__private v-meta"><Icon name="lock" size={14} />{t.private}</span>
     <span class="tw__actions">
       {actions.map((a, i) => <span class:list={['v-btn', i > 0 && 'v-btn--ghost']}>{a}</span>)}
     </span>

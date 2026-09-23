@@ -1,22 +1,26 @@
 ---
 import Wordmark from './Wordmark.astro';
-import { NAV, WAITLIST_HREF, CTA_LABEL, LINKEDIN_URL, PRIVACY_HREF } from '../config';
+import { NAV, WAITLIST_HREF, LINKEDIN_URL, PRIVACY_HREF } from '../config';
+import { UI, langOf, localize } from '../i18n';
+
+const lang = langOf(Astro.url);
+const t = UI[lang];
 ---
 
 <footer class="site-footer">
   <div class="wrap">
     <div class="site-footer__top">
       <Wordmark />
-      <nav aria-label="Footer">
+      <nav aria-label={t.footerNav}>
         <ul>
           {
             NAV.map((item) => (
               <li>
-                <a href={item.href}>{item.label}</a>
+                <a href={localize(item.href, lang)}>{t.nav[item.href]}</a>
               </li>
             ))
           }
-          <li><a href={WAITLIST_HREF}>{CTA_LABEL}</a></li>
+          <li><a href={localize(WAITLIST_HREF, lang)}>{t.cta}</a></li>
           {
             LINKEDIN_URL && (
               <li>
@@ -26,13 +30,13 @@ import { NAV, WAITLIST_HREF, CTA_LABEL, LINKEDIN_URL, PRIVACY_HREF } from '../co
               </li>
             )
           }
-          <li><a href={PRIVACY_HREF}>Privacy</a></li>
+          <li><a href={localize(PRIVACY_HREF, lang)}>{t.privacy}</a></li>
         </ul>
       </nav>
     </div>
     <div class="site-footer__bottom">
-      <p>TEIPSUM · Scito te ipsum</p>
-      <p>Patents pending</p>
+      <p>{t.motto}</p>
+      <p>{t.patents}</p>
     </div>
   </div>
 </footer>

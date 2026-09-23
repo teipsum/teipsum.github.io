@@ -1,16 +1,34 @@
 ---
 // Diagram: a model forgets between calls; the record keeps each fact with its
 // source, confidence and standing.
+import { pick } from '../../i18n';
+
+const t = pick(Astro.url, {
+  en: {
+    alt: 'Diagram: a model on one side, whose memory fades after each call; a record on the other, which keeps every fact with its source, its confidence and its standing.',
+    model: 'Model',
+    record: 'Record',
+    fact: 'A fact',
+    facets: ['Source', 'Confidence', 'Standing'],
+  },
+  es: {
+    alt: 'Diagrama: de un lado, un modelo cuya memoria se desvanece después de cada llamada; del otro, un registro que guarda cada hecho con su fuente, su grado de confianza y su estatus.',
+    model: 'Modelo',
+    record: 'Registro',
+    fact: 'Un hecho',
+    facets: ['Fuente', 'Confianza', 'Estatus'],
+  },
+});
 ---
 
 <div
   class="dg mr"
   role="img"
-  aria-label="Diagram: a model on one side, whose memory fades after each call; a record on the other, which keeps every fact with its source, its confidence and its standing."
+  aria-label={t.alt}
   data-draw
 >
   <div class="mr__model">
-    <span class="dg-label">Model</span>
+    <span class="dg-label">{t.model}</span>
     <svg viewBox="0 0 160 110" fill="none" aria-hidden="true">
       <circle cx="80" cy="55" r="40" class="mr__fade1"></circle>
       <circle cx="80" cy="55" r="28" class="mr__fade2"></circle>
@@ -21,12 +39,10 @@
     <path class="dg-line draw-line" d="M2 10 H54 M46 3 L54 10 L46 17" pathLength="1"></path>
   </svg>
   <div class="mr__record draw-fade">
-    <span class="dg-label dg-label--signal">Record</span>
-    <span class="mr__fact">A fact</span>
+    <span class="dg-label dg-label--signal">{t.record}</span>
+    <span class="mr__fact">{t.fact}</span>
     <ul>
-      <li><span class="dg-label">Source</span></li>
-      <li><span class="dg-label">Confidence</span></li>
-      <li><span class="dg-label">Standing</span></li>
+      {t.facets.map((f) => <li><span class="dg-label">{f}</span></li>)}
     </ul>
   </div>
 </div>

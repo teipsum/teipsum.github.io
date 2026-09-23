@@ -1,0 +1,224 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import Icon from '../../components/Icon.astro';
+import Timeline from '../../components/Timeline.astro';
+import Callout from '../../components/Callout.astro';
+import CloseCall from '../../components/CloseCall.astro';
+import ModelRecord from '../../components/diagrams/ModelRecord.astro';
+import ProvenanceFan from '../../components/diagrams/ProvenanceFan.astro';
+import OsLayer from '../../components/diagrams/OsLayer.astro';
+import PlugIn from '../../components/diagrams/PlugIn.astro';
+import { WAITLIST_HREF } from '../../config';
+import { UI, localize } from '../../i18n';
+
+const CTA_LABEL = UI.es.cta;
+
+const sub =
+  'CQR es el sustrato que está debajo de Unica. Guarda lo que tu organización sabe como registros con procedencia, autoridad e historial, y decide quién puede leer o cambiar cada uno.';
+
+const primitives = [
+  { verb: 'Encontrar', rest: 'lo que se sabe y cómo se conecta.', icon: 'find' },
+  { verb: 'Rastrear', rest: 'cualquier respuesta hasta su origen.', icon: 'trace' },
+  { verb: 'Comparar', rest: 'lo que cambió.', icon: 'compare' },
+  { verb: 'Afirmar', and: 'actualizar', rest: 'con procedencia.', icon: 'assert' },
+  { verb: 'Certificar', and: 'señalar', rest: 'el estatus.', icon: 'certify' },
+  { verb: 'Formular hipótesis', rest: 'antes de actuar.', icon: 'hypothesize' },
+] as const;
+
+const standings = [
+  { label: 'Afirmado', icon: 'assert' },
+  { label: 'Certificado', icon: 'certify' },
+  { label: 'Impugnado', icon: 'compare' },
+  { label: 'Reemplazado', icon: 'resume' },
+] as const;
+---
+
+<Base title="Tecnología: CQR, el sustrato de contexto gobernado" description={sub}>
+  <PageHero eyebrow="CQR · El sustrato de contexto gobernado" title="La verdad sobre la que se apoya cada agente." sub={sub} />
+
+  <Band tone="paper" id="why" eyebrow="Por qué un sustrato" icon="record" heading="Los modelos olvidan. Los registros, no.">
+    <ModelRecord slot="figure" />
+    <p class="lede">
+      Los modelos de lenguaje son brillantes y no guardan estado. Los agentes que hacen trabajo real necesitan una
+      memoria gobernada: cada hecho con su fuente, su grado de confianza y su estatus.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="provenance" eyebrow="Procedencia" icon="trace" heading="Sabe qué sabes, cómo lo sabes y si puedes confiar en ello." flip>
+    <ProvenanceFan slot="figure" />
+    <p class="lede">
+      Hazle una pregunta a CQR y obtienes la respuesta, sus fuentes, cuánta confianza merece y quién la certificó.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="authority" eyebrow="Autoridad en el origen" icon="lock" heading="Se decide donde viven los datos.">
+    <OsLayer
+      slot="figure"
+      top={[
+        { label: 'Agentes', icon: 'build' },
+        { label: 'Apps', icon: 'window' },
+        { label: 'Integra\u00ADciones', icon: 'connect' },
+      ]}
+      base={['Acceso', 'Autoridad']}
+      baseLabel="En el origen"
+      alt="Diagrama: los agentes, las apps y las integraciones de arriba solo pueden pedir; el acceso y la autoridad se deciden en un solo lugar, en el origen, justo encima de tus datos."
+    />
+    <p class="lede">
+      El acceso y la autoridad se deciden en un solo lugar, para cada agente, app e integración. Ninguna capa de arriba
+      puede ampliarlos a escondidas.
+    </p>
+  </Band>
+
+  <section class="band band--dark" aria-labelledby="history">
+    <div class="wrap split split--flip">
+      <div class="split__text stack">
+        <p class="eyebrow band-eyebrow"><span class="card__icon"><Icon name="resume" size={22} /></span>Historial</p>
+        <h2 class="h2" id="history">Nada se sobrescribe en silencio.</h2>
+        <p class="lede">
+          Los registros tienen versiones y nunca se borran en su lugar. Pregunta qué sabía tu organización en cualquier
+          fecha pasada y obtén la respuesta que habría dado entonces.
+        </p>
+      </div>
+      <div class="split__figure">
+        <Timeline />
+      </div>
+    </div>
+  </section>
+
+  <Band tone="paper" id="standing" eyebrow="Estatus" icon="certify" heading="Los hechos se ganan su estatus.">
+    <ul slot="figure" class="standings" data-draw>
+      {
+        standings.map((st, i) => (
+          <li class:list={['standing', 'draw-fade', i === 1 && 'standing--on']}>
+            <span class="card__icon"><Icon name={st.icon} /></span>
+            <span class="standing__label">{st.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="lede">
+      Un registro puede estar afirmado, certificado por alguien con autoridad para certificarlo, impugnado o
+      reemplazado. Los agentes ven la diferencia y actúan en consecuencia.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="relied-on" eyebrow="Construido para ser fiable" icon="standard" heading="Estándares adentro. Ataduras afuera." flip>
+    <PlugIn slot="figure" />
+    <p class="lede">
+      CQR habla el Model Context Protocol, el estándar emergente para conectar agentes de IA con contexto, así que los
+      agentes que ya usas pueden trabajar dentro de él. Corre sobre el entorno de ejecución de Erlang, creado para
+      centrales telefónicas que no tenían permitido caerse.
+    </p>
+    <div class="actions">
+      <a class="btn btn--solid" href={localize(WAITLIST_HREF, 'es')}>{CTA_LABEL}</a>
+    </div>
+  </Band>
+
+  <section class="band band--paper" aria-labelledby="primitives">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Las primitivas</p>
+        <h2 class="h2" id="primitives">Un vocabulario pequeño y completo para agentes que no pueden equivocarse.</h2>
+      </div>
+      <ul class="cards primitives" data-draw>
+        {
+          primitives.map((p) => (
+            <li class="card card--box draw-fade">
+              <span class="card__icon">
+                <Icon name={p.icon} />
+              </span>
+              <p class="card__title">
+                <em class="term">{p.verb}</em>
+                {'and' in p && (
+                  <>
+                    {' y '}
+                    <em class="term">{p.and}</em>
+                  </>
+                )}{' '}
+                {p.rest}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Callout
+    icon="brain"
+    lead="Los agentes no reciben una base de datos. Reciben una epistemología."
+    text="Cada respuesta llega acompañada de sus razones."
+  />
+
+  <CloseCall />
+</Base>
+
+<style>
+  .band-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .band-eyebrow .card__icon {
+    width: 44px;
+    height: 44px;
+  }
+  .standings {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 480px;
+  }
+  .standing {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid var(--rule);
+    background: #fdfcf9;
+  }
+  .standing--on {
+    border-color: var(--accent);
+    border-left-width: 3px;
+  }
+  .standing__label {
+    font-weight: 500;
+  }
+  .primitives {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .primitives .card__title {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--ink-strong);
+  }
+  .primitives .term {
+    font-weight: 500;
+    color: var(--ink);
+  }
+  @media (max-width: 900px) {
+    .primitives {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .primitives {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 400px) {
+    .standing {
+      padding: 12px 10px;
+      gap: 10px;
+    }
+    .standing .card__icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>

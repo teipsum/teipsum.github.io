@@ -1,0 +1,210 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import CloseCall from '../../components/CloseCall.astro';
+import Icon from '../../components/Icon.astro';
+import StepTrace from '../../components/diagrams/StepTrace.astro';
+
+const sub =
+  'La instrucción más antigua de la filosofía es la descripción de nuestro producto. Construimos la plataforma que permite a las organizaciones, y a las personas que las forman, saber qué saben, cómo lo saben y si pueden confiar en ello.';
+
+const beliefs = [
+  {
+    title: 'La confianza debe poder demostrarse.',
+    icon: 'seal',
+    body: '«Lo dijo el sistema» debería ser algo que puedes comprobar, no algo que aceptas por fe.',
+  },
+  { title: 'La autoridad es de las personas.', body: 'La IA puede hacer el trabajo. Las personas tienen las llaves.', icon: 'key' },
+  { title: 'Tu contexto es tuyo.', body: 'Lo que sabe tu organización debe seguir bajo tu control.', icon: 'cell' },
+] as const;
+
+const triad = [
+  { label: 'Registro', icon: 'record' },
+  { label: 'Reglamento', icon: 'rulebook' },
+  { label: 'Rastro', icon: 'trail' },
+] as const;
+
+const founderBio = 'Michael fue director sénior de Gobierno de Datos en Walmart y, en EPAM, gerente sénior de entrega de IA y analítica avanzada para toda América Latina. Antes, sirvió como suboficial en el Cuerpo de Marines.';
+---
+
+<Base title="Empresa" description={sub} serif>
+  <PageHero eyebrow="TEIPSUM" title="Scito te ipsum. Conócete a ti mismo." sub={sub}>
+    <Fragment slot="title"><span class="motto" lang="la">Scito te ipsum.</span> Conócete a ti mismo.</Fragment>
+  </PageHero>
+
+  <section class="band band--paper" aria-labelledby="beliefs">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow" id="beliefs">En qué creemos</h2>
+      </div>
+      <ul class="cards cards--3 beliefs" data-draw>
+        {
+          beliefs.map((b) => (
+            <li class="card card--box draw-fade">
+              <span class="card__icon">
+                <Icon name={b.icon} />
+              </span>
+              <h3 class="card__title">{b.title}</h3>
+              <p class="card__body">{b.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Band tone="dark" id="uniquely" heading="Únicamente tú" icon="twin" flip>
+    <ul slot="figure" class="triad" data-draw>
+      {
+        triad.map((t) => (
+          <li class="triad__item draw-fade">
+            <span class="triad__icon"><Icon name={t.icon} size={30} /></span>
+            <span class="triad__label">{t.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="lede">
+      Para una persona, Unica es un gemelo que la recuerda como ella elige ser recordada. Para una organización, es un
+      registro que no se puede perder, un reglamento que no se puede eludir y un rastro de quién hizo qué, y con qué autoridad.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="run-on-it" eyebrow="Funcionamos con Unica" icon="shield" heading="Nuestro primer cliente somos nosotros.">
+    <StepTrace
+      slot="figure"
+      alt="Diagrama: cada cambio se propone, lo atacan revisores, lo aprueba una persona y queda registrado."
+      steps={[
+        { label: 'Propuesto', icon: 'assert' },
+        { label: 'Atacado', icon: 'find' },
+        { label: 'Aprobado', icon: 'fingerprint' },
+      ]}
+      end="Registrado"
+    />
+    <p class="lede">
+      Unica está construida por un equipo gobernado de personas y agentes de IA que trabaja dentro del mismo sustrato que
+      vendemos. Cada cambio se propone, lo atacan revisores, lo aprueba una persona y queda registrado. Esto no es un
+      documento de diseño; nuestra empresa ya funciona así.
+    </p>
+  </Band>
+
+  <section class="band band--paper band--flush-top" aria-labelledby="leadership">
+    <div class="wrap">
+      <div class="leadership">
+        <div class="leadership__head">
+          <h2 class="eyebrow" id="leadership">Dirección</h2>
+          <img
+            class="portrait"
+            src="/images/michael-cram-480.jpg"
+            srcset="/images/michael-cram-480.jpg 480w, /images/michael-cram-960.jpg 960w"
+            sizes="240px"
+            width="240"
+            height="300"
+            loading="lazy"
+            decoding="async"
+            alt="Michael Cram, fundador y CEO de Teipsum"
+          />
+        </div>
+        <div class="person">
+          <p class="person__name"><strong>Michael Cram</strong>, fundador y CEO.</p>
+          <p class="person__bio">{founderBio}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CloseCall />
+</Base>
+
+<style>
+  .motto {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--warm);
+  }
+  .leadership {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 20px;
+    padding-top: var(--band-y);
+    border-top: 1px solid var(--rule);
+  }
+  .leadership__head {
+    grid-column: span 5;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .portrait {
+    display: block;
+    width: 240px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 1px solid var(--accent);
+    outline: 1px solid var(--rule);
+    outline-offset: 6px;
+  }
+  .triad {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 480px;
+  }
+  .triad__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 24px 10px;
+    border: 1px solid var(--hair-dark);
+    border-top: 2px solid var(--warm);
+  }
+  .triad__icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border: 1px solid var(--warm);
+    border-radius: 50%;
+  }
+  .triad__label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm);
+  }
+  .person {
+    grid-column: 7 / span 6;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .person__name {
+    font-size: var(--fs-h3);
+    line-height: 1.3;
+  }
+  .person__name strong {
+    font-weight: 500;
+  }
+  .person__bio {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--ink-strong);
+  }
+  @media (max-width: 900px) {
+    .leadership__head,
+    .person {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

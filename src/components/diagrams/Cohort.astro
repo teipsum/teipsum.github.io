@@ -2,18 +2,35 @@
 // Diagram: the founding cohort, admitted in waves. Each wave is a small group
 // of organizations with its own direct line to the people building Unica.
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
-const waves = ['Wave 1', 'Wave 2', 'Wave 3'];
+const t = pick(Astro.url, {
+  en: {
+    alt: 'Diagram: the founding cohort admitted in three waves. Each wave is a small group of organizations, and each wave has its own direct line to the people building Unica.',
+    title: 'Founding cohort',
+    waves: ['Wave 1', 'Wave 2', 'Wave 3'],
+    org: 'Organization',
+    line: 'Direct line',
+  },
+  es: {
+    alt: 'Diagrama: la cohorte fundadora, admitida en tres oleadas. Cada oleada es un grupo pequeño de organizaciones con su propia línea directa con las personas que construyen Unica.',
+    title: 'Cohorte fundadora',
+    waves: ['Oleada 1', 'Oleada 2', 'Oleada 3'],
+    org: 'Organización',
+    line: 'Línea directa',
+  },
+});
+const waves = t.waves;
 const orgs = Array.from({ length: 6 });
 ---
 
 <div
   class="dg cohort"
   role="img"
-  aria-label="Diagram: the founding cohort admitted in three waves. Each wave is a small group of organizations, and each wave has its own direct line to the people building Unica."
+  aria-label={t.alt}
   data-draw
 >
-  <p class="dg-label dg-label--signal cohort__title">Founding cohort</p>
+  <p class="dg-label dg-label--signal cohort__title">{t.title}</p>
   <div class="cohort__rows">
     {
       waves.map((w) => (
@@ -33,8 +50,8 @@ const orgs = Array.from({ length: 6 });
     }
   </div>
   <div class="cohort__key">
-    <span class="dg-label"><i class="org org--key"></i>Organization</span>
-    <span class="dg-label"><i class="key-line"></i>Direct line</span>
+    <span class="dg-label"><i class="org org--key"></i>{t.org}</span>
+    <span class="dg-label"><i class="key-line"></i>{t.line}</span>
   </div>
 </div>
 
@@ -54,7 +71,7 @@ const orgs = Array.from({ length: 6 });
   }
   .wave {
     display: grid;
-    grid-template-columns: 4.5rem auto minmax(16px, 1fr) auto;
+    grid-template-columns: minmax(4.5rem, max-content) auto minmax(16px, 1fr) auto;
     align-items: center;
     gap: 12px;
   }
@@ -105,7 +122,7 @@ const orgs = Array.from({ length: 6 });
   }
   @media (max-width: 400px) {
     .wave {
-      grid-template-columns: 4rem auto minmax(8px, 1fr) auto;
+      grid-template-columns: minmax(4rem, max-content) auto minmax(8px, 1fr) auto;
       gap: 8px;
     }
     .wave__orgs {

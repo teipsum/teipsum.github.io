@@ -4,6 +4,7 @@
 // alternative, so screen readers hear the description, not the parts. A
 // capability in early access carries its status chip in the bar.
 import Chip from '../Chip.astro';
+import { UI, langOf } from '../../i18n';
 
 interface Props {
   /** Short panel title shown in the bar. */
@@ -23,7 +24,7 @@ const { title, alt, status, mini = false, class: className } = Astro.props;
     <span class="vig__dots" aria-hidden="true"><i></i><i></i><i></i></span>
     <span class="vig__title">{title}</span>
     {status && <Chip status={status} />}
-    <span class="vig__tag">Illustrative</span>
+    <span class="vig__tag">{UI[langOf(Astro.url)].illustrative}</span>
   </figcaption>
   <div class="vig__screen draw-fade" role="img" aria-label={alt}>
     <slot />

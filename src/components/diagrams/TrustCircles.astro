@@ -1,17 +1,29 @@
 ---
 // Diagram: widening circles of trust, from one person to other organizations.
+import { pick } from '../../i18n';
+
+const t = pick(Astro.url, {
+  en: {
+    alt: 'Diagram: circles of trust widening from you, to your team, to your company, and later to partners, suppliers and customers.',
+    labels: ['You', 'Your team', 'Your company', 'Partners'],
+  },
+  es: {
+    alt: 'Diagrama: círculos de confianza que se amplían desde ti a tu equipo, a tu empresa y, más adelante, a socios, proveedores y clientes.',
+    labels: ['Tú', 'Tu equipo', 'Tu empresa', 'Socios'],
+  },
+});
 const rings = [
-  { r: 44, label: 'You' },
-  { r: 86, label: 'Your team' },
-  { r: 128, label: 'Your company' },
-  { r: 170, label: 'Partners', later: true },
+  { r: 44, label: t.labels[0] },
+  { r: 86, label: t.labels[1] },
+  { r: 128, label: t.labels[2] },
+  { r: 170, label: t.labels[3], later: true },
 ];
 ---
 
 <div
   class="dg circles"
   role="img"
-  aria-label="Diagram: circles of trust widening from you, to your team, to your company, and later to partners, suppliers and customers."
+  aria-label={t.alt}
   data-draw
 >
   <svg viewBox="0 0 360 360" fill="none" aria-hidden="true">

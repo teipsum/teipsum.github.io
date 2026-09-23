@@ -1,19 +1,25 @@
 ---
 import Wordmark from './Wordmark.astro';
-import { NAV, WAITLIST_HREF, CTA_LABEL } from '../config';
+import LangSwitch from './LangSwitch.astro';
+import { NAV, WAITLIST_HREF } from '../config';
+import { UI, langOf, localize } from '../i18n';
 
+const lang = langOf(Astro.url);
+const t = UI[lang];
 const path = Astro.url.pathname.replace(/\/?$/, '/');
 const isCurrent = (href: string) => path === href;
+const nav = NAV.map((item) => ({ href: localize(item.href, lang), label: t.nav[item.href] }));
+const waitlistHref = localize(WAITLIST_HREF, lang);
 ---
 
 <header class="site-header">
   <div class="wrap site-header__bar">
     <Wordmark />
 
-    <nav class="nav-desktop" aria-label="Main">
+    <nav class="nav-desktop" aria-label={t.mainNav}>
       <ul>
         {
-          NAV.map((item) => (
+          nav.map((item) => (
             <li>
               <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
                 {item.label}
@@ -25,33 +31,37 @@ const isCurrent = (href: string) => path === href;
     </nav>
 
     <div class="site-header__end">
+      <LangSwitch class="site-header__lang" />
       <a
         class="btn btn--outline site-header__cta"
-        href={WAITLIST_HREF}
-        aria-current={isCurrent(WAITLIST_HREF) ? 'page' : undefined}>{CTA_LABEL}</a
+        href={waitlistHref}
+        aria-current={isCurrent(waitlistHref) ? 'page' : undefined}>{t.ctaHeader}</a
       >
 
       <details class="nav-mobile">
         <summary>
-          <span class="visually-hidden">Menu</span>
+          <span class="visually-hidden">{t.menu}</span>
           <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
             <path class="nav-mobile__open" d="M2 6h18M2 11h18M2 16h18"></path>
             <path class="nav-mobile__close" d="M4 4l14 14M18 4L4 18"></path>
           </svg>
         </summary>
-        <nav aria-label="Main">
-          <ul>
-            {
-              NAV.map((item) => (
-                <li>
-                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-                    {item.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </nav>
+        <div class="nav-mobile__panel">
+          <nav aria-label={t.mainNav}>
+            <ul>
+              {
+                nav.map((item) => (
+                  <li>
+                    <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+          <LangSwitch class="nav-mobile__lang" />
+        </div>
       </details>
     </div>
   </div>
@@ -167,7 +177,7 @@ const isCurrent = (href: string) => path === href;
     display: inline;
   }
 
-  .nav-mobile nav {
+  .nav-mobile__panel {
     position: absolute;
     left: 0;
     right: 0;
@@ -187,11 +197,46 @@ const isCurrent = (href: string) => path === href;
     font-size: 1.0625rem;
   }
 
+  /* The language switch sits in the bar; on the narrowest screens it moves
+     into the menu so the bar keeps its call to action. */
+  .nav-mobile__panel :global(.nav-mobile__lang) {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .site-header__end :global(.site-header__lang) {
+      display: none;
+    }
+    .nav-mobile__panel :global(.nav-mobile__lang) {
+      display: flex;
+      padding-top: 8px;
+      border-top: 1px solid var(--hair-dark-faint);
+    }
+  }
+
+  /* Just above the collapse point the full nav, the language switch and the
+     button share the bar, so the nav tightens. */
+  @media (max-width: 1180px) {
+    .nav-desktop ul {
+      gap: 18px;
+    }
+  }
+
   @media (max-width: 1040px) {
     .nav-desktop {
       display: none;
     }
     .nav-mobile {
+      display: block;
+    }
+  }
+
+  /* The Spanish labels are longer, so the Spanish nav collapses a little earlier. */
+  @media (max-width: 1100px) {
+    :global(html[lang='es']) .nav-desktop {
+      display: none;
+    }
+    :global(html[lang='es']) .nav-mobile {
       display: block;
     }
   }

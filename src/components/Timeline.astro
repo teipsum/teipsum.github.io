@@ -1,8 +1,20 @@
 ---
 // Timeline figure: versions along an axis with a marker on an earlier one.
+import { pick } from '../i18n';
+
+const t = pick(Astro.url, {
+  en: {
+    alt: "Illustration: a record's versions kept in order along a timeline, with a past date read back exactly as it stood.",
+    asOf: 'AS OF',
+  },
+  es: {
+    alt: 'Ilustración: las versiones de un registro, guardadas en orden a lo largo del tiempo, y una fecha pasada leída exactamente como estaba.',
+    asOf: 'TAL COMO ESTABA',
+  },
+});
 ---
 
-<svg class="timeline" data-draw viewBox="0 0 640 220" fill="none" role="img" aria-label="Illustration: a record's versions kept in order along a timeline, with a past date read back exactly as it stood.">
+<svg class="timeline" data-draw viewBox="0 0 640 220" fill="none" role="img" aria-label={t.alt}>
   <line class="tl-axis" x1="20" y1="120" x2="620" y2="120"></line>
   <line class="tl-trace draw-line" x1="20" y1="120" x2="580" y2="120" pathLength="1"></line>
   <g class="tl-versions">
@@ -18,7 +30,7 @@
     <text x="240" y="164" text-anchor="middle">v2</text>
     <text x="400" y="164" text-anchor="middle">v3</text>
     <text x="580" y="164" text-anchor="middle">v4</text>
-    <text class="tl-warm" x="240" y="32" text-anchor="middle">AS OF</text>
+    <text class="tl-warm" x="240" y="32" text-anchor="middle">{t.asOf}</text>
   </g>
 </svg>
 

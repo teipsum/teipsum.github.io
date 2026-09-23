@@ -1,0 +1,134 @@
+---
+import Base from '../../layouts/Base.astro';
+import { PRIVACY_EFFECTIVE_DATE } from '../../config';
+
+const contact = 'contact@teipsum.com';
+
+// The effective date is set once, in English (for example "October 1, 2026");
+// here it reads as a Spanish date.
+const effectiveDate = (() => {
+  if (!PRIVACY_EFFECTIVE_DATE) return '';
+  const d = new Date(PRIVACY_EFFECTIVE_DATE);
+  return Number.isNaN(d.getTime()) ? PRIVACY_EFFECTIVE_DATE : new Intl.DateTimeFormat('es', { dateStyle: 'long' }).format(d);
+})();
+
+const sections = [
+  {
+    id: 'who',
+    label: 'Quiénes somos',
+    body: 'Este aviso cubre teipsum.com y la lista de espera de Unica, gestionadas por Teipsum SA («TEIPSUM», «nosotros»).',
+  },
+  {
+    id: 'what',
+    label: 'Qué nos das',
+    body: 'Cuando te unes a la lista de espera, te pedimos tu correo, tu nombre, tu organización, tu rol, el tamaño de tu organización, tu sector y para qué usarías Unica primero. Eso es todo. El formulario no tiene campos ocultos que recopilen nada sobre ti.',
+  },
+  {
+    id: 'why',
+    label: 'Para qué la usamos',
+    body: 'Para contactarte sobre el acceso anticipado a Unica, incluido cuándo empieza tu oleada y qué implica la cohorte fundadora, y para planificar a quién admitimos y cuándo. No la usamos para nada más. Nos basamos en tu consentimiento, que puedes retirar en cualquier momento.',
+  },
+  {
+    id: 'never',
+    label: 'Lo que nunca hacemos',
+    body: 'No vendemos ni alquilamos tu información, y no la compartimos con nadie, salvo con los proveedores que alojan nuestros sistemas por nosotros, que deben protegerla y no pueden usarla para sus propios fines.',
+  },
+  {
+    id: 'where',
+    label: 'Dónde se guarda',
+    body: 'En sistemas que operamos nosotros mismos, almacenada con cifrado en Estados Unidos, y solo la ve el personal de TEIPSUM que la necesita.',
+  },
+  {
+    id: 'how-long',
+    label: 'Cuánto tiempo la conservamos',
+    body: 'Hasta que se te admita en el acceso anticipado y pases a ser cliente, o durante 24 meses desde el día en que te registres, lo que ocurra primero. Después la eliminamos. Puedes pedirnos que la eliminemos antes.',
+  },
+  { id: 'choices', label: 'Tus opciones' },
+  {
+    id: 'website',
+    label: 'Este sitio web',
+    body: 'El sitio no instala cookies. Contamos las visitas con una analítica centrada en la privacidad que no guarda datos personales y no te sigue por otros sitios. Nuestro proveedor de alojamiento web conserva registros técnicos estándar, como la dirección IP y el tipo de navegador, para operar y proteger el sitio.',
+  },
+  {
+    id: 'children',
+    label: 'No es para menores',
+    body: 'La lista de espera es para empresas y no está pensada para menores de 16 años.',
+  },
+  {
+    id: 'changes',
+    label: 'Cambios',
+    body: 'Si cambiamos este aviso, actualizaremos la fecha que aparece arriba. Si un cambio afecta a información que ya nos diste, te escribiremos antes de que entre en vigor.',
+  },
+];
+---
+
+<Base title="Privacidad" description="Este aviso cubre teipsum.com y la lista de espera de Unica, gestionadas por Teipsum SA.">
+  <section class="band band--paper privacy" aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="privacy__col">
+        <header class="privacy__head stack">
+          <p class="eyebrow">Privacidad</p>
+          <h1 class="h2" id="page-title">Qué recopilamos y por qué.</h1>
+          {effectiveDate && <p class="mono-line">Fecha de entrada en vigor: {effectiveDate}</p>}
+        </header>
+        {
+          sections.map((s) => (
+            <section class="privacy__section" aria-labelledby={`p-${s.id}`}>
+              <h2 class="privacy__label" id={`p-${s.id}`}>
+                {s.label}
+              </h2>
+              {s.body ? (
+                <p class="body">{s.body}</p>
+              ) : (
+                <p class="body">
+                  Puedes pedir ver, corregir o eliminar tu información, o salir de la lista de espera, en cualquier
+                  momento. Escribe a <a href={`mailto:${contact}`}>{contact}</a> y actuaremos en un plazo de 30 días.
+                  Cada correo que enviamos te permite darte de baja con un clic. Si estás en la UE o en el Reino Unido,
+                  también puedes presentar una reclamación ante tu autoridad local de protección de datos.
+                </p>
+              )}
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .privacy__col {
+    max-width: 44rem;
+  }
+  .privacy__head {
+    gap: 20px;
+    padding-bottom: clamp(24px, 3vw, 32px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .privacy__section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .privacy__section:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .privacy__label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .privacy .body a {
+    padding-block: 3px;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+</style>

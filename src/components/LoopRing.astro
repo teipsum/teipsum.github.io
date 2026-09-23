@@ -1,9 +1,29 @@
 ---
 // Loop figure: an outer ring in four segments with an unbroken inner line.
 // The gaps between segments close as the figure comes into view.
+import { pick } from '../i18n';
+
+const t = pick(Astro.url, {
+  en: {
+    alt: 'The loop: identity, governed action, human attestation and verifiable evidence, closed into one ring. One record. One rulebook. One trail.',
+    identity: 'IDENTITY',
+    action: ['GOVERNED', 'ACTION'],
+    attestation: 'HUMAN ATTESTATION',
+    evidence: ['VERIFIABLE', 'EVIDENCE'],
+    center: ['One record.', 'One rulebook.', 'One trail.'],
+  },
+  es: {
+    alt: 'El ciclo: identidad, acción gobernada, atestación humana y evidencia verificable, cerrados en un solo anillo. Un registro. Un reglamento. Un rastro.',
+    identity: 'IDENTIDAD',
+    action: ['ACCIÓN', 'GOBERNADA'],
+    attestation: 'ATESTACIÓN HUMANA',
+    evidence: ['EVIDENCIA', 'VERIFICABLE'],
+    center: ['Un registro.', 'Un reglamento.', 'Un rastro.'],
+  },
+});
 ---
 
-<svg class="loop" data-draw viewBox="-150 0 1060 760" fill="none" role="img" aria-label="The loop: identity, governed action, human attestation and verifiable evidence, closed into one ring. One record. One rulebook. One trail.">
+<svg class="loop" data-draw viewBox="-150 0 1060 760" fill="none" role="img" aria-label={t.alt}>
   <circle class="loop__track" cx="380" cy="380" r="270"></circle>
   <circle class="loop__arcs" cx="380" cy="380" r="270" transform="rotate(-86 380 380)"></circle>
   <circle class="loop__trace draw-line" cx="380" cy="380" r="232" pathLength="1" transform="rotate(-90 380 380)"></circle>
@@ -14,17 +34,17 @@
     <circle cx="148" cy="380" r="6"></circle>
   </g>
   <g class="loop__labels">
-    <text x="380" y="68" text-anchor="middle">IDENTITY</text>
-    <text x="890" y="374" text-anchor="end">GOVERNED</text>
-    <text x="890" y="400" text-anchor="end">ACTION</text>
-    <text x="380" y="718" text-anchor="middle">HUMAN ATTESTATION</text>
-    <text x="-130" y="374">VERIFIABLE</text>
-    <text x="-130" y="400">EVIDENCE</text>
+    <text x="380" y="68" text-anchor="middle">{t.identity}</text>
+    <text x="890" y="374" text-anchor="end">{t.action[0]}</text>
+    <text x="890" y="400" text-anchor="end">{t.action[1]}</text>
+    <text x="380" y="718" text-anchor="middle">{t.attestation}</text>
+    <text x="-130" y="374">{t.evidence[0]}</text>
+    <text x="-130" y="400">{t.evidence[1]}</text>
   </g>
   <g class="loop__center" text-anchor="middle">
-    <text x="380" y="352">One record.</text>
-    <text x="380" y="394">One rulebook.</text>
-    <text class="loop__warm" x="380" y="436">One trail.</text>
+    <text x="380" y="352">{t.center[0]}</text>
+    <text x="380" y="394">{t.center[1]}</text>
+    <text class="loop__warm" x="380" y="436">{t.center[2]}</text>
   </g>
 </svg>
 

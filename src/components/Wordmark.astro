@@ -1,11 +1,14 @@
 ---
+import { UI, langOf, localize } from '../i18n';
+
 interface Props {
   class?: string;
 }
 const { class: className } = Astro.props;
+const lang = langOf(Astro.url);
 ---
 
-<a class:list={['wordmark', className]} href="/" aria-label="TEIPSUM Unica, home">
+<a class:list={['wordmark', className]} href={localize('/', lang)} aria-label={UI[lang].home}>
   <span class="wordmark__company" aria-hidden="true">TEIPSUM</span>
   <span class="wordmark__product" aria-hidden="true">UNICA</span>
 </a>

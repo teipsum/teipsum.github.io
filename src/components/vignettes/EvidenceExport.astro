@@ -2,32 +2,51 @@
 // Vignette: an auditor's evidence export for a period (early access).
 import Vignette from './Vignette.astro';
 import Seal from '../Seal.astro';
+import { pick } from '../../i18n';
 
-const parts = ['Signed acts', 'Approvals', 'Refusals'];
+const t = pick(Astro.url, {
+  en: {
+    title: 'Evidence export',
+    alt: "Illustration: an auditor exports a quarter's evidence, covering signed acts, approvals and refusals, and the export shows as verified.",
+    head: 'Q3 evidence',
+    period: 'Jul 1 – Sep 30',
+    parts: ['Signed acts', 'Approvals', 'Refusals'],
+    included: 'Included',
+    export: 'Export',
+    verified: 'Verified',
+  },
+  es: {
+    title: 'Exportación de evidencia',
+    alt: 'Ilustración: un auditor exporta la evidencia de un trimestre, con actos firmados, aprobaciones y rechazos, y la exportación figura como verificada.',
+    head: 'Evidencia del T3',
+    period: '1 jul – 30 sep',
+    parts: ['Actos firmados', 'Aprobaciones', 'Rechazos'],
+    included: 'Incluido',
+    export: 'Exportar',
+    verified: 'Verificado',
+  },
+});
+const parts = t.parts;
 ---
 
-<Vignette
-  title="Evidence export"
-  status="early"
-  alt="Illustration: an auditor exports a quarter's evidence, covering signed acts, approvals and refusals, and the export shows as verified."
->
+<Vignette title={t.title} status="early" alt={t.alt}>
   <div class="v-row">
-    <span class="v-title">Q3 evidence</span>
-    <span class="v-label">Jul 1 – Sep 30</span>
+    <span class="v-title">{t.head}</span>
+    <span class="v-label">{t.period}</span>
   </div>
   <ul class="v-list ev">
     {
       parts.map((p) => (
         <li class="v-row">
           <span>{p}</span>
-          <span class="ev__ok"><Seal size={16} /><span class="v-label">Included</span></span>
+          <span class="ev__ok"><Seal size={16} /><span class="v-label">{t.included}</span></span>
         </li>
       ))
     }
   </ul>
   <div class="v-row v-divide ev__foot">
-    <span class="v-btn">Export</span>
-    <span class="v-chip"><Seal size={12} />Verified</span>
+    <span class="v-btn">{t.export}</span>
+    <span class="v-chip"><Seal size={12} />{t.verified}</span>
   </div>
 </Vignette>
 

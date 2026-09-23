@@ -1,20 +1,36 @@
 ---
 // Diagram: one answer, traced to what stands behind it. The values are sample
 // data, so the figure carries the Illustrative tag.
+import { UI, langOf, pick } from '../../i18n';
+
 interface Props {
   answer?: string;
   facets?: { label: string; value: string }[];
   alt?: string;
 }
-const {
-  answer = 'Q3 supplier spend',
-  facets = [
-    { label: 'Sources', value: '3 documents' },
-    { label: 'Confidence', value: 'High' },
-    { label: 'Certified by', value: 'Finance lead' },
-  ],
-  alt = 'Diagram: an answer with a trace to each thing behind it: its sources, how confident to be, and who certified it.',
-} = Astro.props;
+const t = pick<{ answer: string; facets: { label: string; value: string }[]; alt: string; head: string }>(Astro.url, {
+  en: {
+    answer: 'Q3 supplier spend',
+    facets: [
+      { label: 'Sources', value: '3 documents' },
+      { label: 'Confidence', value: 'High' },
+      { label: 'Certified by', value: 'Finance lead' },
+    ],
+    alt: 'Diagram: an answer with a trace to each thing behind it: its sources, how confident to be, and who certified it.',
+    head: 'Answer',
+  },
+  es: {
+    answer: 'Gasto en proveedores del T3',
+    facets: [
+      { label: 'Fuentes', value: '3 documentos' },
+      { label: 'Confianza', value: 'Alta' },
+      { label: 'Certificado por', value: 'Responsable de Finanzas' },
+    ],
+    alt: 'Diagrama: una respuesta con una traza hacia todo lo que la respalda: sus fuentes, cuánta confianza merece y quién la certificó.',
+    head: 'Respuesta',
+  },
+});
+const { answer = t.answer, facets = t.facets, alt = t.alt } = Astro.props;
 const n = facets.length;
 const ys = facets.map((_, i) => ((i + 0.5) / n) * 100);
 ---
@@ -22,7 +38,7 @@ const ys = facets.map((_, i) => ((i + 0.5) / n) * 100);
 <div class="fan-wrap">
 <div class="dg fan" role="img" aria-label={alt} data-draw>
   <div class="fan__answer draw-fade">
-    <span class="dg-label dg-label--signal">Answer</span>
+    <span class="dg-label dg-label--signal">{t.head}</span>
     <span class="fan__q">{answer}</span>
   </div>
   <svg class="fan__lines" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" aria-hidden="true">
@@ -39,7 +55,7 @@ const ys = facets.map((_, i) => ((i + 0.5) / n) * 100);
     }
   </ul>
 </div>
-<p class="dg-label fan__tag">Illustrative</p>
+<p class="dg-label fan__tag">{UI[langOf(Astro.url)].illustrative}</p>
 </div>
 
 <style>

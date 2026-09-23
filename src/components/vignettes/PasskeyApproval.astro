@@ -2,6 +2,7 @@
 // Vignette: a privileged action waiting for one person's passkey touch.
 import Vignette from './Vignette.astro';
 import Icon from '../Icon.astro';
+import { langOf } from '../../i18n';
 
 interface Props {
   action?: string;
@@ -10,32 +11,51 @@ interface Props {
   /** How the alt text names the approver: "the CFO", or a person's name. */
   approverRef?: string;
 }
+const es = langOf(Astro.url) === 'es';
 const {
-  action = 'Contract renewal',
-  requester = 'Procurement agent',
+  action = es ? 'Renovación de contrato' : 'Contract renewal',
+  requester = es ? 'Agente de compras' : 'Procurement agent',
   approver = 'CFO',
-  approverRef = `the ${approver}`,
+  approverRef = es ? `la ${approver}` : `the ${approver}`,
 } = Astro.props;
+const t = es
+  ? {
+      alt: `Ilustración: una solicitud de aprobación de «${action}», iniciada por el ${requester.charAt(0).toLowerCase()}${requester.slice(1)} y a la espera de que ${approverRef} toque su llave de acceso.`,
+      title: 'Aprobación',
+      needs: 'Requiere tu aprobación',
+      privileged: 'Privilegiada',
+      requestedBy: 'Solicita',
+      approver: 'Aprueba',
+      cta: 'Aprobar con llave de acceso',
+      only: 'Solo para esta acción',
+    }
+  : {
+      alt: `Illustration: an approval request for “${action}”, raised by the ${requester} and waiting for ${approverRef} to touch a passkey.`,
+      title: 'Approval',
+      needs: 'Needs your approval',
+      privileged: 'Privileged',
+      requestedBy: 'Requested by',
+      approver: 'Approver',
+      cta: 'Approve with passkey',
+      only: 'For this action only',
+    };
 ---
 
-<Vignette
-  title="Approval"
-  alt={`Illustration: an approval request for “${action}”, raised by the ${requester} and waiting for ${approverRef} to touch a passkey.`}
->
+<Vignette title={t.title} alt={t.alt}>
   <div class="v-row">
-    <span class="v-label v-signal">Needs your approval</span>
-    <span class="v-chip v-chip--quiet">Privileged</span>
+    <span class="v-label v-signal">{t.needs}</span>
+    <span class="v-chip v-chip--quiet">{t.privileged}</span>
   </div>
   <p class="v-title">{action}</p>
   <dl class="pa">
-    <div><dt class="v-label">Requested by</dt><dd>{requester}</dd></div>
-    <div><dt class="v-label">Approver</dt><dd>{approver}</dd></div>
+    <div><dt class="v-label">{t.requestedBy}</dt><dd>{requester}</dd></div>
+    <div><dt class="v-label">{t.approver}</dt><dd>{approver}</dd></div>
   </dl>
   <div class="pa__touch v-divide">
     <span class="pa__ring"><Icon name="fingerprint" size={30} /></span>
     <span class="pa__cta">
-      <span class="v-btn">Approve with passkey</span>
-      <span class="v-meta">For this action only</span>
+      <span class="v-btn">{t.cta}</span>
+      <span class="v-meta">{t.only}</span>
     </span>
   </div>
 </Vignette>

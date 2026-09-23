@@ -1,0 +1,494 @@
+---
+import Base from '../../layouts/Base.astro';
+import HeroTrace from '../../components/HeroTrace.astro';
+import LoopRing from '../../components/LoopRing.astro';
+import TraceSteps from '../../components/TraceSteps.astro';
+import Band from '../../components/Band.astro';
+import Callout from '../../components/Callout.astro';
+import CloseCall from '../../components/CloseCall.astro';
+import Chip from '../../components/Chip.astro';
+import Icon from '../../components/Icon.astro';
+import NumeralFigure from '../../components/NumeralFigure.astro';
+import RecordCard from '../../components/vignettes/RecordCard.astro';
+import TwinConversation from '../../components/vignettes/TwinConversation.astro';
+import StopGaps from '../../components/diagrams/StopGaps.astro';
+import Glance from '../../components/vignettes/Glance.astro';
+import StepTrace from '../../components/diagrams/StepTrace.astro';
+import { WAITLIST_HREF } from '../../config';
+import { UI, localize } from '../../i18n';
+
+const CTA_LABEL = UI.es.cta;
+const waitlistHref = localize(WAITLIST_HREF, 'es');
+
+const sub =
+  'Unica es la plataforma gobernada donde los agentes de IA, y el gemelo de IA de cada persona, hacen trabajo real. Cada respuesta, acción y aprobación se puede rastrear, verificar y reconstruir.';
+
+const pillars = [
+  {
+    label: 'Demostrable',
+    icon: 'seal',
+    title: 'Cada registro lleva su fuente, su autor y su hora, y está firmado: se puede demostrar quién lo escribió y cualquier cambio posterior queda a la vista.',
+    body: 'Nada se sobrescribe en silencio, así que cualquier decisión se puede reconstruir meses después.',
+    status: 'early',
+  },
+  {
+    label: 'Gobernada',
+    icon: 'key',
+    title: 'La autoridad, el alcance y las aprobaciones los hace cumplir la propia plataforma.',
+    body: 'Las acciones privilegiadas piden un nuevo toque de la llave de acceso. El interruptor de apagado no se rearma solo.',
+    status: 'early',
+  },
+  {
+    label: 'Soberana',
+    icon: 'cell',
+    title:
+      'Tu propia instancia, tu propio almacén, tus propias reglas, hasta el nivel de cada área de negocio, que es dueña de sus registros y los comparte por elección.',
+    body: 'Tu contexto sigue siendo tuyo: portable, inspeccionable y nunca encerrado en el modelo de un proveedor.',
+    status: 'early',
+  },
+];
+
+const outcomes = [
+  {
+    title: 'Lleva la IA de los pilotos a la nómina.',
+    icon: 'payroll',
+    body: 'Pon agentes a hacer trabajo real (aprobaciones, finanzas, operaciones, compromisos con clientes), porque cada acto está gobernado, firmado y registrado.',
+    status: 'early',
+    glance: {
+      title: 'Agentes',
+      alt: 'Ilustración: un agente de recepción de facturas trabajando en Finanzas, con su responsable humano.',
+      head: 'Agente de recepción de facturas',
+      state: { label: 'Trabajando' },
+      facts: [
+        { label: 'Área', value: 'Finanzas' },
+        { label: 'Responsable', value: 'Dana Ortiz' },
+      ],
+    },
+  },
+  {
+    title: 'Asume el trabajo que nunca te pudiste permitir.',
+    icon: 'backlog',
+    body: 'Cuando el trabajo pasa a costar diez veces menos, lo pendiente se convierte en la oportunidad: los proyectos, mercados y niveles de servicio que nunca salían a cuenta ahora sí salen.',
+    glance: {
+      title: 'Pendientes',
+      status: 'early',
+      alt: 'Ilustración: un proyecto archivado desde hace tiempo, una auditoría de contratos con cuarenta proveedores, que ahora avanza como trabajo de agentes.',
+      head: 'Auditoría de contratos, 40 proveedores',
+      state: { label: 'En ejecución' },
+      facts: [
+        { label: 'Archivado desde', value: '2024' },
+        { label: 'Responsable', value: 'Sam Reyes' },
+      ],
+    },
+  },
+  {
+    title: 'Supera la auditoría antes de que empiece.',
+    icon: 'audit',
+    body: 'La evidencia de cumplimiento se produce a medida que se hace el trabajo. Tus auditores verifican; nadie reconstruye.',
+    status: 'early',
+    glance: {
+      title: 'Evidencia',
+      alt: 'Ilustración: la evidencia de un trimestre, con actos firmados, aprobaciones y rechazos, ya reunida y verificada.',
+      head: 'Evidencia del T3',
+      state: { label: 'Verificada', tone: 'sealed' },
+      facts: [
+        { label: 'Actos firmados', value: 'Incluidos' },
+        { label: 'Rechazos', value: 'Incluidos' },
+      ],
+    },
+  },
+  {
+    title: 'Escala el criterio, no la plantilla.',
+    icon: 'judgment',
+    body: 'Tu gente fija las reglas y firma lo que importa. La IA hace el resto, dentro de esas reglas.',
+    glance: {
+      title: 'Aprobación',
+      alt: 'Ilustración: una tanda de pagos que preparó un agente, a la espera de que una persona la apruebe con su llave de acceso.',
+      head: 'Tanda de pagos, 12 facturas',
+      state: { label: 'Te espera', tone: 'quiet' },
+      facts: [{ label: 'Preparada por', value: 'Agente de recepción de facturas' }],
+      action: 'Aprobar con llave de acceso',
+    },
+  },
+];
+
+// Footnote 1 of the ratio strip: the original publication only.
+// Without a source, the strip ships without its first sentence.
+const ratioSource: {
+  publisher: string;
+  series: string;
+  title: string;
+  date: string;
+  locator: string;
+  url: string;
+} | null = {
+  publisher: 'Goldman Sachs Research',
+  series: 'Top of Mind',
+  title: '«An AI Job Apocalypse?»',
+  date: '25 de junio de 2026',
+  locator: 'p. 18, «AI agents vs. humans: who costs more?»',
+  url: 'https://www.goldmansachs.com/pdfs/insights/goldman-sachs-research/an-ai-job-apocalypse/report.pdf',
+};
+
+const steps = [
+  {
+    title: 'Funda tu organización.',
+    body: 'Tus Fideicomisarios establecen tu instancia de Unica en una ceremonia de fundación, cada uno con su propia llave de acceso.',
+    visual: 'found',
+  },
+  {
+    title: 'Concede alcances, no cheques en blanco.',
+    body: 'Los agentes y los gemelos actúan solo dentro de los alcances que concede tu gente. Todo lo privilegiado espera un toque humano.',
+    visual: 'grant',
+  },
+  {
+    title: 'Trabaja, con pruebas.',
+    body: 'Cada respuesta y cada acción quedan como un registro gobernado que puedes rastrear, auditar y reproducir.',
+    visual: 'work',
+  },
+] as const;
+---
+
+<Base title="TEIPSUM · Unica: IA que trabaja para tu empresa y le rinde cuentas." description={sub}>
+  <section class="band--dark hero" aria-labelledby="page-title">
+    <div class="wrap split split--7-5">
+      <div class="split__text stack stack--lg">
+        <p class="eyebrow">El sistema operativo para una IA que rinde cuentas</p>
+        <h1 class="display" id="page-title">IA que trabaja para tu empresa y le rinde cuentas.</h1>
+        <p class="lede">{sub}</p>
+        <div class="actions">
+          <a class="btn btn--solid" href={waitlistHref}>{CTA_LABEL}</a>
+          <a class="link-under" href="#how-it-works">Mira cómo funciona</a>
+        </div>
+        <p class="mono-line">La cohorte fundadora se está formando. Admisión por oleadas.</p>
+      </div>
+      <div class="split__figure hero__figure">
+        <HeroTrace />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--paper" aria-labelledby="what-changes">
+    <div class="wrap">
+      <div class="changes-head">
+        <div class="stack changes-head__title">
+          <p class="eyebrow">Lo que cambia</p>
+          <h2 class="h2" id="what-changes">
+            El precio del trabajo acaba de desplomarse. Ganarán quienes puedan confiarle ese trabajo a la IA.
+          </h2>
+        </div>
+        <p class="lede changes-head__body">
+          La IA ya puede hacer buena parte del trabajo en la mayoría de las organizaciones, a una fracción del precio. Lo
+          que frena a las empresas no son los modelos; es la confianza. Nadie le entrega trabajo real a un sistema que no
+          puede gobernar, auditar ni detener. Unica quita ese techo.
+        </p>
+      </div>
+      <ul class="cards cards--4" data-draw>
+        {
+          outcomes.map((o) => (
+            <li class="card card--box draw-fade">
+              <span class="card__icon">
+                <Icon name={o.icon} />
+              </span>
+              <h3 class="card__title outcome__title">{o.title}</h3>
+              {o.status === 'early' && <Chip status="early" />}
+              <p class="card__body">{o.body}</p>
+              <div class="outcome__glance">
+                <Glance {...o.glance} status={o.status === 'early' || o.glance.status === 'early' ? 'early' : undefined} />
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="ratio">
+        <NumeralFigure
+          numerals={ratioSource ? [
+            { value: '≈1/20', label: 'Precio puro' },
+            { value: '?', label: 'El tuyo', quiet: true },
+          ] : [{ value: '?', label: 'El tuyo', quiet: true }]}
+        >
+          <p class="ratio__text">
+            {
+              ratioSource && (
+                <>
+                  A precio puro, un agente de programación cuesta cerca de una vigésima parte de la jornada de un ingeniero.
+                  <sup>
+                    <a href="#fn-ratio" id="fnref-ratio" aria-label="Nota 1">
+                      1
+                    </a>
+                  </sup>{' '}
+                </>
+              )
+            }
+            Tras la revisión y el retrabajo, la cifra real es más baja, y es distinta en cada empresa. Unica mide la tuya a
+            partir del registro. <Chip status="early" />
+          </p>
+          {
+            ratioSource && (
+              <p class="ratio__note" id="fn-ratio" slot="note">
+                <span class="ratio__mark">1</span> {ratioSource.publisher}, <cite>{ratioSource.series}</cite>,{' '}
+                <a href={ratioSource.url} rel="noreferrer">
+                  {ratioSource.title}
+                </a>
+                , {ratioSource.date}, {ratioSource.locator} <a class="ratio__back" href="#fnref-ratio" aria-label="Volver al texto">↩</a>
+              </p>
+            )
+          }
+        </NumeralFigure>
+      </div>
+      <div class="changes-close">
+        <p class="changes-close__line">
+          Tu competencia va a funcionar con trabajo de IA. La cuestión es a qué IA se le puede confiar el trabajo que
+          importa.
+        </p>
+        <p class="moat"><em>La inteligencia se alquila. El criterio, firmado y gobernado, es propio.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <Band tone="paper" id="problem" heading="La mayoría de la IA te pide que confíes en ella." flushTop ratio="7-5">
+    <StopGaps slot="figure" />
+    <p class="lede">
+      Lo olvida todo. Después no puedes demostrar qué hizo ni por qué. Y nunca la dejarías acercarse a nada
+      irreversible. Unica se construyó para acabar con las tres cosas.
+    </p>
+  </Band>
+
+  <section class="band band--dark" aria-labelledby="one-fabric">
+    <div class="wrap split">
+      <div class="split__text stack">
+        <p class="eyebrow">Un solo tejido</p>
+        <h2 class="h2" id="one-fabric">¿Por qué comprar tres productos y una integración torpe?</h2>
+        <p class="body">
+          Confiarle trabajo real a la IA suele significar un constructor de agentes para ejecutarlo, un producto de
+          identidad para dar cuenta de cada agente y una herramienta de cumplimiento para reunir la evidencia, todo
+          cosido a mano y auditado tres veces. Unica cierra el ciclo completo en un solo tejido: identidad, acción
+          gobernada, atestación humana, evidencia verificable.
+        </p>
+      </div>
+      <div class="split__figure">
+        <LoopRing />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--dark band--flush-top" aria-label="Demostrable, gobernada, soberana">
+    <div class="wrap">
+      <div class="cards cards--3">
+        {
+          pillars.map((p, i) => (
+            <article class="card card--warm">
+              <p class="card__label pillar__label">
+                <Icon name={p.icon} size={26} />
+                {String(i + 1).padStart(2, '0')} · {p.label}
+              </p>
+              <h3 class="card__title">{p.title}</h3>
+              <p class="card__body">{p.body}</p>
+              {p.status === 'early' && <Chip status="early" />}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--paper" aria-labelledby="one-record">
+    <div class="wrap split">
+      <div class="split__text stack">
+        <h2 class="eyebrow" id="one-record">Un registro, por debajo</h2>
+        <p class="record-caption">
+          Así se ve por debajo cada acción en Unica: quién actuó, con qué autoridad, a partir de qué fuentes y cuándo.
+          Firmado.
+        </p>
+      </div>
+      <div class="split__figure">
+        <RecordCard />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--dark" id="how-it-works" aria-labelledby="how-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="how-heading">Cómo funciona</h2>
+      </div>
+      <TraceSteps steps={steps}>
+        <Glance
+          slot="end"
+          title="Registro"
+          status="early"
+          alt="Ilustración: el trabajo queda como el registro sellado de una renovación de contrato, con sus tres fuentes y la aprobación de la CFO con su llave de acceso."
+          head="Renovación de contrato aprobada"
+          state={{ label: 'Sellado', tone: 'sealed' }}
+          facts={[
+            { label: 'Fuentes', value: '3 documentos' },
+            { label: 'Aprobó', value: 'CFO, llave de acceso' },
+            { label: 'Hora', value: '14:02 UTC' },
+          ]}
+        />
+      </TraceSteps>
+    </div>
+  </section>
+
+  <Band tone="paper" id="twin" heading="Un gemelo de IA para cada persona" status="early" icon="twin" flip>
+    <TwinConversation slot="figure" />
+    <p class="lede">
+      Cada persona tiene un gemelo que actúa solo para ella, aprende cómo trabaja y mantiene sus palabras en privado. Ni
+      siquiera un administrador puede leerlas.
+    </p>
+  </Band>
+
+  <Callout
+    icon="layers"
+    lead="La autorización vive en el sustrato."
+    text="La capa de aplicación de Unica no puede conceder lo que el sustrato niega. La seguridad no es una función añadida a la app; es el suelo sobre el que la app se apoya."
+  />
+
+  <Band tone="paper" id="built" heading="Construido como te pedimos que construyas" icon="shield">
+    <StepTrace
+      slot="figure"
+      alt="Diagrama: cada cambio se propone, lo atacan revisores, lo aprueba una persona y queda registrado."
+      steps={[
+        { label: 'Propuesto', icon: 'assert' },
+        { label: 'Atacado', icon: 'find' },
+        { label: 'Aprobado', icon: 'fingerprint' },
+      ]}
+      end="Registrado"
+    />
+    <p class="lede">
+      Unica está desarrollada por un equipo gobernado de personas y agentes de IA. Cada cambio pasa por una revisión
+      adversarial y queda registrado en el mismo sustrato sobre el que vas a trabajar.
+    </p>
+  </Band>
+
+  <CloseCall
+    heading="La cohorte fundadora se está formando."
+    body="Estamos admitiendo un número limitado de organizaciones por oleadas, para que cada una reciba una incorporación personalizada. Únete a la lista de espera para reservar tu lugar."
+  />
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(40px, 2rem + 3.4vw, 80px);
+  }
+  .hero .display {
+    max-width: 14ch;
+  }
+  .hero__figure {
+    max-width: 520px;
+    width: 100%;
+    justify-self: end;
+  }
+  .changes-head {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 20px;
+    align-items: end;
+    margin-bottom: clamp(28px, 3.4vw, 44px);
+  }
+  .changes-head__title {
+    grid-column: span 7;
+    gap: 16px;
+  }
+  .changes-head__body {
+    grid-column: 8 / span 5;
+  }
+  @media (max-width: 900px) {
+    .changes-head__title,
+    .changes-head__body {
+      grid-column: 1 / -1;
+    }
+  }
+  .outcome__title {
+    font-size: 1.25rem;
+  }
+  .outcome__glance {
+    margin-top: auto;
+    padding-top: 8px;
+  }
+  .ratio {
+    margin-top: clamp(32px, 4vw, 52px);
+  }
+  .ratio__text {
+    max-width: 52rem;
+    font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .ratio__text :global(.chip) {
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  .ratio__text sup {
+    font-size: 0.6em;
+    line-height: 0;
+  }
+  .ratio__text sup a,
+  .ratio__note a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  /* 24 px target from padding; the negative margin keeps the text spacing. */
+  .ratio__text sup a {
+    padding: 6px 9px;
+    margin-inline: -9px;
+  }
+  .ratio__note a {
+    padding-block: 3px;
+  }
+  .ratio__note .ratio__back {
+    display: inline-block;
+    min-width: 24px;
+    min-height: 24px;
+    padding-block: 0;
+    text-align: center;
+  }
+  .ratio__note {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .ratio__mark {
+    font-family: var(--font-mono);
+    color: var(--accent);
+  }
+  .changes-close {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 56rem;
+    margin-top: clamp(32px, 4vw, 52px);
+  }
+  .changes-close__line {
+    font-size: clamp(1.625rem, 1.1rem + 1.9vw, 2.5rem);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .pillar__label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .record-caption {
+    font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
+    line-height: 1.45;
+    color: var(--ink-strong);
+    max-width: 30rem;
+  }
+  .moat {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 900px) {
+    .hero__figure {
+      justify-self: center;
+      max-width: 440px;
+    }
+  }
+</style>

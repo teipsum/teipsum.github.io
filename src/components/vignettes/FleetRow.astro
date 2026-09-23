@@ -3,6 +3,7 @@
 // has been idle. The stopped variant shows a revoked agent.
 import Vignette from './Vignette.astro';
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
 interface Agent {
   name: string;
@@ -18,18 +19,44 @@ interface Props {
   status?: 'early' | 'roadmap';
 }
 
-const {
-  agents = [
-    { name: 'Invoice intake agent', owner: 'Dana Ortiz', area: 'Finance', idle: 'Now', state: 'working' },
-    { name: 'Contract review agent', owner: 'Sam Reyes', area: 'Legal', idle: '09:40', state: 'idle' },
-    { name: 'Supplier follow-up agent', owner: 'Lee Park', area: 'Operations', idle: 'Mon 16:12', state: 'idle' },
-  ],
-  title = 'Agents',
-  alt = 'Illustration: a list of agents, each showing its business area, its human owner and when it was last active.',
-  status,
-} = Astro.props;
-
-const stateLabel = { working: 'Working', idle: 'Idle', stopped: 'Stopped' };
+const t = pick<{
+  agents: Agent[];
+  title: string;
+  alt: string;
+  state: Record<Agent['state'], string>;
+  since: Record<Agent['state'], string>;
+  area: string;
+  owner: string;
+}>(Astro.url, {
+  en: {
+    agents: [
+      { name: 'Invoice intake agent', owner: 'Dana Ortiz', area: 'Finance', idle: 'Now', state: 'working' },
+      { name: 'Contract review agent', owner: 'Sam Reyes', area: 'Legal', idle: '09:40', state: 'idle' },
+      { name: 'Supplier follow-up agent', owner: 'Lee Park', area: 'Operations', idle: 'Mon 16:12', state: 'idle' },
+    ],
+    title: 'Agents',
+    alt: 'Illustration: a list of agents, each showing its business area, its human owner and when it was last active.',
+    state: { working: 'Working', idle: 'Idle', stopped: 'Stopped' },
+    since: { working: 'Active', idle: 'Idle since', stopped: 'Stopped at' },
+    area: 'Area',
+    owner: 'Owner',
+  },
+  es: {
+    agents: [
+      { name: 'Agente de recepción de facturas', owner: 'Dana Ortiz', area: 'Finanzas', idle: 'Ahora', state: 'working' },
+      { name: 'Agente de revisión de contratos', owner: 'Sam Reyes', area: 'Legal', idle: '09:40', state: 'idle' },
+      { name: 'Agente de seguimiento de proveedores', owner: 'Lee Park', area: 'Operaciones', idle: 'lun 16:12', state: 'idle' },
+    ],
+    title: 'Agentes',
+    alt: 'Ilustración: una lista de agentes, cada uno con su área de negocio, su responsable humano y la última vez que estuvo activo.',
+    state: { working: 'Trabajando', idle: 'Inactivo', stopped: 'Detenido' },
+    since: { working: 'Activo', idle: 'Inactivo desde', stopped: 'Detenido a las' },
+    area: 'Área',
+    owner: 'Responsable',
+  },
+});
+const { agents = t.agents, title = t.title, alt = t.alt, status } = Astro.props;
+const stateLabel = t.state;
 ---
 
 <Vignette title={title} alt={alt} status={status}>
@@ -45,9 +72,9 @@ const stateLabel = { working: 'Working', idle: 'Idle', stopped: 'Stopped' };
             </span>
           </div>
           <dl class="fleet__meta">
-            <div><dt class="v-label">Area</dt><dd>{a.area}</dd></div>
-            <div><dt class="v-label">Owner</dt><dd>{a.owner}</dd></div>
-            <div><dt class="v-label">{{ working: 'Active', idle: 'Idle since', stopped: 'Stopped at' }[a.state]}</dt><dd class="v-mono">{a.idle}</dd></div>
+            <div><dt class="v-label">{t.area}</dt><dd>{a.area}</dd></div>
+            <div><dt class="v-label">{t.owner}</dt><dd>{a.owner}</dd></div>
+            <div><dt class="v-label">{t.since[a.state]}</dt><dd class="v-mono">{a.idle}</dd></div>
           </dl>
         </li>
       ))

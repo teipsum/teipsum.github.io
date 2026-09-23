@@ -2,6 +2,7 @@
 // Diagram: agents and apps on top ask; one layer underneath decides; your data
 // sits below it.
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 import type { ComponentProps } from 'astro/types';
 
 interface Props {
@@ -11,16 +12,36 @@ interface Props {
   dataLabel?: string;
   alt?: string;
 }
+const t = pick(Astro.url, {
+  en: {
+    top: ['Agents', 'Twins', 'Apps'],
+    base: ['Identity', 'Permissions', 'Memory', 'Approvals', 'Record'],
+    baseLabel: 'One layer underneath',
+    dataLabel: 'Your data',
+    alt: 'Diagram: agents, twins and apps sit on top and can only ask. One layer underneath holds identity, permissions, memory, approvals and the record, and makes every decision. Your data sits below that layer.',
+    asks: 'Asks',
+    decides: 'Decides',
+  },
+  es: {
+    top: ['Agentes', 'Gemelos', 'Apps'],
+    base: ['Identidad', 'Permisos', 'Memoria', 'Aprobaciones', 'Registro'],
+    baseLabel: 'Una capa por debajo',
+    dataLabel: 'Tus datos',
+    alt: 'Diagrama: agentes, gemelos y apps están arriba y solo pueden pedir. Una capa por debajo reúne la identidad, los permisos, la memoria, las aprobaciones y el registro, y toma cada decisión. Tus datos están debajo de esa capa.',
+    asks: 'Pide',
+    decides: 'Decide',
+  },
+});
 const {
   top = [
-    { label: 'Agents', icon: 'build' },
-    { label: 'Twins', icon: 'twin' },
-    { label: 'Apps', icon: 'window' },
+    { label: t.top[0], icon: 'build' },
+    { label: t.top[1], icon: 'twin' },
+    { label: t.top[2], icon: 'window' },
   ],
-  base = ['Identity', 'Permissions', 'Memory', 'Approvals', 'Record'],
-  baseLabel = 'One layer underneath',
-  dataLabel = 'Your data',
-  alt = 'Diagram: agents, twins and apps sit on top and can only ask. One layer underneath holds identity, permissions, memory, approvals and the record, and makes every decision. Your data sits below that layer.',
+  base = t.base,
+  baseLabel = t.baseLabel,
+  dataLabel = t.dataLabel,
+  alt = t.alt,
 } = Astro.props;
 ---
 
@@ -45,8 +66,8 @@ const {
     <line class="dg-line draw-line" x1="250" y1="56" x2="250" y2="0" pathLength="1"></line>
   </svg>
   <div class="os__legend" aria-hidden="true">
-    <span class="dg-label">Asks</span>
-    <span class="dg-label dg-label--signal">Decides</span>
+    <span class="dg-label">{t.asks}</span>
+    <span class="dg-label dg-label--signal">{t.decides}</span>
   </div>
   </div>
   <div class="os__base">
@@ -83,6 +104,7 @@ const {
     padding: 16px 8px;
     border: 1px solid var(--d-hair);
     background: var(--d-lift);
+    text-align: center;
   }
   .os__links {
     display: block;
