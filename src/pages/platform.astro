@@ -36,11 +36,29 @@ const loop = [
     usually: 'Copied between tools',
     unica: 'One corporate brain underneath the whole loop',
   },
+  {
+    stage: 'Data ownership',
+    usually: 'Each tool’s own silo, or one shared bucket',
+    unica: 'Each business area owns its records and shares them by choice',
+  },
 ];
 ---
 
 <Base title="Platform" description={sub}>
   <PageHero eyebrow="THE UNICA PLATFORM" title="One platform. Every agent accountable." sub={sub} />
+
+  <Band tone="dark" id="why-os" eyebrow="WHY AN OPERATING SYSTEM" heading="The rules live underneath, where no app can reach them.">
+    <p class="lede">
+      On a computer, an app can ask for a file, but only the operating system decides whether it gets it. Unica works
+      the same way for your company’s AI. Identity, permissions, memory, approvals and the record sit in one layer
+      underneath every agent and app, so none of them can give itself more authority than it was granted. The apps on
+      top can show a decision. They can never make one.
+    </p>
+    <p class="os-close">
+      That is also why it comes as one system. Nobody buys their file system, their permissions and their audit log from
+      three vendors.
+    </p>
+  </Band>
 
   <section class="band band--paper" aria-labelledby="loop">
     <div class="wrap">
@@ -224,6 +242,14 @@ const loop = [
       border-left: 2px solid var(--accent);
       padding: 0 0 0 14px;
     }
+  }
+  .os-close {
+    padding-top: 20px;
+    border-top: 1px solid var(--hair-dark);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--paper);
   }
   .record-figure {
     max-width: 480px;

@@ -22,7 +22,7 @@ variables of the same name.
 | Variable | Purpose | When empty |
 | --- | --- | --- |
 | `PUBLIC_WAITLIST_ENDPOINT` | HTTPS URL the waitlist form posts to | The form says it is not accepting requests yet and sends nothing |
-| `PUBLIC_CF_BEACON_TOKEN` | Cloudflare Web Analytics token | No analytics beacon |
+| `PUBLIC_CF_BEACON_TOKEN` | Cloudflare Web Analytics token (overrides the default) | The site's own token, set in `src/config.ts` |
 | `PUBLIC_LINKEDIN_URL` | Company LinkedIn page | No footer link |
 
 The endpoint's origin is added to the page Content-Security-Policy

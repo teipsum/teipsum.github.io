@@ -50,6 +50,19 @@ const sub =
     </p>
   </Band>
 
+  <Band tone="paper" id="business-areas" eyebrow="Business areas" heading="Every department owns its data. All of them share one brain." status="early">
+    <p class="lede">
+      Each business area keeps sovereignty over its own records. It decides what other areas can see and use, and it
+      can take that back. Collaboration happens through what each area chooses to share, never by pouring everything
+      into one bucket: Finance can let Legal’s agent read a contract’s terms without showing it the ledger.
+    </p>
+    <p class="tie-in">
+      The same rule that lets your departments share on their own terms is the one that will let your company share
+      with others.
+    </p>
+  </Band>
+
+  <div class="rule-wrap"><div class="wrap"><hr class="rule" /></div></div>
   <Band tone="paper" id="privacy" eyebrow="Personal privacy" heading="Shared brain. Private minds." status="early">
     <p class="lede">
       The corporate brain is shared; your thoughts are not. What you tell your twin is readable by you and, where
@@ -119,6 +132,22 @@ const sub =
   .lede :global(.chip) {
     vertical-align: middle;
     margin-left: 6px;
+  }
+  .tie-in {
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .rule-wrap {
+    background: var(--paper);
+  }
+  .rule {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid var(--rule);
   }
   .roadmap-line {
     display: flex;

@@ -22,8 +22,8 @@ export const SITE_NAME = 'TEIPSUM';
 /** Where the waitlist form posts. Empty = not accepting requests yet. */
 export const WAITLIST_ENDPOINT = httpsUrl(env.PUBLIC_WAITLIST_ENDPOINT, 'PUBLIC_WAITLIST_ENDPOINT');
 
-/** Cloudflare Web Analytics token. Empty = no beacon. */
-export const CF_BEACON_TOKEN = (env.PUBLIC_CF_BEACON_TOKEN ?? '').trim();
+/** Cloudflare Web Analytics token (public; the one the current site uses). */
+export const CF_BEACON_TOKEN = (env.PUBLIC_CF_BEACON_TOKEN || '9fe6f88fa55b4834b34a05601cc3d8bb').trim();
 
 /** Company LinkedIn page. Empty = no footer link. */
 export const LINKEDIN_URL = httpsUrl(env.PUBLIC_LINKEDIN_URL, 'PUBLIC_LINKEDIN_URL');

@@ -7,6 +7,7 @@ import TraceSteps from '../components/TraceSteps.astro';
 import Band from '../components/Band.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
+import Chip from '../components/Chip.astro';
 import { WAITLIST_HREF, CTA_LABEL } from '../config';
 
 const sub =
@@ -15,20 +16,45 @@ const sub =
 const pillars = [
   {
     label: 'Provable',
-    title: 'Every record carries its source, its author and its time.',
+    title: 'Every record carries its source, its author and its time, and it is signed: who wrote it is provable and any later change shows.',
     body: 'Nothing is silently overwritten, so any decision can be reconstructed months later.',
   },
   {
     label: 'Governed',
     title: 'Authority, scope and approvals are enforced by the platform itself.',
     body: 'Privileged actions need a fresh touch of a passkey. The kill switch stays pulled.',
+    status: 'early',
   },
   {
     label: 'Sovereign',
-    title: 'Your own instance, your own store, your own rules.',
+    title:
+      'Your own instance, your own store, your own rules, down to each business area, which owns its records and shares them by choice.',
     body: 'Your context stays yours: portable, inspectable, never locked inside a vendor’s model.',
   },
 ];
+
+const outcomes = [
+  {
+    title: 'Move AI from pilots to payroll.',
+    body: 'Put agents on real work (approvals, finance, operations, commitments to customers) because every act is governed, signed and on the record.',
+  },
+  {
+    title: 'Take on work you could never afford.',
+    body: 'When the cost of labor drops by an order of magnitude, the backlog becomes the opportunity: the projects, markets and service levels that never penciled out now do.',
+  },
+  {
+    title: 'Pass the audit before it starts.',
+    body: 'Compliance evidence is produced as the work happens. Your auditors verify; nobody reconstructs.',
+  },
+  {
+    title: 'Scale judgment, not headcount.',
+    body: 'Your people set the rules and sign what matters. AI does the rest, inside those rules.',
+  },
+];
+
+// Footnote 1 of the ratio strip: the original publication only.
+// Without a source, the strip ships without its first sentence.
+const ratioSource: { publisher: string; title: string; date: string; url: string } | null = null;
 
 const steps = [
   {
@@ -50,7 +76,7 @@ const steps = [
   <section class="band--dark hero" aria-labelledby="page-title">
     <div class="wrap split split--7-5">
       <div class="split__text stack stack--lg">
-        <p class="eyebrow">TEIPSUM · UNICA</p>
+        <p class="eyebrow">THE OPERATING SYSTEM FOR ACCOUNTABLE AI</p>
         <h1 class="display" id="page-title">AI that works for your company, and answers to it.</h1>
         <p class="lede">{sub}</p>
         <div class="actions">
@@ -61,6 +87,67 @@ const steps = [
       </div>
       <div class="split__figure hero__figure">
         <HeroTrace />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--paper" aria-labelledby="what-changes">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">WHAT CHANGES</p>
+        <h2 class="h2" id="what-changes">
+          The price of work just collapsed. The winners will be the ones who can trust AI with it.
+        </h2>
+        <p class="lede">
+          AI can already do a large share of the work in most organizations, at a fraction of the cost. What holds
+          companies back is not the models; it is trust. Nobody hands real work to a system they cannot govern, audit or
+          stop. Unica removes that ceiling.
+        </p>
+      </div>
+      <ul class="cards outcomes">
+        {
+          outcomes.map((o) => (
+            <li class="card card--warm">
+              <h3 class="card__title">{o.title}</h3>
+              <p class="card__body">{o.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="ratio">
+        <p class="ratio__text">
+          {
+            ratioSource && (
+              <>
+                On raw price, a coding agent costs about a twentieth of an engineer’s day.
+                <sup>
+                  <a href="#fn-ratio" id="fnref-ratio" aria-label="Footnote 1">
+                    1
+                  </a>
+                </sup>{' '}
+              </>
+            )
+          }
+          After review and rework the real number is lower, and it’s different for every company. Unica measures yours
+          from the record.
+        </p>
+        {
+          ratioSource && (
+            <p class="ratio__note" id="fn-ratio">
+              <span class="ratio__mark">1</span> {ratioSource.publisher},{' '}
+              <a href={ratioSource.url} rel="noreferrer">
+                {ratioSource.title}
+              </a>
+              , {ratioSource.date}. <a href="#fnref-ratio" aria-label="Back to the text">↩</a>
+            </p>
+          )
+        }
+      </div>
+      <div class="changes-close">
+        <p class="h3">
+          Your competitors will run on AI labor. The question is whose AI can be trusted with the work that matters.
+        </p>
+        <p class="moat"><em>Intelligence is rented. Judgment, signed and governed, is owned.</em></p>
       </div>
     </div>
   </section>
@@ -101,6 +188,7 @@ const steps = [
               </p>
               <h3 class="card__title">{p.title}</h3>
               <p class="card__body">{p.body}</p>
+              {p.status === 'early' && <Chip status="early" />}
             </article>
           ))
         }
@@ -136,7 +224,6 @@ const steps = [
   <Callout
     lead="Authorization lives in the substrate."
     text="Unica’s application layer cannot grant what the substrate refuses. Security is not a feature bolted onto the app; it is the ground the app stands on."
-    smallPrint="Four patents pending."
   />
 
   <Band tone="paper" id="built" heading="Built the way we ask you to build">
@@ -163,6 +250,75 @@ const steps = [
     max-width: 520px;
     width: 100%;
     justify-self: end;
+  }
+  .outcomes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  @media (max-width: 1100px) {
+    .outcomes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .outcomes {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .ratio {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: clamp(48px, 6vw, 80px);
+    padding-block: 32px;
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+  }
+  .ratio__text {
+    max-width: 52rem;
+    font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .ratio__text sup {
+    font-size: 0.6em;
+    line-height: 0;
+  }
+  .ratio__text sup a,
+  .ratio__note a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ratio__text sup a {
+    display: inline-block;
+    min-width: 24px;
+    min-height: 24px;
+    text-align: center;
+  }
+  .ratio__note {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .ratio__mark {
+    font-family: var(--font-mono);
+    color: var(--accent);
+  }
+  .changes-close {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 48rem;
+    margin-top: clamp(48px, 6vw, 80px);
+  }
+  .moat {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--ink-soft);
   }
   @media (max-width: 900px) {
     .hero__figure {

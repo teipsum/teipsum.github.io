@@ -16,9 +16,7 @@ const beliefs = [
   { title: 'Your context is yours.', body: 'What your organization knows should stay under your control.' },
 ];
 
-// TODO(Michael): your one-line bio (what you built before, in your words).
-// While this is empty the page shows a visible TODO marker; fill it before launch.
-const founderBio = '';
+const founderBio = 'Former Marine Corps officer; led enterprise engineering at Walmart and EPAM.';
 ---
 
 <Base title="Company" description={sub} serif>
@@ -65,13 +63,13 @@ const founderBio = '';
         <h2 class="eyebrow" id="leadership">Leadership</h2>
         <div class="person">
           <p class="person__name"><strong>Michael Cram</strong>, Founder and CEO.</p>
-          {founderBio ? <p class="person__bio">{founderBio}</p> : <p class="todo">TODO: one-line bio</p>}
+          <p class="person__bio">{founderBio}</p>
         </div>
       </div>
     </div>
   </section>
 
-  <CloseCall smallPrint="Four patents pending." />
+  <CloseCall />
 </Base>
 
 <style>
@@ -115,16 +113,6 @@ const founderBio = '';
     font-size: var(--fs-body);
     line-height: 1.6;
     color: var(--ink-strong);
-  }
-  .todo {
-    width: fit-content;
-    padding: 6px 12px;
-    border: 1px dashed var(--accent);
-    font-family: var(--font-mono);
-    font-size: var(--fs-mono-sm);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
   }
   @media (max-width: 900px) {
     .leadership > .eyebrow,
