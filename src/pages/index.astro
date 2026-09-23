@@ -2,12 +2,17 @@
 import Base from '../layouts/Base.astro';
 import HeroTrace from '../components/HeroTrace.astro';
 import LoopRing from '../components/LoopRing.astro';
-import RecordRow from '../components/RecordRow.astro';
 import TraceSteps from '../components/TraceSteps.astro';
 import Band from '../components/Band.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
 import Chip from '../components/Chip.astro';
+import Icon from '../components/Icon.astro';
+import NumeralFigure from '../components/NumeralFigure.astro';
+import RecordCard from '../components/vignettes/RecordCard.astro';
+import TwinConversation from '../components/vignettes/TwinConversation.astro';
+import BrokenTrace from '../components/diagrams/BrokenTrace.astro';
+import StepTrace from '../components/diagrams/StepTrace.astro';
 import { WAITLIST_HREF, CTA_LABEL } from '../config';
 
 const sub =
@@ -16,17 +21,20 @@ const sub =
 const pillars = [
   {
     label: 'Provable',
+    icon: 'seal',
     title: 'Every record carries its source, its author and its time, and it is signed: who wrote it is provable and any later change shows.',
     body: 'Nothing is silently overwritten, so any decision can be reconstructed months later.',
   },
   {
     label: 'Governed',
+    icon: 'key',
     title: 'Authority, scope and approvals are enforced by the platform itself.',
     body: 'Privileged actions need a fresh touch of a passkey. The kill switch stays pulled.',
     status: 'early',
   },
   {
     label: 'Sovereign',
+    icon: 'cell',
     title:
       'Your own instance, your own store, your own rules, down to each business area, which owns its records and shares them by choice.',
     body: 'Your context stays yours: portable, inspectable, never locked inside a vendor’s model.',
@@ -36,18 +44,22 @@ const pillars = [
 const outcomes = [
   {
     title: 'Move AI from pilots to payroll.',
+    icon: 'payroll',
     body: 'Put agents on real work (approvals, finance, operations, commitments to customers) because every act is governed, signed and on the record.',
   },
   {
     title: 'Take on work you could never afford.',
+    icon: 'backlog',
     body: 'When the cost of labor drops by an order of magnitude, the backlog becomes the opportunity: the projects, markets and service levels that never penciled out now do.',
   },
   {
     title: 'Pass the audit before it starts.',
+    icon: 'audit',
     body: 'Compliance evidence is produced as the work happens. Your auditors verify; nobody reconstructs.',
   },
   {
     title: 'Scale judgment, not headcount.',
+    icon: 'judgment',
     body: 'Your people set the rules and sign what matters. AI does the rest, inside those rules.',
   },
 ];
@@ -73,14 +85,17 @@ const ratioSource: {
 const steps = [
   {
     title: 'Found your organization.',
+    icon: 'flag',
     body: 'Your Trustees establish your Unica instance in a founding ceremony, each with their own passkey.',
   },
   {
     title: 'Grant scopes, not blank cheques.',
+    icon: 'scope',
     body: 'Agents and twins act only inside the scopes your people grant. Anything privileged waits for a human touch.',
   },
   {
     title: 'Work, with proof.',
+    icon: 'record',
     body: 'Every answer and action lands as a governed record you can trace, audit and replay.',
   },
 ];
@@ -107,58 +122,70 @@ const steps = [
 
   <section class="band band--paper" aria-labelledby="what-changes">
     <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">WHAT CHANGES</p>
-        <h2 class="h2" id="what-changes">
-          The price of work just collapsed. The winners will be the ones who can trust AI with it.
-        </h2>
-        <p class="lede">
+      <div class="changes-head">
+        <div class="stack changes-head__title">
+          <p class="eyebrow">WHAT CHANGES</p>
+          <h2 class="h2" id="what-changes">
+            The price of work just collapsed. The winners will be the ones who can trust AI with it.
+          </h2>
+        </div>
+        <p class="lede changes-head__body">
           AI can already do a large share of the work in most organizations, at a fraction of the cost. What holds
           companies back is not the models; it is trust. Nobody hands real work to a system they cannot govern, audit or
           stop. Unica removes that ceiling.
         </p>
       </div>
-      <ul class="cards outcomes">
+      <ul class="cards cards--4" data-draw>
         {
           outcomes.map((o) => (
-            <li class="card card--warm">
-              <h3 class="card__title">{o.title}</h3>
+            <li class="card card--box draw-fade">
+              <span class="card__icon">
+                <Icon name={o.icon} />
+              </span>
+              <h3 class="card__title outcome__title">{o.title}</h3>
               <p class="card__body">{o.body}</p>
             </li>
           ))
         }
       </ul>
       <div class="ratio">
-        <p class="ratio__text">
+        <NumeralFigure
+          numerals={ratioSource ? [
+            { value: '1/20', label: 'Raw price' },
+            { value: '?', label: 'Yours', quiet: true },
+          ] : [{ value: '?', label: 'Yours', quiet: true }]}
+        >
+          <p class="ratio__text">
+            {
+              ratioSource && (
+                <>
+                  On raw price, a coding agent costs about a twentieth of an engineer’s day.
+                  <sup>
+                    <a href="#fn-ratio" id="fnref-ratio" aria-label="Footnote 1">
+                      1
+                    </a>
+                  </sup>{' '}
+                </>
+              )
+            }
+            After review and rework the real number is lower, and it’s different for every company. Unica measures yours
+            from the record.
+          </p>
           {
             ratioSource && (
-              <>
-                On raw price, a coding agent costs about a twentieth of an engineer’s day.
-                <sup>
-                  <a href="#fn-ratio" id="fnref-ratio" aria-label="Footnote 1">
-                    1
-                  </a>
-                </sup>{' '}
-              </>
+              <p class="ratio__note" id="fn-ratio" slot="note">
+                <span class="ratio__mark">1</span> {ratioSource.publisher}, <cite>{ratioSource.series}</cite>,{' '}
+                <a href={ratioSource.url} rel="noreferrer">
+                  {ratioSource.title}
+                </a>
+                , {ratioSource.date}, {ratioSource.locator} <a class="ratio__back" href="#fnref-ratio" aria-label="Back to the text">↩</a>
+              </p>
             )
           }
-          After review and rework the real number is lower, and it’s different for every company. Unica measures yours
-          from the record.
-        </p>
-        {
-          ratioSource && (
-            <p class="ratio__note" id="fn-ratio">
-              <span class="ratio__mark">1</span> {ratioSource.publisher}, <cite>{ratioSource.series}</cite>,{' '}
-              <a href={ratioSource.url} rel="noreferrer">
-                {ratioSource.title}
-              </a>
-              , {ratioSource.date}, {ratioSource.locator} <a class="ratio__back" href="#fnref-ratio" aria-label="Back to the text">↩</a>
-            </p>
-          )
-        }
+        </NumeralFigure>
       </div>
       <div class="changes-close">
-        <p class="h3">
+        <p class="changes-close__line">
           Your competitors will run on AI labor. The question is whose AI can be trusted with the work that matters.
         </p>
         <p class="moat"><em>Intelligence is rented. Judgment, signed and governed, is owned.</em></p>
@@ -166,7 +193,8 @@ const steps = [
     </div>
   </section>
 
-  <Band tone="paper" id="problem" heading="Most AI asks you to trust it.">
+  <Band tone="paper" id="problem" heading="Most AI asks you to trust it." flushTop ratio="7-5">
+    <BrokenTrace slot="figure" />
     <p class="lede">
       It forgets everything. You cannot prove afterwards what it did or why. And you would never let it near anything
       irreversible. Unica was built to end all three.
@@ -197,7 +225,8 @@ const steps = [
         {
           pillars.map((p, i) => (
             <article class="card card--warm">
-              <p class="card__label">
+              <p class="card__label pillar__label">
+                <Icon name={p.icon} size={26} />
                 {String(i + 1).padStart(2, '0')} · {p.label}
               </p>
               <h3 class="card__title">{p.title}</h3>
@@ -211,11 +240,17 @@ const steps = [
   </section>
 
   <section class="band band--paper" aria-labelledby="one-record">
-    <div class="wrap stack stack--lg">
-      <h2 class="eyebrow" id="one-record">ONE RECORD, UNDERNEATH</h2>
-      <RecordRow
-        caption="This is what every action in Unica looks like underneath: who acted, on whose authority, from which sources, and when. Signed."
-      />
+    <div class="wrap split">
+      <div class="split__text stack">
+        <h2 class="eyebrow" id="one-record">ONE RECORD, UNDERNEATH</h2>
+        <p class="record-caption">
+          This is what every action in Unica looks like underneath: who acted, on whose authority, from which sources,
+          and when. Signed.
+        </p>
+      </div>
+      <div class="split__figure">
+        <RecordCard />
+      </div>
     </div>
   </section>
 
@@ -228,7 +263,8 @@ const steps = [
     </div>
   </section>
 
-  <Band tone="paper" id="twin" heading="An AI twin for every person" status="early">
+  <Band tone="paper" id="twin" heading="An AI twin for every person" status="early" icon="twin" flip>
+    <TwinConversation slot="figure" />
     <p class="lede">
       Each person gets a twin that acts only for them, learns how they work, and keeps their words private. Not even an
       administrator can read them.
@@ -236,11 +272,22 @@ const steps = [
   </Band>
 
   <Callout
+    icon="layers"
     lead="Authorization lives in the substrate."
     text="Unica’s application layer cannot grant what the substrate refuses. Security is not a feature bolted onto the app; it is the ground the app stands on."
   />
 
-  <Band tone="paper" id="built" heading="Built the way we ask you to build">
+  <Band tone="paper" id="built" heading="Built the way we ask you to build" icon="shield">
+    <StepTrace
+      slot="figure"
+      alt="Diagram: every change is proposed, attacked by reviewers, approved by a person, and recorded."
+      steps={[
+        { label: 'Proposed', icon: 'assert' },
+        { label: 'Attacked', icon: 'find' },
+        { label: 'Approved', icon: 'fingerprint' },
+      ]}
+      end="Recorded"
+    />
     <p class="lede">
       Unica is engineered by a governed team of people and AI agents. Every change is reviewed adversarially and
       recorded in the same substrate you will run on.
@@ -255,7 +302,7 @@ const steps = [
 
 <style>
   .hero {
-    padding-block: clamp(56px, 3rem + 5vw, 120px);
+    padding-block: clamp(40px, 2rem + 3.4vw, 80px);
   }
   .hero .display {
     max-width: 14ch;
@@ -265,30 +312,32 @@ const steps = [
     width: 100%;
     justify-self: end;
   }
-  .outcomes {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .changes-head {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 20px;
+    align-items: end;
+    margin-bottom: clamp(28px, 3.4vw, 44px);
   }
-  @media (max-width: 1100px) {
-    .outcomes {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+  .changes-head__title {
+    grid-column: span 7;
+    gap: 16px;
+  }
+  .changes-head__body {
+    grid-column: 8 / span 5;
+  }
+  @media (max-width: 900px) {
+    .changes-head__title,
+    .changes-head__body {
+      grid-column: 1 / -1;
     }
   }
-  @media (max-width: 640px) {
-    .outcomes {
-      grid-template-columns: minmax(0, 1fr);
-    }
+  .outcome__title {
+    font-size: 1.25rem;
   }
   .ratio {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-top: clamp(48px, 6vw, 80px);
-    padding-block: 32px;
-    border-top: 1px solid var(--accent);
-    border-bottom: 1px solid var(--accent);
+    margin-top: clamp(32px, 4vw, 52px);
   }
   .ratio__text {
     max-width: 52rem;
@@ -334,9 +383,27 @@ const steps = [
   .changes-close {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    max-width: 48rem;
-    margin-top: clamp(48px, 6vw, 80px);
+    gap: 14px;
+    max-width: 56rem;
+    margin-top: clamp(32px, 4vw, 52px);
+  }
+  .changes-close__line {
+    font-size: clamp(1.625rem, 1.1rem + 1.9vw, 2.5rem);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .pillar__label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .record-caption {
+    font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
+    line-height: 1.45;
+    color: var(--ink-strong);
+    max-width: 30rem;
   }
   .moat {
     font-size: var(--fs-body);

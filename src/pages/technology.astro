@@ -2,41 +2,66 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Band from '../components/Band.astro';
+import Icon from '../components/Icon.astro';
 import Timeline from '../components/Timeline.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
+import ModelRecord from '../components/diagrams/ModelRecord.astro';
+import ProvenanceFan from '../components/diagrams/ProvenanceFan.astro';
+import OsLayer from '../components/diagrams/OsLayer.astro';
+import PlugIn from '../components/diagrams/PlugIn.astro';
 import { WAITLIST_HREF, CTA_LABEL } from '../config';
 
 const sub =
   'CQR is the substrate beneath Unica. It holds what your organization knows as records with provenance, authority and history, and it decides who may read or change each one.';
 
 const primitives = [
-  { verb: 'Find', rest: 'what is known and how it connects.' },
-  { verb: 'Trace', rest: 'any answer to its origins.' },
-  { verb: 'Compare', rest: 'what changed.' },
-  { verb: 'Assert', and: 'update', rest: 'with provenance.' },
-  { verb: 'Certify', and: 'signal', rest: 'standing.' },
-  { verb: 'Hypothesize', rest: 'before acting.' },
-];
+  { verb: 'Find', rest: 'what is known and how it connects.', icon: 'find' },
+  { verb: 'Trace', rest: 'any answer to its origins.', icon: 'trace' },
+  { verb: 'Compare', rest: 'what changed.', icon: 'compare' },
+  { verb: 'Assert', and: 'update', rest: 'with provenance.', icon: 'assert' },
+  { verb: 'Certify', and: 'signal', rest: 'standing.', icon: 'certify' },
+  { verb: 'Hypothesize', rest: 'before acting.', icon: 'hypothesize' },
+] as const;
+
+const standings = [
+  { label: 'Asserted', icon: 'assert' },
+  { label: 'Certified', icon: 'certify' },
+  { label: 'Contested', icon: 'compare' },
+  { label: 'Superseded', icon: 'resume' },
+] as const;
 ---
 
 <Base title="Technology: CQR, the governed context substrate" description={sub}>
   <PageHero eyebrow="CQR · THE GOVERNED CONTEXT SUBSTRATE" title="The ground truth under every agent." sub={sub} />
 
-  <Band tone="paper" id="why" eyebrow="Why a substrate" heading="Models forget. Records don’t.">
+  <Band tone="paper" id="why" eyebrow="Why a substrate" icon="record" heading="Models forget. Records don’t.">
+    <ModelRecord slot="figure" />
     <p class="lede">
       Language models are brilliant and stateless. Agents that do real work need a memory that is governed: every fact
       with its source, its confidence and its standing.
     </p>
   </Band>
 
-  <Band tone="dark" id="provenance" eyebrow="Provenance" heading="Know what you know, how you know it, and whether to trust it.">
+  <Band tone="dark" id="provenance" eyebrow="Provenance" icon="trace" heading="Know what you know, how you know it, and whether to trust it." flip>
+    <ProvenanceFan slot="figure" />
     <p class="lede">
       Ask CQR a question and you get the answer, its sources, how confident to be, and who certified it.
     </p>
   </Band>
 
-  <Band tone="paper" id="authority" eyebrow="Authority at the source" heading="Decided where the data lives.">
+  <Band tone="paper" id="authority" eyebrow="Authority at the source" icon="lock" heading="Decided where the data lives.">
+    <OsLayer
+      slot="figure"
+      top={[
+        { label: 'Agents', icon: 'build' },
+        { label: 'Apps', icon: 'window' },
+        { label: 'Integrations', icon: 'connect' },
+      ]}
+      base={['Access', 'Authority']}
+      baseLabel="At the source"
+      alt="Diagram: agents, apps and integrations above can only ask; access and authority are decided in one place, where the data lives."
+    />
     <p class="lede">
       Access and authority are decided in one place, for every agent, app and integration. No layer above can quietly
       widen them.
@@ -44,9 +69,9 @@ const primitives = [
   </Band>
 
   <section class="band band--dark" aria-labelledby="history">
-    <div class="wrap split">
+    <div class="wrap split split--flip">
       <div class="split__text stack">
-        <p class="eyebrow">History</p>
+        <p class="eyebrow band-eyebrow"><span class="card__icon"><Icon name="resume" size={22} /></span>History</p>
         <h2 class="h2" id="history">Nothing silently overwritten.</h2>
         <p class="lede">
           Records are versioned, never erased in place. Ask what your organization knew on any past date and get the
@@ -59,14 +84,25 @@ const primitives = [
     </div>
   </section>
 
-  <Band tone="paper" id="standing" eyebrow="Standing" heading="Facts earn their standing.">
+  <Band tone="paper" id="standing" eyebrow="Standing" icon="certify" heading="Facts earn their standing.">
+    <ul slot="figure" class="standings" data-draw>
+      {
+        standings.map((st, i) => (
+          <li class:list={['standing', 'draw-fade', i === 1 && 'standing--on']}>
+            <span class="card__icon"><Icon name={st.icon} /></span>
+            <span class="standing__label">{st.label}</span>
+          </li>
+        ))
+      }
+    </ul>
     <p class="lede">
       A record can be asserted, certified by someone with the authority to certify it, contested, or superseded. Agents
       see the difference and act on it.
     </p>
   </Band>
 
-  <Band tone="dark" id="relied-on" eyebrow="Built to be relied on" heading="Standards in. Lock-in out.">
+  <Band tone="dark" id="relied-on" eyebrow="Built to be relied on" icon="standard" heading="Standards in. Lock-in out." flip>
+    <PlugIn slot="figure" />
     <p class="lede">
       CQR speaks the Model Context Protocol, the emerging standard for connecting AI agents to context, so the agents
       you already use can work inside it. It runs on the Erlang runtime built for telephone switches that were not
@@ -83,13 +119,16 @@ const primitives = [
         <p class="eyebrow">The primitives</p>
         <h2 class="h2" id="primitives">A small, complete vocabulary for agents that must be right.</h2>
       </div>
-      <ul class="cards primitives">
+      <ul class="cards primitives" data-draw>
         {
           primitives.map((p) => (
-            <li class="card card--warm">
+            <li class="card card--box draw-fade">
+              <span class="card__icon">
+                <Icon name={p.icon} />
+              </span>
               <p class="card__title">
                 <em class="term">{p.verb}</em>
-                {p.and && (
+                {'and' in p && (
                   <>
                     {' and '}
                     <em class="term">{p.and}</em>
@@ -105,6 +144,7 @@ const primitives = [
   </section>
 
   <Callout
+    icon="brain"
     lead="Agents don’t get a database. They get an epistemology."
     text="Every answer arrives with its reasons attached."
   />
@@ -113,13 +153,44 @@ const primitives = [
 </Base>
 
 <style>
-  .primitives {
+  .band-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .band-eyebrow .card__icon {
+    width: 44px;
+    height: 44px;
+  }
+  .standings {
     list-style: none;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 480px;
+  }
+  .standing {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid var(--rule);
+    background: #fdfcf9;
+  }
+  .standing--on {
+    border-color: var(--accent);
+    border-left-width: 3px;
+  }
+  .standing__label {
+    font-weight: 500;
+  }
+  .primitives {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .primitives .card__title {
+    font-size: 1.25rem;
     font-weight: 300;
     color: var(--ink-strong);
   }
@@ -135,6 +206,16 @@ const primitives = [
   @media (max-width: 560px) {
     .primitives {
       grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 400px) {
+    .standing {
+      padding: 12px 10px;
+      gap: 10px;
+    }
+    .standing .card__icon {
+      width: 40px;
+      height: 40px;
     }
   }
 </style>

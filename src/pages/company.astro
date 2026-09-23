@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Band from '../components/Band.astro';
 import CloseCall from '../components/CloseCall.astro';
+import Icon from '../components/Icon.astro';
+import StepTrace from '../components/diagrams/StepTrace.astro';
 
 const sub =
   'The oldest instruction in philosophy is our product description. We build the platform that lets organizations, and the people in them, know what they know, how they know it, and whether to trust it.';
@@ -10,11 +12,18 @@ const sub =
 const beliefs = [
   {
     title: 'Trust should be provable.',
+    icon: 'seal',
     body: '“The system said so” should be something you can check, not take on faith.',
   },
-  { title: 'Authority belongs to people.', body: 'AI can do the work. People hold the keys.' },
-  { title: 'Your context is yours.', body: 'What your organization knows should stay under your control.' },
-];
+  { title: 'Authority belongs to people.', body: 'AI can do the work. People hold the keys.', icon: 'key' },
+  { title: 'Your context is yours.', body: 'What your organization knows should stay under your control.', icon: 'cell' },
+] as const;
+
+const triad = [
+  { label: 'Record', icon: 'record' },
+  { label: 'Rulebook', icon: 'rulebook' },
+  { label: 'Trail', icon: 'trail' },
+] as const;
 
 const founderBio = 'Michael was Senior Director of Data Governance at Walmart, and at EPAM he was Senior Delivery Manager for AI and advanced analytics across Latin America. Before that, he served as a Marine Corps NCO.';
 ---
@@ -29,10 +38,13 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
       <div class="section-head">
         <h2 class="eyebrow" id="beliefs">What we believe</h2>
       </div>
-      <ul class="cards cards--3 beliefs">
+      <ul class="cards cards--3 beliefs" data-draw>
         {
           beliefs.map((b) => (
-            <li class="card card--warm">
+            <li class="card card--box draw-fade">
+              <span class="card__icon">
+                <Icon name={b.icon} />
+              </span>
               <h3 class="card__title">{b.title}</h3>
               <p class="card__body">{b.body}</p>
             </li>
@@ -42,14 +54,34 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
     </div>
   </section>
 
-  <Band tone="dark" id="uniquely" heading="Uniquely yourself">
+  <Band tone="dark" id="uniquely" heading="Uniquely yourself" icon="twin" flip>
+    <ul slot="figure" class="triad" data-draw>
+      {
+        triad.map((t) => (
+          <li class="triad__item draw-fade">
+            <span class="triad__icon"><Icon name={t.icon} size={30} /></span>
+            <span class="triad__label">{t.label}</span>
+          </li>
+        ))
+      }
+    </ul>
     <p class="lede">
       For a person, Unica is a twin that remembers them the way they choose to be remembered. For an organization, it
       is a record that cannot be lost, a rulebook that cannot be bypassed, and a trail that cannot be faked.
     </p>
   </Band>
 
-  <Band tone="paper" id="run-on-it" eyebrow="We run on it" heading="Our first customer is us.">
+  <Band tone="paper" id="run-on-it" eyebrow="We run on it" icon="shield" heading="Our first customer is us.">
+    <StepTrace
+      slot="figure"
+      alt="Diagram: every change is proposed, attacked by reviewers, approved by a person, and recorded."
+      steps={[
+        { label: 'Proposed', icon: 'assert' },
+        { label: 'Attacked', icon: 'find' },
+        { label: 'Approved', icon: 'fingerprint' },
+      ]}
+      end="Recorded"
+    />
     <p class="lede">
       Unica is built by a governed team of people and AI agents working inside the same substrate we sell. Every change
       is proposed, attacked by reviewers, approved by a person and recorded. This is not a design document; our company
@@ -62,6 +94,7 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
       <div class="leadership">
         <h2 class="eyebrow" id="leadership">Leadership</h2>
         <div class="person">
+          <span class="person__mark" aria-hidden="true"><Icon name="seal" size={28} /></span>
           <p class="person__name"><strong>Michael Cram</strong>, Founder and CEO.</p>
           <p class="person__bio">{founderBio}</p>
         </div>
@@ -80,11 +113,6 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
     letter-spacing: 0;
     color: var(--warm);
   }
-  .beliefs {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
   .leadership {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -92,6 +120,51 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
     row-gap: 20px;
     padding-top: var(--band-y);
     border-top: 1px solid var(--rule);
+  }
+  .person__mark {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    color: var(--accent);
+  }
+  .person__mark :global(.icon) {
+    color: var(--accent);
+  }
+  .triad {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 480px;
+  }
+  .triad__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 24px 10px;
+    border: 1px solid var(--hair-dark);
+    border-top: 2px solid var(--warm);
+  }
+  .triad__icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border: 1px solid var(--warm);
+    border-radius: 50%;
+  }
+  .triad__label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm);
   }
   .leadership > .eyebrow {
     grid-column: span 5;
