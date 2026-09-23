@@ -15,6 +15,7 @@ interface Props {
   agents?: Agent[];
   title?: string;
   alt?: string;
+  status?: 'early' | 'roadmap';
 }
 
 const {
@@ -25,12 +26,13 @@ const {
   ],
   title = 'Agents',
   alt = 'Illustration: a list of agents, each showing its business area, its human owner and when it was last active.',
+  status,
 } = Astro.props;
 
 const stateLabel = { working: 'Working', idle: 'Idle', stopped: 'Stopped' };
 ---
 
-<Vignette title={title} alt={alt}>
+<Vignette title={title} alt={alt} status={status}>
   <ul class="v-list fleet">
     {
       agents.map((a) => (

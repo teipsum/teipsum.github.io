@@ -4,7 +4,6 @@ import PageHero from '../components/PageHero.astro';
 import Band from '../components/Band.astro';
 import Chip from '../components/Chip.astro';
 import Icon from '../components/Icon.astro';
-import RecordRow from '../components/RecordRow.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
 import InstanceSeal from '../components/diagrams/InstanceSeal.astro';
@@ -13,15 +12,12 @@ import StepTrace from '../components/diagrams/StepTrace.astro';
 import PasskeyApproval from '../components/vignettes/PasskeyApproval.astro';
 import FleetRow from '../components/vignettes/FleetRow.astro';
 import EvidenceExport from '../components/vignettes/EvidenceExport.astro';
+import RecordCard from '../components/vignettes/RecordCard.astro';
+import Duties from '../components/diagrams/Duties.astro';
 
 const sub =
   'Unica is built so that every claim it makes about itself can be verified: who acted, on whose authority, and why.';
 
-const roles = [
-  { name: 'Trustees', icon: 'key' },
-  { name: 'Administrators', icon: 'roles' },
-  { name: 'Auditors', icon: 'find' },
-] as const;
 ---
 
 <Base title="Trust and governance" description={sub}>
@@ -50,16 +46,7 @@ const roles = [
   </Band>
 
   <Band tone="paper" id="duties" eyebrow="Separation of duties" icon="roles" heading="No one holds every key.">
-    <div slot="figure" class="duties" role="img" aria-label="Diagram: Trustees, Administrators and Auditors, three separate roles, each holding a different key." data-draw>
-      {
-        roles.map((r) => (
-          <div class="duty draw-fade">
-            <span class="card__icon"><Icon name={r.icon} /></span>
-            <span class="duty__name">{r.name}</span>
-          </div>
-        ))
-      }
-    </div>
+    <Duties slot="figure" />
     <p class="lede">
       Trustees, Administrators and Auditors each hold distinct powers. No one can grant themselves more, and the last
       holder of a critical role cannot be removed by accident.
@@ -82,7 +69,7 @@ const roles = [
   </Band>
 
   <section class="band band--paper" aria-labelledby="evidence">
-    <div class="wrap stack stack--lg">
+    <div class="wrap">
       <div class="split">
         <div class="split__text stack evidence-text">
           <p class="eyebrow evidence-eyebrow"><span class="card__icon"><Icon name="evidence" size={22} /></span>Evidence</p>
@@ -91,12 +78,14 @@ const roles = [
             Every act is signed and attributable, and refusals are recorded too. <Chip status="early" /> Auditors export
             evidence that stands on its own, months later. <Chip status="early" />
           </p>
+          <div class="evidence-record">
+            <RecordCard />
+          </div>
         </div>
         <div class="split__figure">
           <EvidenceExport />
         </div>
       </div>
-      <RecordRow />
     </div>
   </section>
 
@@ -138,28 +127,6 @@ const roles = [
     vertical-align: middle;
     margin-left: 6px;
   }
-  .duties {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    max-width: 520px;
-    margin-inline: auto;
-  }
-  .duty {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 18px 14px;
-    border: 1px solid var(--rule);
-    border-top: 2px solid var(--accent);
-    background: #fdfcf9;
-  }
-  .duty__name {
-    font-weight: 500;
-    font-size: 1rem;
-    overflow-wrap: anywhere;
-  }
   .evidence-text {
     gap: 18px;
   }
@@ -172,14 +139,10 @@ const roles = [
     width: 44px;
     height: 44px;
   }
-  @media (max-width: 400px) {
-    .duties {
-      grid-template-columns: minmax(0, 1fr);
-    }
-    .duty {
-      flex-direction: row;
-      align-items: center;
-      padding: 12px 14px;
-    }
+  .evidence-record {
+    margin-top: 12px;
+  }
+  .evidence-record :global(.vig) {
+    margin-inline: 0;
   }
 </style>

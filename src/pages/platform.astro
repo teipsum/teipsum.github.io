@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import HeroTrace from '../components/HeroTrace.astro';
 import Band from '../components/Band.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
@@ -12,6 +11,7 @@ import FleetRow from '../components/vignettes/FleetRow.astro';
 import NeedsYou from '../components/vignettes/NeedsYou.astro';
 import TwinConversation from '../components/vignettes/TwinConversation.astro';
 import PasskeyApproval from '../components/vignettes/PasskeyApproval.astro';
+import RecordCard from '../components/vignettes/RecordCard.astro';
 import Chip from '../components/Chip.astro';
 
 const sub =
@@ -153,8 +153,8 @@ const loop = [
           any answer back to where it came from. Replay what was known on any day.
         </p>
       </div>
-      <div class="split__figure record-figure">
-        <HeroTrace />
+      <div class="split__figure">
+        <RecordCard />
       </div>
     </div>
   </section>
@@ -168,6 +168,7 @@ const loop = [
           <p class="card__body">For Trustees, Administrators and Auditors. People, roles, approvals, the audit trail and the kill switch.</p>
           <FleetRow
             title="Console"
+            status="early"
             alt="Illustration: the console's view of agents, each with its area, owner and last activity, and one agent stopped."
             agents={[
               { name: 'Invoice intake agent', owner: 'Dana Ortiz', area: 'Finance', idle: 'Now', state: 'working' },
@@ -179,7 +180,7 @@ const loop = [
           <span class="card__icon"><Icon name="window" /></span>
           <h2 class="card__title">App</h2>
           <p class="card__body">For everyone. What needs you, what your agents are doing, and what your twin has drafted.</p>
-          <NeedsYou />
+          <NeedsYou status="early" />
         </article>
       </div>
     </div>
@@ -337,10 +338,6 @@ const loop = [
     line-height: 1.6;
     font-weight: 500;
     color: var(--paper);
-  }
-  .record-figure {
-    max-width: 480px;
-    justify-self: center;
   }
   .frame-card {
     gap: 14px;

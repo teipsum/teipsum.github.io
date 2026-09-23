@@ -1,0 +1,78 @@
+---
+// Mini vignette: one glance at the product inside a card or tile. A headline
+// row with its state, a few labelled facts, and an optional action.
+import Vignette from './Vignette.astro';
+import Seal from '../Seal.astro';
+
+interface Props {
+  title: string;
+  alt: string;
+  status?: 'early' | 'roadmap';
+  head: string;
+  /** State shown beside the headline; "sealed" draws the seal. */
+  state?: { label: string; tone?: 'solid' | 'quiet' | 'sealed' };
+  facts?: { label: string; value: string }[];
+  action?: string;
+}
+const { title, alt, status, head, state, facts = [], action } = Astro.props;
+---
+
+<Vignette title={title} alt={alt} status={status} mini>
+  <div class="v-row gl__head">
+    <span class="v-strong">{head}</span>
+    {
+      state && (
+        <span
+          class:list={[
+            'v-chip',
+            (state.tone === 'solid' || state.tone === 'sealed') && 'v-chip--solid',
+            state.tone === 'quiet' && 'v-chip--quiet',
+          ]}
+        >
+          {state.tone === 'sealed' && <Seal size={11} />}
+          {state.label}
+        </span>
+      )
+    }
+  </div>
+  {
+    facts.length > 0 && (
+      <dl class="gl__facts">
+        {facts.map((f) => (
+          <div>
+            <dt class="v-label">{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+  {action && <span class="v-btn gl__action">{action}</span>}
+</Vignette>
+
+<style>
+  .gl__head {
+    align-items: flex-start;
+  }
+  .gl__facts {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .gl__facts div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    padding-block: 5px;
+    border-top: 1px solid var(--v-hair);
+  }
+  .gl__facts dd {
+    margin: 0;
+    text-align: right;
+    color: var(--v-text);
+  }
+  .gl__action {
+    align-self: flex-start;
+  }
+</style>

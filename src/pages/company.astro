@@ -92,9 +92,13 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
   <section class="band band--paper band--flush-top" aria-labelledby="leadership">
     <div class="wrap">
       <div class="leadership">
-        <h2 class="eyebrow" id="leadership">Leadership</h2>
+        <div class="leadership__head">
+          <h2 class="eyebrow" id="leadership">Leadership</h2>
+          <span class="monogram" aria-hidden="true">
+            <span class="monogram__letters">MC</span>
+          </span>
+        </div>
         <div class="person">
-          <span class="person__mark" aria-hidden="true"><Icon name="seal" size={28} /></span>
           <p class="person__name"><strong>Michael Cram</strong>, Founder and CEO.</p>
           <p class="person__bio">{founderBio}</p>
         </div>
@@ -121,16 +125,30 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
     padding-top: var(--band-y);
     border-top: 1px solid var(--rule);
   }
-  .person__mark {
+  .leadership__head {
+    grid-column: span 5;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  /* A monogram stands in for a portrait. */
+  .monogram {
     display: grid;
     place-items: center;
-    width: 56px;
-    height: 56px;
+    width: 128px;
+    height: 128px;
     border: 1px solid var(--accent);
     border-radius: 50%;
-    color: var(--accent);
+    outline: 1px solid var(--rule);
+    outline-offset: 6px;
   }
-  .person__mark :global(.icon) {
+  .monogram__letters {
+    font-family: var(--font-sans);
+    font-size: 2.75rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    margin-right: -0.08em;
+    line-height: 1;
     color: var(--accent);
   }
   .triad {
@@ -166,9 +184,6 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
     text-transform: uppercase;
     color: var(--warm);
   }
-  .leadership > .eyebrow {
-    grid-column: span 5;
-  }
   .person {
     grid-column: 7 / span 6;
     display: flex;
@@ -188,7 +203,7 @@ const founderBio = 'Michael was Senior Director of Data Governance at Walmart, a
     color: var(--ink-strong);
   }
   @media (max-width: 900px) {
-    .leadership > .eyebrow,
+    .leadership__head,
     .person {
       grid-column: 1 / -1;
     }

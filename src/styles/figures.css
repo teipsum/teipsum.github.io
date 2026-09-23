@@ -235,3 +235,67 @@
   letter-spacing: 0.12em;
   fill: var(--d-soft);
 }
+
+/* Status chip inside a vignette bar: the panel is always light. */
+.vig .chip {
+  border-color: var(--accent);
+  color: var(--accent);
+  padding: 2px 7px;
+  font-size: 0.6875rem;
+  gap: 6px;
+}
+
+.vig__bar {
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+
+/* ---------- Mini vignette: one glance inside a card or tile ---------- */
+
+.vig--mini {
+  max-width: none;
+  margin-inline: 0;
+  font-size: 0.8125rem;
+  box-shadow: none;
+}
+
+.vig--mini .vig__bar {
+  padding: 7px 10px;
+  gap: 8px;
+}
+
+.vig--mini .vig__dots {
+  display: none;
+}
+
+.vig--mini .vig__title,
+.vig--mini .vig__tag,
+.vig--mini .v-label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+}
+
+.vig--mini .vig__tag {
+  padding: 1px 5px;
+}
+
+.vig--mini .chip {
+  padding: 1px 6px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+}
+
+.vig--mini .vig__screen {
+  gap: 8px;
+  padding: 10px 12px 12px;
+}
+
+.vig--mini .v-title {
+  font-size: 0.9375rem;
+}
+
+.vig--mini .v-chip,
+.vig--mini .v-btn {
+  font-size: 0.6875rem;
+  padding: 2px 7px;
+}

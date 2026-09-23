@@ -10,6 +10,7 @@ interface Item {
 interface Props {
   items?: Item[];
   alt?: string;
+  status?: 'early' | 'roadmap';
 }
 const {
   items = [
@@ -18,10 +19,11 @@ const {
     { title: 'Q3 spend figures', from: 'Finance', action: 'Certify' },
   ],
   alt = 'Illustration: a short queue of items waiting on one person: an approval, a drafted reply to review, and figures to certify.',
+  status,
 } = Astro.props;
 ---
 
-<Vignette title="Needs you" alt={alt}>
+<Vignette title="Needs you" alt={alt} status={status}>
   <div class="v-row">
     <span class="v-label">Waiting on you</span>
     <span class="nq__count">{items.length}</span>

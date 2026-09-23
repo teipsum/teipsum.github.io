@@ -16,6 +16,7 @@ import TrustCircles from '../components/diagrams/TrustCircles.astro';
 import TwinConversation from '../components/vignettes/TwinConversation.astro';
 import FleetRow from '../components/vignettes/FleetRow.astro';
 import AutonomyDial from '../components/vignettes/AutonomyDial.astro';
+import Glance from '../components/vignettes/Glance.astro';
 
 const sub =
   'Unica starts with one person and one team, and grows from the inside out. Every capability you add makes every other one smarter.';
@@ -32,6 +33,19 @@ const sub =
       Bring in what your organization already knows, from the systems where it lives today. It arrives as governed
       records with its origin attached, so AI can use it and nobody loses track of where it came from.
     </p>
+    <div class="rung-glance">
+      <Glance
+        title="Record"
+        status="early"
+        alt="Illustration: a supplier contract brought in from a shared drive, now a governed record with its origin attached."
+        head="Supplier contract, renewal terms"
+        state={{ label: 'Governed', tone: 'quiet' }}
+        facts={[
+          { label: 'Origin', value: 'Shared drive, Contracts' },
+          { label: 'Brought in', value: 'Mar 4, 09:12' },
+        ]}
+      />
+    </div>
   </Band>
 
   <Band tone="dark" id="twin" eyebrow="02 · Your twin" icon="twin" heading="A twin that works on your behalf." status="early" flip>
@@ -77,6 +91,19 @@ const sub =
         <span><em class="term">Rewind the company:</em> “What did we know on March 12th?” has an exact answer.</span>
       </li>
     </ul>
+    <div class="rung-glance">
+      <Glance
+        title="Agent briefing"
+        status="early"
+        alt="Illustration: an agent starting a task is briefed on what the company currently holds true, with one stale fact flagged."
+        head="Briefed: supplier renewal"
+        state={{ label: '1 stale', tone: 'solid' }}
+        facts={[
+          { label: 'Certified facts', value: '14' },
+          { label: 'Flagged stale', value: 'Old payment terms' },
+        ]}
+      />
+    </div>
   </Band>
 
   <Band tone="dark" id="collaboration" eyebrow="Collaboration" icon="collaborate" heading="Collaboration without the copy-paste." status="early" flip>
@@ -172,6 +199,19 @@ const sub =
       under explicit agreements. Each side keeps its own record and its own authority.
     </p>
     <p class="mono-line">Built on standards, so it works with the technology you already have.</p>
+    <div class="rung-glance">
+      <Glance
+        title="Partner request"
+        status="roadmap"
+        alt="Illustration: a supplier's agent asks for a delivery schedule under an agreement, and Operations shares it by choice."
+        head="Delivery schedule, week 42"
+        state={{ label: 'Shared by choice', tone: 'quiet' }}
+        facts={[
+          { label: 'Asked by', value: 'Supplier’s agent' },
+          { label: 'Under', value: 'Explicit agreement' },
+        ]}
+      />
+    </div>
   </Band>
 
   <Callout
@@ -211,6 +251,10 @@ const sub =
   .lede :global(.chip) {
     vertical-align: middle;
     margin-left: 6px;
+  }
+  .rung-glance {
+    max-width: 380px;
+    margin-top: 8px;
   }
   .tie-in {
     padding-top: 18px;

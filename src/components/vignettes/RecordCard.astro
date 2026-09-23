@@ -3,6 +3,7 @@
 import Vignette from './Vignette.astro';
 import Seal from '../Seal.astro';
 
+// Signed records are in early access, so the card carries the chip.
 const rows = [
   { label: 'Sources', value: '3 documents' },
   { label: 'Acted', value: 'Procurement agent, for Dana Ortiz' },
@@ -13,6 +14,7 @@ const rows = [
 
 <Vignette
   title="Record"
+  status="early"
   alt="Illustration: a signed record of a contract renewal, showing its three source documents, the agent that acted and for whom, the approver, the time, and its seal."
 >
   <div class="v-row">

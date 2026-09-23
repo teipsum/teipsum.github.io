@@ -8,16 +8,76 @@ import Scenario from '../components/Scenario.astro';
 import CloseCall from '../components/CloseCall.astro';
 import NeedsYou from '../components/vignettes/NeedsYou.astro';
 import PasskeyApproval from '../components/vignettes/PasskeyApproval.astro';
+import Glance from '../components/vignettes/Glance.astro';
 import Chip from '../components/Chip.astro';
 
 const sub =
   'Unica gives a small firm a big team’s reach and gives an enterprise the controls its auditors expect, on the same governed foundation.';
 
 const sectors = [
-  { name: 'Financial services', body: 'Approvals that cannot be borrowed, and a trail a regulator can follow.', icon: 'finance' },
-  { name: 'Healthcare', body: 'Personal information that stays personal, by design.', icon: 'health' },
-  { name: 'Legal and professional services', body: 'Every claim with its citation and its standing.', icon: 'legal' },
-  { name: 'Public sector', body: 'A dedicated instance, and authority that stays with your people.', icon: 'civic' },
+  {
+    name: 'Financial services',
+    body: 'Approvals that cannot be borrowed, and a trail a regulator can follow.',
+    icon: 'finance',
+    glance: {
+      title: 'Approval',
+      alt: 'Illustration: a payment release waiting for the treasury lead, who approves it with their own passkey, for this action only.',
+      head: 'Payment release, supplier batch',
+      state: { label: 'Needs you', tone: 'quiet' },
+      facts: [
+        { label: 'Approver', value: 'Treasury lead' },
+        { label: 'Bound to', value: 'This action only' },
+      ],
+      action: 'Approve with passkey',
+    },
+  },
+  {
+    name: 'Healthcare',
+    body: 'Personal information that stays personal, by design.',
+    icon: 'health',
+    glance: {
+      title: 'Your twin',
+      status: 'early',
+      alt: 'Illustration: a clinician’s notes to their twin, readable by the clinician and, where required, their auditor, and not by an administrator.',
+      head: 'Notes to your twin',
+      state: { label: 'Private to you', tone: 'quiet' },
+      facts: [
+        { label: 'Can read', value: 'You; your auditor, where required' },
+        { label: 'Cannot read', value: 'Administrator' },
+      ],
+    },
+  },
+  {
+    name: 'Legal and professional services',
+    body: 'Every claim with its citation and its standing.',
+    icon: 'legal',
+    glance: {
+      title: 'Answer',
+      status: 'early',
+      alt: 'Illustration: an answer about a liability cap, citing clause 7 of a services agreement, with its standing shown as certified.',
+      head: 'Liability cap: 12 months of fees',
+      state: { label: 'Certified', tone: 'sealed' },
+      facts: [
+        { label: 'Source', value: 'Services agreement, cl. 7' },
+        { label: 'Certified by', value: 'General counsel' },
+      ],
+    },
+  },
+  {
+    name: 'Public sector',
+    body: 'A dedicated instance, and authority that stays with your people.',
+    icon: 'civic',
+    glance: {
+      title: 'Instance',
+      alt: 'Illustration: a dedicated instance for a city office, founded by three of its own Trustees.',
+      head: 'City permits office',
+      state: { label: 'Dedicated' },
+      facts: [
+        { label: 'Founded by', value: '3 Trustees' },
+        { label: 'Authority', value: 'Your people' },
+      ],
+    },
+  },
 ] as const;
 ---
 
@@ -81,6 +141,9 @@ const sectors = [
               </span>
               <h3 class="card__title sector__title">{s.name}</h3>
               <p class="card__body">{s.body}</p>
+              <div class="sector__glance">
+                <Glance {...s.glance} />
+              </div>
             </li>
           ))
         }
@@ -98,6 +161,10 @@ const sectors = [
   .lede :global(.chip) {
     vertical-align: middle;
     margin-left: 6px;
+  }
+  .sector__glance {
+    margin-top: auto;
+    padding-top: 8px;
   }
   .sector__title {
     font-size: 1.25rem;

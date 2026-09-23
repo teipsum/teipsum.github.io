@@ -1,31 +1,75 @@
 ---
-// Numbered steps on a connecting line that ends in the seal icon.
+// How it works as a visual timeline: numbered stations on one bronze trace,
+// each with a small drawing above its words. The last station is the record
+// the work leaves behind, passed in through the "end" slot.
 import Seal from './Seal.astro';
-import Icon from './Icon.astro';
-import type { ComponentProps } from 'astro/types';
 
 interface Props {
-  steps: { title: string; body: string; icon?: ComponentProps<typeof Icon>['name'] }[];
+  steps: { title: string; body: string; visual: 'found' | 'grant' | 'work' }[];
 }
 const { steps } = Astro.props;
+const hasEnd = Astro.slots.has('end');
+const total = steps.length + (hasEnd ? 1 : 0);
 ---
 
 <div class="steps-wrap" data-draw>
-  <ol class="steps">
+  <ol class:list={['steps', `steps--${total}`]}>
     {
       steps.map((s, i) => (
         <li class="step">
-          <span class="step__num" aria-hidden="true">
-            {s.icon && <Icon name={s.icon} size={22} />}
-            {String(i + 1).padStart(2, '0')}
-          </span>
+          <span class="step__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <svg class="step__art draw-fade" viewBox="0 0 200 96" fill="none" aria-hidden="true" focusable="false">
+            {s.visual === 'found' && (
+              <>
+                <path class="dg-line" d="M40 18 L100 70 M100 18 V70 M160 18 L100 70" />
+                <circle class="dg-node" cx="40" cy="18" r="6" />
+                <circle class="dg-node" cx="100" cy="18" r="6" />
+                <circle class="dg-node" cx="160" cy="18" r="6" />
+                <rect class="dg-node" x="84" y="62" width="32" height="28" />
+                <path class="dg-line" d="M93 76l5 5 10-11" />
+              </>
+            )}
+            {s.visual === 'grant' && (
+              <>
+                <rect class="step__scope" x="24" y="12" width="112" height="72" />
+                <circle class="dg-dot" cx="60" cy="48" r="6" />
+                <path class="dg-line" d="M66 48 H100" />
+                <circle class="dg-node" cx="106" cy="48" r="6" />
+                <path class="step__hair" d="M112 48 H132" />
+                <path class="step__stop" d="M140 34 V62" />
+                <circle class="dg-node" cx="170" cy="48" r="11" />
+                <path class="dg-line" d="M165 48.5l3.5 3.5 6.5-7" />
+              </>
+            )}
+            {s.visual === 'work' && (
+              <>
+                <path class="dg-line" d="M150 48 L50 16 M150 48 L50 48 M150 48 L50 80" />
+                <circle class="dg-node" cx="50" cy="16" r="6" />
+                <circle class="dg-node" cx="50" cy="48" r="6" />
+                <circle class="dg-node" cx="50" cy="80" r="6" />
+                <circle class="dg-dot" cx="150" cy="48" r="9" />
+              </>
+            )}
+          </svg>
           <h3 class="step__title">{s.title}</h3>
           <p class="step__body">{s.body}</p>
         </li>
       ))
     }
+    {
+      hasEnd && (
+        <li class="step step--end">
+          <span class="step__num" aria-hidden="true">
+            <Seal size={20} />
+            {String(total).padStart(2, '0')}
+          </span>
+          <div class="step__end draw-fade">
+            <slot name="end" />
+          </div>
+        </li>
+      )
+    }
   </ol>
-  <span class="steps__seal" aria-hidden="true"><Seal size={28} /></span>
 </div>
 
 <style>
@@ -38,15 +82,18 @@ const { steps } = Astro.props;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 48px;
+    column-gap: 36px;
     position: relative;
+  }
+  .steps--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   /* The trace itself */
   .steps::before {
     content: '';
     position: absolute;
     left: 0;
-    right: 14px;
+    right: 0;
     top: 7px;
     height: 1.5px;
     background: var(--warm);
@@ -57,7 +104,7 @@ const { steps } = Astro.props;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    padding-top: 44px;
+    padding-top: 36px;
   }
   .step::before {
     content: '';
@@ -71,6 +118,9 @@ const { steps } = Astro.props;
     border: 2px solid var(--warm);
     box-sizing: content-box;
   }
+  .step--end::before {
+    background: var(--warm);
+  }
   .step__num {
     display: flex;
     align-items: center;
@@ -80,8 +130,29 @@ const { steps } = Astro.props;
     letter-spacing: 0.18em;
     color: var(--warm);
   }
+  .step__art {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    padding: 12px 0;
+    border-block: 1px solid var(--d-hair);
+  }
+  .step__scope {
+    stroke: var(--d-signal);
+    stroke-width: 1.25;
+    stroke-dasharray: 5 5;
+  }
+  .step__hair {
+    stroke: var(--d-soft);
+    stroke-width: 1.25;
+    stroke-dasharray: 3 4;
+  }
+  .step__stop {
+    stroke: var(--d-signal);
+    stroke-width: 2.5;
+  }
   .step__title {
-    font-size: var(--fs-h3);
+    font-size: 1.375rem;
     line-height: 1.25;
     font-weight: 500;
   }
@@ -90,13 +161,6 @@ const { steps } = Astro.props;
     line-height: 1.6;
     font-weight: 300;
     color: var(--paper-strong);
-  }
-  .steps__seal {
-    position: absolute;
-    right: 0;
-    top: -7px;
-    color: var(--warm);
-    background: var(--ink);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -109,7 +173,8 @@ const { steps } = Astro.props;
   }
 
   @media (max-width: 900px) {
-    .steps {
+    .steps,
+    .steps--4 {
       grid-template-columns: minmax(0, 1fr);
       row-gap: 40px;
       padding-left: 40px;
@@ -118,7 +183,7 @@ const { steps } = Astro.props;
       left: 7px;
       right: auto;
       top: 0;
-      bottom: -40px;
+      bottom: 0;
       width: 1.5px;
       height: auto;
       transform-origin: center top;
@@ -129,15 +194,6 @@ const { steps } = Astro.props;
     .step::before {
       left: -40px;
       top: 2px;
-    }
-    .steps__seal {
-      left: -6px;
-      right: auto;
-      top: auto;
-      bottom: 0;
-    }
-    .steps-wrap {
-      padding-bottom: 48px;
     }
     .undrawn .steps::before {
       transform: scaleY(0);
