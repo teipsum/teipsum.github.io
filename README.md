@@ -24,6 +24,7 @@ variables of the same name.
 | `PUBLIC_WAITLIST_ENDPOINT` | HTTPS URL the waitlist form posts to | The form says it is not accepting requests yet and sends nothing |
 | `PUBLIC_CF_BEACON_TOKEN` | Cloudflare Web Analytics token (overrides the default) | The site's own token, set in `src/config.ts` |
 | `PUBLIC_LINKEDIN_URL` | Company LinkedIn page | No footer link |
+| `PUBLIC_PRIVACY_EFFECTIVE_DATE` | Privacy notice effective date, as it should read (for example `October 1, 2026`); set at launch | `/privacy/` shows no date line |
 
 The endpoint's origin is added to the page Content-Security-Policy
 (`connect-src`, `form-action`) automatically.
@@ -54,6 +55,12 @@ the confirmation; anything else shows an error and keeps the form.
 `.github/workflows/deploy.yml` builds on every pull request and, on push to
 `main`, deploys `dist/` to GitHub Pages. Pages must be set to deploy from
 GitHub Actions.
+
+Set these repository variables before launch:
+
+- `PUBLIC_WAITLIST_ENDPOINT`: until it is set, the form sends nothing.
+- `PUBLIC_PRIVACY_EFFECTIVE_DATE`: until it is set, `/privacy/` has no effective date.
+- `PUBLIC_LINKEDIN_URL` (optional).
 
 ## Social card
 

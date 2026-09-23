@@ -54,7 +54,21 @@ const outcomes = [
 
 // Footnote 1 of the ratio strip: the original publication only.
 // Without a source, the strip ships without its first sentence.
-const ratioSource: { publisher: string; title: string; date: string; url: string } | null = null;
+const ratioSource: {
+  publisher: string;
+  series: string;
+  title: string;
+  date: string;
+  locator: string;
+  url: string;
+} | null = {
+  publisher: 'Goldman Sachs Research',
+  series: 'Top of Mind',
+  title: '“An AI Job Apocalypse?”',
+  date: 'June 25, 2026',
+  locator: 'p. 18, “AI agents vs. humans: who costs more?”',
+  url: 'https://www.goldmansachs.com/pdfs/insights/goldman-sachs-research/an-ai-job-apocalypse/report.pdf',
+};
 
 const steps = [
   {
@@ -134,11 +148,11 @@ const steps = [
         {
           ratioSource && (
             <p class="ratio__note" id="fn-ratio">
-              <span class="ratio__mark">1</span> {ratioSource.publisher},{' '}
+              <span class="ratio__mark">1</span> {ratioSource.publisher}, <cite>{ratioSource.series}</cite>,{' '}
               <a href={ratioSource.url} rel="noreferrer">
                 {ratioSource.title}
               </a>
-              , {ratioSource.date}. <a href="#fnref-ratio" aria-label="Back to the text">↩</a>
+              , {ratioSource.date}, {ratioSource.locator} <a class="ratio__back" href="#fnref-ratio" aria-label="Back to the text">↩</a>
             </p>
           )
         }
@@ -293,10 +307,19 @@ const steps = [
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+  /* 24 px target from padding; the negative margin keeps the text spacing. */
   .ratio__text sup a {
+    padding: 6px 9px;
+    margin-inline: -9px;
+  }
+  .ratio__note a {
+    padding-block: 3px;
+  }
+  .ratio__note .ratio__back {
     display: inline-block;
     min-width: 24px;
     min-height: 24px;
+    padding-block: 0;
     text-align: center;
   }
   .ratio__note {

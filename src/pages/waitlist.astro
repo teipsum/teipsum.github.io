@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { WAITLIST_ENDPOINT } from '../config';
+import { WAITLIST_ENDPOINT, PRIVACY_HREF } from '../config';
 
 const sub =
   'Unica is admitting organizations in waves. Each wave gets hands-on onboarding and a direct line to the people building it.';
@@ -129,7 +129,10 @@ const industries = [
 
           <div class="field field--check">
             <input id="f-consent" name="consent" type="checkbox" value="true" required aria-describedby="f-consent-error" />
-            <label for="f-consent">I agree to be contacted about early access.</label>
+            <p class="field__check-text">
+              <label for="f-consent">I agree to be contacted about early access.</label>{' '}
+              <a href={PRIVACY_HREF}>Privacy notice</a>
+            </p>
             <p class="field__error" id="f-consent-error" hidden></p>
           </div>
 
@@ -307,6 +310,16 @@ const industries = [
   }
   .field--check label {
     font-weight: 400;
+  }
+  .field__check-text {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .field__check-text a {
+    padding-block: 3px;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   .field--check .field__error {
     grid-column: 1 / -1;

@@ -1,6 +1,6 @@
 ---
 import Wordmark from './Wordmark.astro';
-import { NAV, WAITLIST_HREF, CTA_LABEL, LINKEDIN_URL } from '../config';
+import { NAV, WAITLIST_HREF, CTA_LABEL, LINKEDIN_URL, PRIVACY_HREF } from '../config';
 ---
 
 <footer class="site-footer">
@@ -26,6 +26,7 @@ import { NAV, WAITLIST_HREF, CTA_LABEL, LINKEDIN_URL } from '../config';
               </li>
             )
           }
+          <li><a href={PRIVACY_HREF}>Privacy</a></li>
         </ul>
       </nav>
     </div>

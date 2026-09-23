@@ -25,6 +25,9 @@ export const WAITLIST_ENDPOINT = httpsUrl(env.PUBLIC_WAITLIST_ENDPOINT, 'PUBLIC_
 /** Cloudflare Web Analytics token (public; the one the current site uses). */
 export const CF_BEACON_TOKEN = (env.PUBLIC_CF_BEACON_TOKEN || '9fe6f88fa55b4834b34a05601cc3d8bb').trim();
 
+/** Privacy notice effective date, as it should read (set at launch). Empty = no date line. */
+export const PRIVACY_EFFECTIVE_DATE = (env.PUBLIC_PRIVACY_EFFECTIVE_DATE ?? '').trim();
+
 /** Company LinkedIn page. Empty = no footer link. */
 export const LINKEDIN_URL = httpsUrl(env.PUBLIC_LINKEDIN_URL, 'PUBLIC_LINKEDIN_URL');
 
@@ -39,6 +42,7 @@ export const NAV = [
 
 export const WAITLIST_HREF = '/waitlist/';
 export const CTA_LABEL = 'Join the waitlist';
+export const PRIVACY_HREF = '/privacy/';
 
 /** Every public page, for the sitemap. */
-export const PAGES = ['/', ...NAV.map((n) => n.href), WAITLIST_HREF];
+export const PAGES = ['/', ...NAV.map((n) => n.href), WAITLIST_HREF, PRIVACY_HREF];

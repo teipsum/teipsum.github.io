@@ -34,6 +34,7 @@ jobs:
           PUBLIC_WAITLIST_ENDPOINT: ${{ vars.PUBLIC_WAITLIST_ENDPOINT }}
           PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
           PUBLIC_LINKEDIN_URL: ${{ vars.PUBLIC_LINKEDIN_URL }}
+          PUBLIC_PRIVACY_EFFECTIVE_DATE: ${{ vars.PUBLIC_PRIVACY_EFFECTIVE_DATE }}
 
       - if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v5

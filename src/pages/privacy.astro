@@ -1,0 +1,126 @@
+---
+import Base from '../layouts/Base.astro';
+import { PRIVACY_EFFECTIVE_DATE } from '../config';
+
+const contact = 'contact@teipsum.com';
+
+const sections = [
+  {
+    id: 'who',
+    label: 'Who we are',
+    body: 'This notice covers teipsum.com and the Unica waitlist, run by Teipsum, Inc. (“TEIPSUM”, “we”).',
+  },
+  {
+    id: 'what',
+    label: 'What you give us',
+    body: 'When you join the waitlist, we ask for your email, name, organization, role, organization size, industry and what you would use Unica for first. That is all. The form has no hidden fields that collect anything about you.',
+  },
+  {
+    id: 'why',
+    label: 'Why we use it',
+    body: 'To contact you about early access to Unica, including when your wave begins and what the founding cohort involves, and to plan who we admit and when. We use it for nothing else. We rely on your consent, which you can withdraw at any time.',
+  },
+  {
+    id: 'never',
+    label: 'What we never do',
+    body: 'We don’t sell or rent your information, and we don’t share it with anyone except the providers that host our systems for us, who must protect it and may not use it for their own purposes.',
+  },
+  {
+    id: 'where',
+    label: 'Where it lives',
+    body: 'In systems we run ourselves, stored encrypted in the United States, and seen only by TEIPSUM staff who need it.',
+  },
+  {
+    id: 'how-long',
+    label: 'How long we keep it',
+    body: 'Until you are admitted to early access and become a customer, or for 24 months from the day you sign up, whichever comes first. After that we delete it. You can ask us to delete it sooner.',
+  },
+  { id: 'choices', label: 'Your choices' },
+  {
+    id: 'website',
+    label: 'This website',
+    body: 'The site sets no cookies. We count visits with privacy-focused analytics that stores no personal data and does not follow you across other sites. Our web host keeps standard technical logs, such as IP address and browser type, to run and secure the site.',
+  },
+  {
+    id: 'children',
+    label: 'Not for children',
+    body: 'The waitlist is for businesses and is not meant for anyone under 16.',
+  },
+  {
+    id: 'changes',
+    label: 'Changes',
+    body: 'If we change this notice, we’ll update the date at the top. If a change affects information you have already given us, we’ll email you before it takes effect.',
+  },
+];
+---
+
+<Base title="Privacy" description="This notice covers teipsum.com and the Unica waitlist, run by Teipsum, Inc.">
+  <section class="band band--paper privacy" aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="privacy__col">
+        <header class="privacy__head stack">
+          <p class="eyebrow">PRIVACY</p>
+          <h1 class="h2" id="page-title">What we collect, and why.</h1>
+          {PRIVACY_EFFECTIVE_DATE && <p class="mono-line">Effective date: {PRIVACY_EFFECTIVE_DATE}</p>}
+        </header>
+        {
+          sections.map((s) => (
+            <section class="privacy__section" aria-labelledby={`p-${s.id}`}>
+              <h2 class="privacy__label" id={`p-${s.id}`}>
+                {s.label}
+              </h2>
+              {s.body ? (
+                <p class="body">{s.body}</p>
+              ) : (
+                <p class="body">
+                  You can ask to see, correct or delete your information, or to leave the waitlist, at any time. Email{' '}
+                  <a href={`mailto:${contact}`}>{contact}</a> and we’ll act within 30 days. Every email we send lets you
+                  unsubscribe in one click. If you are in the EU or UK, you can also complain to your local
+                  data-protection authority.
+                </p>
+              )}
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .privacy__col {
+    max-width: 44rem;
+  }
+  .privacy__head {
+    gap: 20px;
+    padding-bottom: clamp(32px, 4vw, 48px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .privacy__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-block: 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .privacy__section:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .privacy__label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .privacy .body a {
+    padding-block: 3px;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+</style>
