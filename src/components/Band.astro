@@ -1,6 +1,10 @@
 ---
-// A standard copy band: optional eyebrow, headline, status chip, body.
+// A standard copy band: optional eyebrow, headline, status chip, body, and a
+// figure. With a figure the band is a split (words on one side, the figure on
+// the other); without one, the head and body sit side by side.
 import Chip from './Chip.astro';
+import Icon from './Icon.astro';
+import type { ComponentProps } from 'astro/types';
 
 interface Props {
   tone: 'dark' | 'paper';
@@ -9,22 +13,67 @@ interface Props {
   heading: string;
   status?: 'early' | 'roadmap';
   flushTop?: boolean;
+  /** Icon beside the eyebrow. */
+  icon?: ComponentProps<typeof Icon>['name'];
+  /** Put the figure on the left (desktop only). */
+  flip?: boolean;
+  /** Column balance when there is a figure. */
+  ratio?: '6-6' | '5-7' | '7-5';
 }
-const { tone, id, eyebrow, heading, status, flushTop = false } = Astro.props;
+const { tone, id, eyebrow, heading, status, flushTop = false, icon, flip = false, ratio = '6-6' } = Astro.props;
+const hasFigure = Astro.slots.has('figure');
 ---
 
 <section class:list={['band', `band--${tone}`, flushTop && 'band--flush-top']} aria-labelledby={id}>
   <div class="wrap">
-    <div class="band-grid">
-      <div class="band-grid__head stack">
-        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-        <h2 class="h2" id={id}>{heading}</h2>
-        {status && <Chip status={status} />}
-      </div>
-      <div class="band-grid__body stack">
-        <slot />
-      </div>
-    </div>
+    {
+      hasFigure ? (
+        <div class:list={['split', ratio !== '6-6' && `split--${ratio}`, flip && 'split--flip']}>
+          <div class="split__text stack band-text">
+            {(eyebrow || icon) && (
+              <p class="eyebrow band-eyebrow">
+                {icon && (
+                  <span class="band-icon">
+                    <Icon name={icon} size={22} />
+                  </span>
+                )}
+                {eyebrow}
+              </p>
+            )}
+            <h2 class="h2" id={id}>
+              {heading}
+            </h2>
+            {status && <Chip status={status} />}
+            <slot />
+          </div>
+          <div class="split__figure">
+            <slot name="figure" />
+          </div>
+        </div>
+      ) : (
+        <div class="band-grid">
+          <div class="band-grid__head stack">
+            {(eyebrow || icon) && (
+              <p class="eyebrow band-eyebrow">
+                {icon && (
+                  <span class="band-icon">
+                    <Icon name={icon} size={22} />
+                  </span>
+                )}
+                {eyebrow}
+              </p>
+            )}
+            <h2 class="h2" id={id}>
+              {heading}
+            </h2>
+            {status && <Chip status={status} />}
+          </div>
+          <div class="band-grid__body stack">
+            <slot />
+          </div>
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -33,16 +82,32 @@ const { tone, id, eyebrow, heading, status, flushTop = false } = Astro.props;
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--col-gap);
-    row-gap: 28px;
+    row-gap: 24px;
   }
   .band-grid__head {
     grid-column: span 5;
-    gap: 20px;
+    gap: 16px;
   }
   .band-grid__body {
     grid-column: 7 / span 6;
-    gap: 20px;
+    gap: 18px;
     padding-top: 6px;
+  }
+  .band-text {
+    gap: 18px;
+  }
+  .band-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .band-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--d-hair);
   }
   @media (max-width: 900px) {
     .band-grid__head,

@@ -1,0 +1,102 @@
+---
+// Diagram: the five rungs as a climb. Each rung links to its section.
+import Icon from '../Icon.astro';
+
+const rungs = [
+  { n: '01', label: 'Connect', href: '#connect', icon: 'connect' },
+  { n: '02', label: 'Your twin', href: '#twin', icon: 'twin' },
+  { n: '03', label: 'The corporate brain', href: '#brain', icon: 'brain' },
+  { n: '04', label: 'Departments build agents', href: '#departments', icon: 'build' },
+  { n: '05', label: 'Turn outward', href: '#outward', icon: 'circles', later: true },
+] as const;
+---
+
+<nav class="dg ladder" aria-label="The five rungs" data-draw>
+  <ol>
+    {
+      rungs.map((r) => (
+        <li class:list={['rung', 'draw-fade', r.later && 'rung--later']}>
+          <a href={r.href}>
+            <Icon name={r.icon} size={22} />
+            <span class="rung__n">{r.n}</span>
+            <span class="rung__label">{r.label}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .ladder ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: end;
+    gap: 8px;
+    min-height: 300px;
+  }
+  .rung {
+    height: calc(var(--h) * 1%);
+    display: flex;
+  }
+  .rung:nth-child(1) { --h: 36; }
+  .rung:nth-child(2) { --h: 52; }
+  .rung:nth-child(3) { --h: 68; }
+  .rung:nth-child(4) { --h: 84; }
+  .rung:nth-child(5) { --h: 100; }
+  .rung a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 10px;
+    border-top: 2px solid var(--d-signal);
+    border-left: 1px solid var(--d-hair);
+    background: linear-gradient(to bottom, rgba(196, 168, 130, 0.1), transparent 70%);
+    color: var(--d-ink);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    line-height: 1.3;
+  }
+  .rung a:hover .rung__label {
+    color: var(--d-signal-text);
+  }
+  .rung--later a {
+    border-top-style: dashed;
+    background: none;
+  }
+  .rung__n {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    color: var(--d-signal-text);
+  }
+  .rung__label {
+    font-weight: 500;
+  }
+  @media (max-width: 700px) {
+    .ladder ol {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 0;
+      gap: 6px;
+    }
+    .rung {
+      height: auto;
+      margin-left: calc((var(--h) - 36) * 0.45%);
+    }
+    .rung a {
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-top: 0;
+      border-left: 2px solid var(--d-signal);
+    }
+    .rung--later a {
+      border-left-style: dashed;
+    }
+  }
+</style>

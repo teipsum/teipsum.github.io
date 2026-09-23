@@ -1,0 +1,237 @@
+/* Shared parts for vignettes and diagrams. Vignettes are stylised product
+   panels on a light surface, the same on ink and paper bands. Diagrams take
+   their colours from the --d-* tone variables. */
+
+/* ---------- Vignette surface ---------- */
+
+.vig {
+  --v-ink: var(--ink);
+  --v-text: var(--ink-strong);
+  --v-soft: var(--ink-soft);
+  --v-hair: var(--rule);
+  --v-signal: var(--accent);
+  --focus: var(--accent);
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+  color: var(--v-ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  box-shadow: 0 24px 48px -32px rgba(0, 0, 0, 0.55);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.band--paper .vig,
+.tone-paper .vig {
+  background: #fdfcf9;
+  box-shadow: 0 20px 40px -30px rgba(26, 26, 26, 0.35);
+}
+
+.vig__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--v-hair);
+}
+
+.vig__dots {
+  display: flex;
+  gap: 5px;
+}
+
+.vig__dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid #b9b3aa;
+}
+
+.vig__title,
+.vig__tag,
+.v-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v-soft);
+  line-height: 1.4;
+}
+
+.vig__title {
+  flex: 1;
+  color: var(--v-text);
+}
+
+.vig__tag {
+  padding: 2px 7px;
+  border: 1px solid var(--v-soft);
+  letter-spacing: 0.16em;
+}
+
+.vig__screen {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+}
+
+@media (max-width: 400px) {
+  .vig__screen {
+    padding: 14px;
+  }
+  .vig__dots {
+    display: none;
+  }
+}
+
+/* Parts used inside vignettes */
+
+.v-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.v-strong {
+  font-weight: 500;
+  color: var(--v-ink);
+}
+
+.v-title {
+  font-size: 1.1875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--v-ink);
+}
+
+.v-meta {
+  font-size: 0.8125rem;
+  color: var(--v-soft);
+}
+
+.v-mono {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.v-divide {
+  border-top: 1px solid var(--v-hair);
+}
+
+.v-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  padding: 3px 8px;
+  border: 1px solid var(--v-signal);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--v-signal);
+  line-height: 1.4;
+}
+
+.v-chip--quiet {
+  border-color: var(--v-hair);
+  color: var(--v-soft);
+}
+
+.v-chip--solid {
+  background: var(--v-signal);
+  color: var(--paper);
+}
+
+.v-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: none;
+  padding: 7px 14px;
+  background: var(--v-signal);
+  color: var(--paper);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.v-btn--ghost {
+  background: transparent;
+  color: var(--v-ink);
+  border: 1px solid var(--v-hair);
+}
+
+.v-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.v-list > li {
+  padding-block: 12px;
+  border-top: 1px solid var(--v-hair);
+}
+
+.v-list > li:last-child {
+  padding-bottom: 0;
+}
+
+.v-signal {
+  color: var(--v-signal);
+}
+
+/* ---------- Diagram basics ---------- */
+
+.dg {
+  width: 100%;
+  color: var(--d-ink);
+}
+
+.dg-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--d-soft);
+}
+
+.dg-label--signal {
+  color: var(--d-signal-text);
+}
+
+.dg-node {
+  fill: var(--d-ground);
+  stroke: var(--d-signal);
+  stroke-width: 1.5;
+}
+
+.dg-dot {
+  fill: var(--d-signal);
+}
+
+.dg-line {
+  stroke: var(--d-signal);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.dg-hair {
+  stroke: var(--d-hair);
+  stroke-width: 1;
+  fill: none;
+}
+
+.dg svg text {
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  fill: var(--d-soft);
+}

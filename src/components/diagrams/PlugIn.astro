@@ -1,0 +1,47 @@
+---
+// Decorative: many agents meeting the substrate through one standard port.
+---
+
+<svg class="plug" viewBox="0 0 440 260" fill="none" aria-hidden="true" focusable="false" data-draw>
+  <g class="plug__agents">
+    <rect x="30" y="20" width="56" height="40" rx="4"></rect>
+    <circle cx="160" cy="40" r="22"></circle>
+    <path d="M254 18 L280 62 L228 62 Z"></path>
+    <rect x="340" y="20" width="56" height="40" rx="20"></rect>
+  </g>
+  <g>
+    <path class="dg-line draw-line" d="M58 60 C 58 110, 220 100, 220 150" pathLength="1"></path>
+    <path class="dg-line draw-line" d="M160 62 C 160 110, 220 110, 220 150" pathLength="1"></path>
+    <path class="dg-line draw-line" d="M254 62 C 254 110, 220 110, 220 150" pathLength="1"></path>
+    <path class="dg-line draw-line" d="M368 60 C 368 110, 220 100, 220 150" pathLength="1"></path>
+  </g>
+  <rect class="plug__port" x="196" y="150" width="48" height="22" rx="2"></rect>
+  <rect class="plug__base" x="20" y="172" width="400" height="66"></rect>
+  <g class="plug__rows">
+    <line x1="44" y1="194" x2="396" y2="194"></line>
+    <line x1="44" y1="216" x2="396" y2="216"></line>
+  </g>
+</svg>
+
+<style>
+  .plug {
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    margin-inline: auto;
+  }
+  .plug__agents > * {
+    stroke: var(--d-soft);
+    stroke-width: 1.5;
+  }
+  .plug__port {
+    fill: var(--d-signal);
+  }
+  .plug__base {
+    stroke: var(--d-signal);
+    stroke-width: 1.5;
+  }
+  .plug__rows line {
+    stroke: var(--d-hair);
+  }
+</style>

@@ -1,0 +1,105 @@
+---
+// Diagram: what the organization already has arrives as records, each with
+// its origin attached.
+import Icon from '../Icon.astro';
+
+const sources = [
+  { label: 'Documents', icon: 'legal' },
+  { label: 'Messages', icon: 'window' },
+  { label: 'Systems', icon: 'areas' },
+] as const;
+---
+
+<div
+  class="dg cf"
+  role="img"
+  aria-label="Diagram: documents, messages and existing systems flow in and arrive as governed records, each carrying its origin."
+  data-draw
+>
+  <ul class="cf__sources">
+    {
+      sources.map((s) => (
+        <li class="draw-fade">
+          <Icon name={s.icon} size={20} />
+          <span class="dg-label">{s.label}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <svg class="cf__lines" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" aria-hidden="true">
+    <path class="dg-line draw-line" d="M0 16.7 C 50 16.7, 50 50, 100 50" pathLength="1"></path>
+    <path class="dg-line draw-line" d="M0 50 L100 50" pathLength="1"></path>
+    <path class="dg-line draw-line" d="M0 83.3 C 50 83.3, 50 50, 100 50" pathLength="1"></path>
+  </svg>
+  <div class="cf__record draw-fade">
+    <span class="dg-label dg-label--signal">Record</span>
+    <span class="cf__bar"></span>
+    <span class="cf__bar cf__bar--short"></span>
+    <span class="cf__origin"><Icon name="trace" size={16} /><span class="dg-label">Origin attached</span></span>
+  </div>
+</div>
+
+<style>
+  .cf {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(36px, 0.5fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .cf__sources {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-auto-rows: 1fr;
+    gap: 10px;
+  }
+  .cf__sources li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--d-hair);
+    background: var(--d-lift);
+  }
+  .cf__lines {
+    width: 100%;
+    height: 100%;
+  }
+  .cf__lines path {
+    vector-effect: non-scaling-stroke;
+  }
+  .cf__record {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 16px;
+    border: 1px solid var(--d-signal);
+    background: var(--d-lift);
+  }
+  .cf__bar {
+    height: 8px;
+    background: var(--d-hair);
+  }
+  .cf__bar--short {
+    width: 60%;
+  }
+  .cf__origin {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid var(--d-hair);
+  }
+  @media (max-width: 400px) {
+    .cf__sources li {
+      padding: 10px 8px;
+      gap: 6px;
+    }
+    .cf__record {
+      padding: 14px 10px;
+    }
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+// Vignette: the fleet view, one row per agent with its owner and how long it
+// has been idle. The stopped variant shows a revoked agent.
+import Vignette from './Vignette.astro';
+import Icon from '../Icon.astro';
+
+interface Agent {
+  name: string;
+  owner: string;
+  area: string;
+  idle: string;
+  state: 'working' | 'idle' | 'stopped';
+}
+interface Props {
+  agents?: Agent[];
+  title?: string;
+  alt?: string;
+}
+
+const {
+  agents = [
+    { name: 'Invoice intake agent', owner: 'Dana Ortiz', area: 'Finance', idle: 'Now', state: 'working' },
+    { name: 'Contract review agent', owner: 'Sam Reyes', area: 'Legal', idle: '09:40', state: 'idle' },
+    { name: 'Supplier follow-up agent', owner: 'Lee Park', area: 'Operations', idle: 'Mon 16:12', state: 'idle' },
+  ],
+  title = 'Agents',
+  alt = 'Illustration: a list of agents, each showing its business area, its human owner and when it was last active.',
+} = Astro.props;
+
+const stateLabel = { working: 'Working', idle: 'Idle', stopped: 'Stopped' };
+---
+
+<Vignette title={title} alt={alt}>
+  <ul class="v-list fleet">
+    {
+      agents.map((a) => (
+        <li class:list={['fleet__row', `fleet__row--${a.state}`]}>
+          <div class="v-row">
+            <span class="v-strong">{a.name}</span>
+            <span class:list={['v-chip', a.state === 'idle' && 'v-chip--quiet', a.state === 'stopped' && 'v-chip--solid']}>
+              {a.state === 'stopped' && <Icon name="power" size={12} />}
+              {stateLabel[a.state]}
+            </span>
+          </div>
+          <dl class="fleet__meta">
+            <div><dt class="v-label">Area</dt><dd>{a.area}</dd></div>
+            <div><dt class="v-label">Owner</dt><dd>{a.owner}</dd></div>
+            <div><dt class="v-label">{{ working: 'Active', idle: 'Idle since', stopped: 'Stopped at' }[a.state]}</dt><dd class="v-mono">{a.idle}</dd></div>
+          </dl>
+        </li>
+      ))
+    }
+  </ul>
+</Vignette>
+
+<style>
+  .fleet__row:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .fleet__meta {
+    margin: 8px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    font-size: 0.8125rem;
+  }
+  .fleet__meta div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+  .fleet__meta dd {
+    margin: 0;
+    color: var(--v-text);
+  }
+  .fleet__row--stopped .v-strong {
+    text-decoration: line-through;
+    text-decoration-color: var(--v-signal);
+  }
+  .fleet__row :global(.icon) {
+    color: currentColor;
+  }
+</style>

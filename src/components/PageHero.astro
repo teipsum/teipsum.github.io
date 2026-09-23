@@ -1,5 +1,6 @@
 ---
-// Inner-page hero: eyebrow, headline, sub, on the dark canvas.
+// Inner-page hero: eyebrow, headline, sub, on the dark canvas, with a figure
+// on the right (the trace rule when the page gives none).
 import TraceRule from './TraceRule.astro';
 
 interface Props {
@@ -8,19 +9,20 @@ interface Props {
   sub?: string;
 }
 const { eyebrow, title, sub } = Astro.props;
+const hasFigure = Astro.slots.has('figure');
 ---
 
 <section class="band--dark page-hero" aria-labelledby="page-title">
   <div class="wrap">
-    <div class="page-hero__grid">
+    <div class:list={['page-hero__grid', hasFigure && 'page-hero__grid--figure']}>
       <div class="stack stack--lg page-hero__text">
         <p class="eyebrow">{eyebrow}</p>
         <h1 class="display" id="page-title"><slot name="title">{title}</slot></h1>
         {sub && <p class="lede">{sub}</p>}
         <slot />
       </div>
-      <div class="page-hero__trace">
-        <TraceRule />
+      <div class="page-hero__figure">
+        {hasFigure ? <slot name="figure" /> : <TraceRule />}
       </div>
     </div>
   </div>
@@ -31,21 +33,38 @@ const { eyebrow, title, sub } = Astro.props;
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--col-gap);
-    row-gap: 40px;
+    row-gap: 36px;
     align-items: end;
   }
   .page-hero__text {
     grid-column: span 9;
+    gap: 24px;
   }
-  .page-hero__trace {
+  .page-hero__figure {
     grid-column: 10 / span 3;
     justify-self: end;
     padding-bottom: 12px;
   }
+  .page-hero__grid--figure {
+    align-items: center;
+  }
+  .page-hero__grid--figure .page-hero__text {
+    grid-column: span 7;
+  }
+  .page-hero__grid--figure .page-hero__figure {
+    grid-column: 8 / span 5;
+    justify-self: stretch;
+    padding-bottom: 0;
+  }
   @media (max-width: 900px) {
     .page-hero__text,
-    .page-hero__trace {
+    .page-hero__figure,
+    .page-hero__grid--figure .page-hero__text,
+    .page-hero__grid--figure .page-hero__figure {
       grid-column: 1 / -1;
+      justify-self: stretch;
+    }
+    .page-hero__figure:not(.page-hero__grid--figure *) {
       justify-self: start;
     }
   }

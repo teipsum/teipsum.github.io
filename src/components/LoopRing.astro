@@ -1,12 +1,12 @@
 ---
 // Loop figure: an outer ring in four segments with an unbroken inner line.
-// The gaps between segments close as the figure scrolls into view.
+// The gaps between segments close as the figure comes into view.
 ---
 
-<svg class="loop" viewBox="-150 0 1060 760" fill="none" role="img" aria-label="The loop: identity, governed action, human attestation and verifiable evidence, closed into one ring. One record. One rulebook. One trail.">
+<svg class="loop" data-draw viewBox="-150 0 1060 760" fill="none" role="img" aria-label="The loop: identity, governed action, human attestation and verifiable evidence, closed into one ring. One record. One rulebook. One trail.">
   <circle class="loop__track" cx="380" cy="380" r="270"></circle>
   <circle class="loop__arcs" cx="380" cy="380" r="270" transform="rotate(-86 380 380)"></circle>
-  <circle class="loop__trace" cx="380" cy="380" r="232" pathLength="1" transform="rotate(-90 380 380)"></circle>
+  <circle class="loop__trace draw-line" cx="380" cy="380" r="232" pathLength="1" transform="rotate(-90 380 380)"></circle>
   <g class="loop__nodes">
     <circle cx="380" cy="148" r="6"></circle>
     <circle cx="612" cy="380" r="6"></circle>
@@ -68,39 +68,13 @@
     fill: var(--warm);
   }
 
-  /* Where scroll-driven animation is supported, the seams close and the trace
-     draws as the ring scrolls into view. Elsewhere the ring is static. */
+  /* The seams close and the trace draws as the ring comes into view. */
   @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .loop__arcs {
-        animation: loop-close linear both;
-        animation-timeline: view();
-        animation-range: entry 20% cover 50%;
-      }
-      .loop__trace {
-        stroke-dasharray: 1;
-        animation: loop-draw linear both;
-        animation-timeline: view();
-        animation-range: entry 10% cover 45%;
-      }
+    :global(.drawn) .loop__arcs {
+      transition: stroke-dasharray 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
     }
   }
-
-  @keyframes loop-close {
-    from {
-      stroke-dasharray: 360 64;
-    }
-    to {
-      stroke-dasharray: 424 0;
-      opacity: 0.75;
-    }
-  }
-  @keyframes loop-draw {
-    from {
-      stroke-dashoffset: 1;
-    }
-    to {
-      stroke-dashoffset: 0;
-    }
+  :global(.undrawn) .loop__arcs {
+    stroke-dasharray: 360 64;
   }
 </style>

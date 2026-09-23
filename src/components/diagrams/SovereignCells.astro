@@ -1,0 +1,127 @@
+---
+// Diagram: business areas as sovereign cells. Each keeps its own records;
+// links exist only where an area chose to share.
+import Icon from '../Icon.astro';
+---
+
+<div
+  class="dg cells"
+  role="img"
+  aria-label="Diagram: four business areas, Finance, Legal, Operations and People, each a separate cell that keeps its own records. Finance shares contract terms with Legal and keeps its ledger to itself; Operations shares schedules with People."
+  data-draw
+>
+  <div class="cells__grid">
+    <div class="cell draw-fade">
+      <span class="dg-label dg-label--signal">Finance</span>
+      <span class="rec rec--kept"><Icon name="lock" size={14} />Ledger</span>
+      <span class="rec rec--shared rec--right">Contract terms</span>
+    </div>
+    <div class="cell draw-fade">
+      <span class="dg-label dg-label--signal">Legal</span>
+      <span class="rec rec--kept"><Icon name="lock" size={14} />Case files</span>
+      <span class="rec rec--in">Contract terms</span>
+    </div>
+    <div class="cell draw-fade">
+      <span class="dg-label dg-label--signal">Operations</span>
+      <span class="rec rec--kept"><Icon name="lock" size={14} />Suppliers</span>
+      <span class="rec rec--shared rec--right">Schedules</span>
+    </div>
+    <div class="cell draw-fade">
+      <span class="dg-label dg-label--signal">People</span>
+      <span class="rec rec--kept"><Icon name="lock" size={14} />Reviews</span>
+      <span class="rec rec--in">Schedules</span>
+    </div>
+  </div>
+  <div class="cells__key" aria-hidden="true">
+    <span class="dg-label"><i class="key key--link"></i>Shared by choice</span>
+    <span class="dg-label"><Icon name="lock" size={14} />Kept in the area</span>
+  </div>
+</div>
+
+<style>
+  .cells {
+    max-width: 560px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .cells__grid {
+    --gap: 44px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px var(--gap);
+  }
+  .cell {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    border: 1px solid var(--d-hair);
+    border-radius: 18px;
+    background: var(--d-lift);
+    min-width: 0;
+  }
+  .rec {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px solid var(--d-hair);
+    font-size: 0.875rem;
+    line-height: 1.3;
+    color: var(--d-ink);
+  }
+  .rec :global(.icon) {
+    color: var(--d-soft);
+  }
+  .rec--shared,
+  .rec--in {
+    border-color: var(--d-signal);
+  }
+  .rec--in {
+    border-style: dashed;
+    color: var(--d-text);
+  }
+  /* The chosen link: a bronze bridge across the gap to the next cell. */
+  .rec--right::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: calc(var(--gap) + 34px);
+    border-top: 1.5px dashed var(--d-signal);
+  }
+  .cells__key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+  .cells__key .dg-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .key--link {
+    display: inline-block;
+    width: 24px;
+    border-top: 1.5px dashed var(--d-signal);
+  }
+  @media (max-width: 400px) {
+    .cells__grid {
+      --gap: 20px;
+    }
+    .cell {
+      padding: 12px 10px;
+      border-radius: 12px;
+    }
+    .rec {
+      font-size: 0.8125rem;
+      padding: 5px 7px;
+    }
+    .rec--right::after {
+      width: calc(var(--gap) + 22px);
+    }
+  }
+</style>

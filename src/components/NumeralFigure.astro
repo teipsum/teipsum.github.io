@@ -1,0 +1,84 @@
+---
+// Large-numeral figure: the numbers set as type, the approved sentence beside
+// them, and the footnote underneath. The numerals repeat what the sentence
+// says, so they are hidden from screen readers.
+interface Props {
+  numerals: { value: string; label: string; quiet?: boolean }[];
+}
+const { numerals } = Astro.props;
+---
+
+<div class="numeral" data-draw>
+  <div class="numeral__figs" aria-hidden="true">
+    {
+      numerals.map((n) => (
+        <div class:list={['numeral__fig', 'draw-fade', n.quiet && 'numeral__fig--quiet']}>
+          <span class="numeral__value">{n.value}</span>
+          <span class="numeral__label">{n.label}</span>
+        </div>
+      ))
+    }
+  </div>
+  <div class="numeral__text">
+    <slot />
+  </div>
+  <div class="numeral__note">
+    <slot name="note" />
+  </div>
+</div>
+
+<style>
+  .numeral {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 20px;
+    padding-block: 28px;
+    border-top: 1px solid var(--d-signal);
+    border-bottom: 1px solid var(--d-signal);
+  }
+  .numeral__figs {
+    grid-column: span 5;
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(20px, 3vw, 40px);
+  }
+  .numeral__text {
+    grid-column: 6 / span 7;
+    align-self: center;
+  }
+  .numeral__note {
+    grid-column: 6 / span 7;
+  }
+  .numeral__fig {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .numeral__value {
+    font-size: clamp(3.5rem, 2rem + 5vw, 6.5rem);
+    line-height: 0.9;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    color: var(--d-ink);
+    font-variant-numeric: lining-nums;
+  }
+  .numeral__fig--quiet .numeral__value {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--d-signal);
+  }
+  .numeral__label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--d-soft);
+  }
+  @media (max-width: 900px) {
+    .numeral__figs,
+    .numeral__text,
+    .numeral__note {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

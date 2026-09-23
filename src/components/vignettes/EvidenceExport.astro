@@ -1,0 +1,43 @@
+---
+// Vignette: an auditor's evidence export for a period.
+import Vignette from './Vignette.astro';
+import Seal from '../Seal.astro';
+
+const parts = ['Signed acts', 'Approvals', 'Refusals'];
+---
+
+<Vignette
+  title="Evidence export"
+  alt="Illustration: an auditor exports a quarter's evidence, covering signed acts, approvals and refusals, and the export shows as verified."
+>
+  <div class="v-row">
+    <span class="v-title">Q3 evidence</span>
+    <span class="v-label">Jul 1 – Sep 30</span>
+  </div>
+  <ul class="v-list ev">
+    {
+      parts.map((p) => (
+        <li class="v-row">
+          <span>{p}</span>
+          <span class="ev__ok"><Seal size={16} /><span class="v-label">Included</span></span>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="v-row v-divide ev__foot">
+    <span class="v-btn">Export</span>
+    <span class="v-chip"><Seal size={12} />Verified</span>
+  </div>
+</Vignette>
+
+<style>
+  .ev__ok {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--v-signal);
+  }
+  .ev__foot {
+    padding-top: 14px;
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+// Diagram: widening circles of trust, from one person to other organizations.
+const rings = [
+  { r: 44, label: 'You' },
+  { r: 86, label: 'Your team' },
+  { r: 128, label: 'Your company' },
+  { r: 170, label: 'Partners', later: true },
+];
+---
+
+<div
+  class="dg circles"
+  role="img"
+  aria-label="Diagram: circles of trust widening from you, to your team, to your company, and later to partners, suppliers and customers."
+  data-draw
+>
+  <svg viewBox="0 0 360 360" fill="none" aria-hidden="true">
+    {
+      rings.map((ring) => (
+        <circle
+          class:list={['dg-line', 'draw-line', ring.later && 'circles__later']}
+          cx="180"
+          cy="180"
+          r={ring.r}
+          pathLength="1"
+          transform="rotate(-90 180 180)"
+        />
+      ))
+    }
+    <g class="circles__nodes">
+      <circle cx="319" cy="81" r="6"></circle>
+      <circle cx="41" cy="81" r="6"></circle>
+      <circle cx="180" cy="350" r="6"></circle>
+    </g>
+  </svg>
+  <ul class="circles__labels">
+    {rings.map((ring) => <li class="dg-label">{ring.label}</li>)}
+  </ul>
+</div>
+
+<style>
+  .circles {
+    position: relative;
+    max-width: 380px;
+    margin-inline: auto;
+  }
+  .circles svg {
+    width: 100%;
+    height: auto;
+  }
+  .circles__later {
+    stroke-dasharray: 0.012 0.012;
+  }
+  .circles__nodes circle {
+    fill: var(--d-ground);
+    stroke: var(--d-signal);
+    stroke-width: 1.5;
+    stroke-dasharray: 3 3;
+  }
+  .circles__labels {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .circles__labels li {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1px 6px;
+    background: var(--d-ground);
+    white-space: nowrap;
+    font-size: 0.6875rem;
+  }
+  /* Each label sits on its ring's top edge: (180 - r) / 360. */
+  .circles__labels li:nth-child(2) {
+    top: 26.1%;
+  }
+  .circles__labels li:nth-child(3) {
+    top: 14.4%;
+  }
+  .circles__labels li:nth-child(4) {
+    top: 2.8%;
+  }
+  .circles__labels li:first-child {
+    top: calc(50% - 0.7em);
+    transform: translate(-50%, -30%);
+    background: none;
+  }
+</style>

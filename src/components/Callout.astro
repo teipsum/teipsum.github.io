@@ -1,18 +1,48 @@
 ---
-// Full-width bordered callout with an optional mono small-print line.
+// Full-width bordered callout (the a-ha strip), led by an icon.
+import Icon from './Icon.astro';
+import type { ComponentProps } from 'astro/types';
+
 interface Props {
   lead: string;
   text?: string;
   smallPrint?: string;
+  icon?: ComponentProps<typeof Icon>['name'];
 }
-const { lead, text, smallPrint } = Astro.props;
+const { lead, text, smallPrint, icon = 'layers' } = Astro.props;
 ---
 
 <section class="band band--dark band--tight">
   <div class="wrap">
-    <div class="callout">
+    <div class="callout" data-draw>
+      <span class="callout__icon draw-fade"><Icon name={icon} size={30} /></span>
       <p class="callout__text"><strong>{lead}</strong>{text && ` ${text}`}</p>
       {smallPrint && <p class="small-print">{smallPrint}</p>}
     </div>
   </div>
 </section>
+
+<style>
+  .callout__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 64px;
+    height: 64px;
+    border: 1px solid var(--warm);
+    border-radius: 50%;
+  }
+  .callout {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  @media (max-width: 560px) {
+    .callout {
+      flex-wrap: wrap;
+    }
+    .callout__icon {
+      width: 52px;
+      height: 52px;
+    }
+  }
+</style>

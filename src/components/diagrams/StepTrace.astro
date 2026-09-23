@@ -1,0 +1,117 @@
+---
+// Diagram: a short sequence on the bronze trace, ending in the seal.
+import Icon from '../Icon.astro';
+import Seal from '../Seal.astro';
+
+import type { ComponentProps } from 'astro/types';
+type IconName = ComponentProps<typeof Icon>['name'];
+interface Props {
+  steps: { label: string; icon: IconName }[];
+  end?: string;
+  alt: string;
+}
+const { steps, end, alt } = Astro.props;
+---
+
+<div class="dg st" role="img" aria-label={alt} data-draw>
+  <span class="st__rail draw-grow" aria-hidden="true"></span>
+  <ol class:list={['st__steps', `st__steps--${steps.length + (end ? 1 : 0)}`]}>
+    {
+      steps.map((s) => (
+        <li class="st__step draw-fade">
+          <span class="st__node">
+            <Icon name={s.icon} size={20} />
+          </span>
+          <span class="dg-label">{s.label}</span>
+        </li>
+      ))
+    }
+    {
+      end && (
+        <li class="st__step st__step--end draw-fade">
+          <span class="st__node st__node--end">
+            <Seal size={22} />
+          </span>
+          <span class="dg-label dg-label--signal">{end}</span>
+        </li>
+      )
+    }
+  </ol>
+</div>
+
+<style>
+  .st {
+    position: relative;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+  .st__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    position: relative;
+  }
+  .st__steps--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .st__steps--5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .st__rail {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 23px;
+    border-top: 1.5px solid var(--d-signal);
+  }
+  .st__step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .st__node {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--d-signal);
+    border-radius: 50%;
+    background: var(--d-ground);
+    color: var(--d-signal);
+  }
+  .st__node--end {
+    background: var(--d-signal);
+    color: var(--d-ground);
+  }
+  .st__step:last-child {
+    align-items: flex-end;
+    text-align: right;
+  }
+  @media (max-width: 560px) {
+    .st__steps,
+    .st__steps--3,
+    .st__steps--5 {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 14px;
+    }
+    .st__rail {
+      left: 23px;
+      right: auto;
+      top: 24px;
+      bottom: 24px;
+      border-top: 0;
+      border-left: 1.5px solid var(--d-signal);
+      transform-origin: center top;
+    }
+    .st__step,
+    .st__step:last-child {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+    }
+  }
+</style>

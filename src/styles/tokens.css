@@ -40,9 +40,20 @@
   --max: 1280px;
   --gutter: clamp(20px, 5.5vw, 80px);
   --col-gap: 24px;
-  --band-y: clamp(64px, 4rem + 4vw, 112px);
+  --band-y: clamp(44px, 2.75rem + 2.6vw, 76px);
   --header-h: 72px;
 
   /* Focus */
   --focus: var(--warm);
+
+  /* Figure tones: diagrams and icons read these, so one drawing works on
+     both the ink and the paper bands. Text tones keep AA contrast. */
+  --d-ink: var(--paper);
+  --d-text: var(--paper-strong);
+  --d-soft: var(--paper-soft);
+  --d-hair: var(--hair-dark);
+  --d-signal: var(--warm);
+  --d-signal-text: var(--warm);
+  --d-ground: var(--ink);
+  --d-lift: #222120;
 }

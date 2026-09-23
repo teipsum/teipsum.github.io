@@ -1,0 +1,80 @@
+---
+// Vignette: a privileged action waiting for one person's passkey touch.
+import Vignette from './Vignette.astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  action?: string;
+  requester?: string;
+  approver?: string;
+}
+const {
+  action = 'Contract renewal',
+  requester = 'Procurement agent',
+  approver = 'CFO',
+} = Astro.props;
+---
+
+<Vignette
+  title="Approval"
+  alt={`Illustration: an approval request for “${action}”, raised by the ${requester} and waiting for the ${approver} to touch a passkey.`}
+>
+  <div class="v-row">
+    <span class="v-label v-signal">Needs your approval</span>
+    <span class="v-chip v-chip--quiet">Privileged</span>
+  </div>
+  <p class="v-title">{action}</p>
+  <dl class="pa">
+    <div><dt class="v-label">Requested by</dt><dd>{requester}</dd></div>
+    <div><dt class="v-label">Approver</dt><dd>{approver}</dd></div>
+  </dl>
+  <div class="pa__touch v-divide">
+    <span class="pa__ring"><Icon name="fingerprint" size={30} /></span>
+    <span class="pa__cta">
+      <span class="v-btn">Approve with passkey</span>
+      <span class="v-meta">For this action only</span>
+    </span>
+  </div>
+</Vignette>
+
+<style>
+  .pa {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .pa div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .pa dd {
+    margin: 0;
+  }
+  .pa__touch {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 16px;
+  }
+  .pa__ring {
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid var(--v-signal);
+    box-shadow: 0 0 0 6px rgba(139, 94, 60, 0.08);
+    color: var(--v-signal);
+  }
+  .pa__ring :global(.icon) {
+    color: var(--v-signal);
+  }
+  .pa__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+</style>

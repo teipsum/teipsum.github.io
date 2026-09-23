@@ -1,0 +1,24 @@
+---
+// Frame for every product vignette: a stylised panel, never a screenshot,
+// always tagged as illustrative. The drawing inside is one image with a text
+// alternative, so screen readers hear the description, not the parts.
+interface Props {
+  /** Short panel title shown in the bar. */
+  title: string;
+  /** Text alternative for the whole vignette. */
+  alt: string;
+  class?: string;
+}
+const { title, alt, class: className } = Astro.props;
+---
+
+<figure class:list={['vig', className]} data-draw>
+  <figcaption class="vig__bar">
+    <span class="vig__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="vig__title">{title}</span>
+    <span class="vig__tag">Illustrative</span>
+  </figcaption>
+  <div class="vig__screen draw-fade" role="img" aria-label={alt}>
+    <slot />
+  </div>
+</figure>
