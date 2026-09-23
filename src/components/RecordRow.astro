@@ -1,11 +1,13 @@
 ---
 // A single sample record laid out as labelled columns. Sample content only.
 import Seal from './Seal.astro';
+import Chip from './Chip.astro';
 
 interface Props {
   caption?: string;
+  status?: 'early' | 'roadmap';
 }
-const { caption } = Astro.props;
+const { caption, status } = Astro.props;
 
 const cells = [
   { label: 'Record', value: 'Contract renewal approved', kind: 'strong' },
@@ -33,6 +35,7 @@ const cells = [
   </dl>
   <figcaption>
     {caption && <span class="record__caption">{caption}</span>}
+    {status && <Chip status={status} />}
     <span class="record__tag">Illustrative</span>
   </figcaption>
 </figure>

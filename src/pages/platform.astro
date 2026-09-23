@@ -6,6 +6,7 @@ import ProductFrame from '../components/ProductFrame.astro';
 import Band from '../components/Band.astro';
 import Callout from '../components/Callout.astro';
 import CloseCall from '../components/CloseCall.astro';
+import Chip from '../components/Chip.astro';
 
 const sub =
   'Unica gives your organization AI agents that work inside the rules you set, an AI twin for every person, and a signed record of everything they do.';
@@ -20,6 +21,7 @@ const loop = [
     stage: 'Governed action',
     usually: 'An agent builder: fleet view, guardrails, a needs-you queue',
     unica: 'Every act is a signed, governed record, not a log line',
+    status: 'early',
   },
   {
     stage: 'Human attestation',
@@ -30,22 +32,27 @@ const loop = [
     stage: 'Verifiable evidence',
     usually: 'A compliance tool that collects screenshots and exports',
     unica: 'Evidence an auditor exports and verifies without asking us',
+    status: 'early',
   },
   {
     stage: 'Context',
     usually: 'Copied between tools',
     unica: 'One corporate brain underneath the whole loop',
+    status: 'early',
   },
   {
     stage: 'Data ownership',
     usually: 'Each tool’s own silo, or one shared bucket',
     unica: 'Each business area owns its records and shares them by choice',
+    status: 'early',
   },
 ];
 ---
 
 <Base title="Platform" description={sub}>
-  <PageHero eyebrow="THE UNICA PLATFORM" title="One platform. Every agent accountable." sub={sub} />
+  <PageHero eyebrow="THE UNICA PLATFORM" title="One platform. Every agent accountable." sub={sub}>
+    <Chip status="early" />
+  </PageHero>
 
   <Band tone="dark" id="why-os" eyebrow="WHY AN OPERATING SYSTEM" heading="The rules live underneath, where no app can reach them.">
     <p class="lede">
@@ -81,7 +88,10 @@ const loop = [
           {
             loop.map((r) => (
               <tr>
-                <th scope="row">{r.stage}</th>
+                <th scope="row">
+                  {r.stage}
+                  {r.status === 'early' && <Chip status="early" />}
+                </th>
                 <td data-label="Usually bought as">{r.usually}</td>
                 <td data-label="In Unica">{r.unica}</td>
               </tr>
@@ -94,7 +104,7 @@ const loop = [
   </section>
 
   <div class="rule-wrap"><div class="wrap"><hr class="rule" /></div></div>
-  <Band tone="paper" id="agents" heading="A workforce with job descriptions.">
+  <Band tone="paper" id="agents" heading="A workforce with job descriptions." status="early">
     <p class="lede">
       Every agent has a role, a scope and a human owner. It reaches only what its scope allows, and it hands anything privileged back to a person. When its work is done, you can end it cleanly: its runs halt and its keys stop working.
     </p>
@@ -195,6 +205,11 @@ const loop = [
     font-weight: 500;
     border-left: 2px solid var(--accent);
     padding-left: 20px;
+  }
+  .loop-table th :global(.chip) {
+    display: flex;
+    margin-top: 8px;
+    white-space: nowrap;
   }
   .loop-close {
     margin-top: 40px;
