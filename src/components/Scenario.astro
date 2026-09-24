@@ -1,5 +1,7 @@
 ---
 // Labelled scenario block.
+import { UI, langOf } from '../i18n';
+
 interface Props {
   text: string;
 }
@@ -7,7 +9,7 @@ const { text } = Astro.props;
 ---
 
 <figure class="scenario">
-  <figcaption class="scenario__label">Illustrative scenario</figcaption>
+  <figcaption class="scenario__label">{UI[langOf(Astro.url)].scenario}</figcaption>
   <p class="scenario__text">{text}</p>
 </figure>
 

@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import { WAITLIST_HREF } from '../../config';
+import { UI, localize } from '../../i18n';
+---
+
+<Base title="Página no encontrada" description="Esta página no existe." noindex>
+  <section class="band--dark page-hero" aria-labelledby="page-title">
+    <div class="wrap stack stack--lg">
+      <p class="eyebrow">404</p>
+      <h1 class="display" id="page-title">Página no encontrada.</h1>
+      <div class="actions">
+        <a class="btn btn--solid" href={localize(WAITLIST_HREF, 'es')}>{UI.es.cta}</a>
+        <a class="link-under" href="/es/">Inicio</a>
+      </div>
+    </div>
+  </section>
+</Base>

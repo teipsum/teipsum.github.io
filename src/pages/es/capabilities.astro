@@ -1,0 +1,228 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import Chip from '../../components/Chip.astro';
+import Icon from '../../components/Icon.astro';
+import Callout from '../../components/Callout.astro';
+import CloseCall from '../../components/CloseCall.astro';
+import RungLadder from '../../components/diagrams/RungLadder.astro';
+import ConnectFlow from '../../components/diagrams/ConnectFlow.astro';
+import ProvenanceFan from '../../components/diagrams/ProvenanceFan.astro';
+import SovereignCells from '../../components/diagrams/SovereignCells.astro';
+import ReadAccess from '../../components/diagrams/ReadAccess.astro';
+import StepTrace from '../../components/diagrams/StepTrace.astro';
+import TrustCircles from '../../components/diagrams/TrustCircles.astro';
+import TwinConversation from '../../components/vignettes/TwinConversation.astro';
+import FleetRow from '../../components/vignettes/FleetRow.astro';
+import AutonomyDial from '../../components/vignettes/AutonomyDial.astro';
+import Glance from '../../components/vignettes/Glance.astro';
+import '../../styles/pages/capabilities.css';
+
+const sub =
+  'Unica empieza con una persona y un equipo, y crece de adentro hacia afuera. Cada capacidad que sumas hace más inteligentes a todas las demás.';
+---
+
+<Base page="capabilities" title="Capacidades" description={sub}>
+  <PageHero eyebrow="Capacidades" title="Poténciate tú. Después, toda tu organización." sub={sub}>
+    <RungLadder slot="figure" />
+  </PageHero>
+
+  <Band tone="paper" id="connect" eyebrow="01 · Conectar" icon="connect" heading="Conecta tus herramientas y tu información a la IA." status="early">
+    <ConnectFlow slot="figure" />
+    <p class="lede">
+      Trae lo que tu organización ya sabe, desde los sistemas donde vive hoy. Llega como registros gobernados con su
+      origen incluido, así la IA puede usarlo y nadie pierde el rastro de dónde salió.
+    </p>
+    <div class="rung-glance">
+      <Glance
+        title="Registro"
+        status="early"
+        alt="Ilustración: un contrato con un proveedor traído desde una unidad compartida, ahora un registro gobernado con su origen incluido."
+        head="Contrato de proveedor, términos de renovación"
+        state={{ label: 'Gobernado', tone: 'quiet' }}
+        facts={[
+          { label: 'Origen', value: 'Unidad compartida, Contratos' },
+          { label: 'Incorporado', value: '4 mar, 09:12' },
+        ]}
+      />
+    </div>
+  </Band>
+
+  <Band tone="dark" id="twin" eyebrow="02 · Tu gemelo" icon="twin" heading="Un gemelo que trabaja en tu nombre." status="early" flip>
+    <TwinConversation
+      slot="figure"
+      messages={[
+        { from: 'you', text: 'Prepárame para la llamada de mañana con el proveedor.' },
+        { from: 'twin', text: 'Tu resumen está listo: nuestras últimas tres llamadas, los términos de renovación y dos seguimientos redactados para ti.' },
+      ]}
+      actions={['Revisar']}
+      alt="Ilustración: una persona le pide a su gemelo que la prepare para una llamada; el gemelo preparó un resumen y redactó seguimientos para que la persona los revise."
+    />
+    <p class="lede">
+      Tu gemelo redacta, da seguimiento, prepara y recuerda, con tu voz y dentro de los límites que fijas. Actúa para
+      ti y solo para ti.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="brain" eyebrow="03 · El cerebro corporativo" icon="brain" heading="Un cerebro para toda la empresa.">
+    <ProvenanceFan
+      slot="figure"
+      answer="Condiciones de pago a proveedores"
+      facets={[
+        { label: 'Estatus', value: 'Certificado' },
+        { label: 'Certificado por', value: 'Responsable de Finanzas' },
+        { label: 'Vigente al', value: '12 de marzo' },
+      ]}
+      alt="Diagrama: un hecho del registro compartido de la empresa, con su estatus de certificado, quién lo certificó y la fecha a la que se puede consultar tal como estaba."
+    />
+    <p class="lede">
+      Todo lo que tu organización sabe, decide y certifica vive en un único registro gobernado, una memoria que no se
+      puede perder. Cada agente empieza su trabajo informado de lo que la empresa da hoy por cierto, y la información
+      desactualizada se señala antes de que alguien actúe sobre ella. <Chip status="early" />
+    </p>
+    <ul class="points">
+      <li>
+        <Icon name="certify" />
+        <span><em class="term">Conocimiento certificado:</em> las personas responsables de un hecho lo validan con su firma, y
+        todos ven su estatus.</span>
+      </li>
+      <li>
+        <Icon name="resume" />
+        <span><em class="term">Rebobina la empresa:</em> «¿Qué sabíamos el 12 de marzo?» tiene una respuesta exacta.</span>
+      </li>
+    </ul>
+    <div class="rung-glance">
+      <Glance
+        title="Informe del agente"
+        status="early"
+        alt="Ilustración: un agente que empieza una tarea recibe un informe de lo que la empresa da hoy por cierto, con un hecho desactualizado señalado."
+        head="Informado: renovación con proveedor"
+        state={{ label: '1 desactualizado', tone: 'solid' }}
+        facts={[
+          { label: 'Hechos certificados', value: '14' },
+          { label: 'Señalado como desactualizado', value: 'Condiciones de pago anteriores' },
+        ]}
+      />
+    </div>
+  </Band>
+
+  <Band tone="dark" id="collaboration" eyebrow="Colaboración" icon="collaborate" heading="Colaboración sin copiar y pegar." status="early" flip>
+    <TwinConversation
+      slot="figure"
+      messages={[
+        { from: 'you', text: '¿Puedes conseguir los términos de renovación de Finanzas?' },
+        { from: 'twin', text: 'Se lo pedí al gemelo de Dana. Dana decidió compartir los términos del contrato.' },
+      ]}
+      actions={['Ver términos']}
+      alt="Ilustración: el gemelo de una persona le pide información al gemelo de un colega, y el colega decide qué compartir."
+    />
+    <p class="lede">
+      Las personas y sus gemelos trabajan juntos a través del registro compartido, no de mensajes reenviados. Cuando tu
+      gemelo necesita la opinión de un colega, se la pide a su gemelo, y tu colega decide qué compartir. Los equipos
+      parten de los mismos hechos con el mismo estatus, así que las reuniones empiezan con acuerdo en lugar de
+      conciliación.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="business-areas" eyebrow="Áreas de negocio" icon="areas" heading="Cada departamento es dueño de sus datos. Todos comparten un mismo cerebro." status="early" ratio="5-7">
+    <SovereignCells slot="figure" />
+    <p class="lede">
+      Cada área de negocio conserva la soberanía sobre sus propios registros. Decide qué pueden ver y usar las demás
+      áreas, y puede revocarlo. La colaboración ocurre a través de lo que cada área elige compartir, nunca volcando todo
+      en un mismo depósito: Finanzas puede dejar que el agente de Legal lea los términos de un contrato sin mostrarle el
+      libro mayor.
+    </p>
+    <p class="tie-in">
+      La misma regla que permite a tus departamentos compartir en sus propios términos es la que permitirá a tu empresa
+      compartir con otras.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="privacy" eyebrow="Privacidad personal" icon="lock" heading="Cerebro compartido. Mentes privadas." status="early" flip>
+    <ReadAccess slot="figure" />
+    <p class="lede">
+      El cerebro corporativo es compartido; tus pensamientos, no. Lo que le dices a tu gemelo lo puedes leer tú y,
+      cuando se exija, tu auditor. Los administradores operan el sistema, pero no pueden leer tu registro personal. Tú
+      decides qué se convierte en conocimiento compartido.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="departments" eyebrow="04 · Los departamentos crean agentes" icon="build" heading="¿Qué dolores de cabeza necesitas resolver?" status="early">
+    <FleetRow
+      slot="figure"
+      title="Agentes de los departamentos"
+      alt="Ilustración: agentes creados para distintos departamentos, cada uno con su área, su responsable humano y su última actividad."
+      agents={[
+        { name: 'Agente de cierre de mes', owner: 'Dana Ortiz', area: 'Finanzas', idle: 'Ahora', state: 'working' },
+        { name: 'Agente de recepción de contratos', owner: 'Sam Reyes', area: 'Legal', idle: '08:15', state: 'idle' },
+        { name: 'Agente de incorporación de personal', owner: 'Lee Park', area: 'Personas', idle: 'mar 17:30', state: 'idle' },
+      ]}
+    />
+    <p class="lede">
+      Cada departamento nombra su problema y recibe un agente creado para resolverlo, con un rol, un alcance y un
+      responsable. El presupuesto sigue al dolor de cada departamento; no hace falta ningún programa de transformación
+      para toda la empresa.
+    </p>
+    <p class="roadmap-line">
+      <Chip status="roadmap" />
+      <span>Los agentes anunciarán los servicios que ofrecen, para que el agente de finanzas pueda pedirle ayuda al agente legal del pasillo de al lado.</span>
+    </p>
+  </Band>
+
+  <Band tone="paper" id="autonomy" eyebrow="Autonomía ajustable" icon="dial" heading="La autonomía es un dial, no un salto de fe." status="early" flip>
+    <AutonomyDial slot="figure" />
+    <p class="lede">
+      Para cada agente y cada tipo de acción, las personas responsables fijan hasta dónde puede llegar por su cuenta:
+      solo sugerir, actuar con aprobación o actuar e informar. Súbelo a medida que se gana la confianza y bájalo en un
+      segundo. Nada irreversible ocurre sin una huella humana, y el interruptor de apagado está al final del dial.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="resilience" eyebrow="Resiliencia" icon="resume" heading="La verdad nunca estuvo en su cabeza." status="early">
+    <StepTrace
+      slot="figure"
+      alt="Diagrama: un agente se detiene, su máquina se reinicia y su modelo cambia, y el trabajo se reanuda desde el registro."
+      steps={[
+        { label: 'Detenido', icon: 'power' },
+        { label: 'Reiniciado', icon: 'resume' },
+        { label: 'Otro modelo', icon: 'brain' },
+      ]}
+      end="Reanudado"
+    />
+    <p class="lede">
+      Detén un agente a mitad de una tarea, reinicia la máquina o cambia el modelo, y el trabajo se reanuda desde el
+      registro, porque la verdad vive en el registro.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="outward" eyebrow="05 · Hacia afuera" icon="circles" heading="Trabajar con otras organizaciones es solo un círculo de confianza más amplio." status="roadmap" flip>
+    <TrustCircles slot="figure" />
+    <p class="lede">
+      Las mismas reglas que permiten a tus departamentos trabajar juntos te permitirán trabajar con socios, proveedores
+      y clientes bajo acuerdos explícitos. Cada parte conserva su propio registro y su propia autoridad.
+    </p>
+    <p class="mono-line">Construido sobre estándares, para que funcione con la tecnología que ya tienes.</p>
+    <div class="rung-glance">
+      <Glance
+        title="Solicitud de un socio"
+        status="roadmap"
+        alt="Ilustración: el agente de un proveedor pide un calendario de entregas bajo un acuerdo, y Operaciones lo comparte por elección."
+        head="Calendario de entregas, semana 42"
+        state={{ label: 'Compartido por elección', tone: 'quiet' }}
+        facts={[
+          { label: 'Lo pide', value: 'Agente del proveedor' },
+          { label: 'Según', value: 'Acuerdo explícito' },
+        ]}
+      />
+    </div>
+  </Band>
+
+  <Callout
+    icon="areas"
+    lead="Cada departamento es a la vez cliente y proveedor."
+    text="Cada equipo que resuelve su propio dolor de cabeza hace que los agentes de todos los demás equipos estén mejor informados. Unica crece de adentro hacia afuera."
+  />
+
+  <CloseCall />
+</Base>

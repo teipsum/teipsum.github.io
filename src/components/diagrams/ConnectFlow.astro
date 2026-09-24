@@ -2,18 +2,33 @@
 // Diagram: what the organization already has arrives as records, each with
 // its origin attached.
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
+const t = pick(Astro.url, {
+  en: {
+    alt: 'Diagram: documents, messages and existing systems flow in and arrive as governed records, each carrying its origin.',
+    sources: ['Documents', 'Messages', 'Systems'],
+    record: 'Record',
+    origin: 'Origin attached',
+  },
+  es: {
+    alt: 'Diagrama: documentos, mensajes y sistemas existentes entran y llegan como registros gobernados, cada uno con su origen.',
+    sources: ['Documentos', 'Mensajes', 'Sistemas'],
+    record: 'Registro',
+    origin: 'Con su origen',
+  },
+});
 const sources = [
-  { label: 'Documents', icon: 'legal' },
-  { label: 'Messages', icon: 'window' },
-  { label: 'Systems', icon: 'areas' },
+  { label: t.sources[0], icon: 'legal' },
+  { label: t.sources[1], icon: 'window' },
+  { label: t.sources[2], icon: 'areas' },
 ] as const;
 ---
 
 <div
   class="dg cf"
   role="img"
-  aria-label="Diagram: documents, messages and existing systems flow in and arrive as governed records, each carrying its origin."
+  aria-label={t.alt}
   data-draw
 >
   <ul class="cf__sources">
@@ -32,10 +47,10 @@ const sources = [
     <path class="dg-line draw-line" d="M0 83.3 C 50 83.3, 50 50, 100 50" pathLength="1"></path>
   </svg>
   <div class="cf__record draw-fade">
-    <span class="dg-label dg-label--signal">Record</span>
+    <span class="dg-label dg-label--signal">{t.record}</span>
     <span class="cf__bar"></span>
     <span class="cf__bar cf__bar--short"></span>
-    <span class="cf__origin"><Icon name="trace" size={16} /><span class="dg-label">Origin attached</span></span>
+    <span class="cf__origin"><Icon name="trace" size={16} /><span class="dg-label">{t.origin}</span></span>
   </div>
 </div>
 

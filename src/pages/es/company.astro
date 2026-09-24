@@ -1,0 +1,119 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import CloseCall from '../../components/CloseCall.astro';
+import Icon from '../../components/Icon.astro';
+import StepTrace from '../../components/diagrams/StepTrace.astro';
+import '../../styles/pages/company.css';
+
+const sub =
+  'La instrucción más antigua de la filosofía es la descripción de nuestro producto. Construimos la plataforma que permite a las organizaciones, y a las personas que las forman, saber qué saben, cómo lo saben y si pueden confiar en ello.';
+
+const beliefs = [
+  {
+    title: 'La confianza debe poder demostrarse.',
+    icon: 'seal',
+    body: '«Lo dijo el sistema» debería ser algo que puedes comprobar, no algo que aceptas por fe.',
+  },
+  { title: 'La autoridad es de las personas.', body: 'La IA puede hacer el trabajo. Las personas tienen las llaves.', icon: 'key' },
+  { title: 'Tu contexto es tuyo.', body: 'Lo que sabe tu organización debe seguir bajo tu control.', icon: 'cell' },
+] as const;
+
+const triad = [
+  { label: 'Registro', icon: 'record' },
+  { label: 'Reglamento', icon: 'rulebook' },
+  { label: 'Rastro', icon: 'trail' },
+] as const;
+
+const founderBio = 'Michael fue director sénior de Gobierno de Datos en Walmart y, en EPAM, gerente sénior de entrega de IA y analítica avanzada para toda América Latina. Antes, sirvió como suboficial en el Cuerpo de Marines.';
+---
+
+<Base page="company" title="Empresa" description={sub} serif>
+  <PageHero eyebrow="TEIPSUM" title="Scito te ipsum. Conócete a ti mismo." sub={sub}>
+    <Fragment slot="title"><span class="motto" lang="la">Scito te ipsum.</span> Conócete a ti mismo.</Fragment>
+  </PageHero>
+
+  <section class="band band--paper" aria-labelledby="beliefs">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow" id="beliefs">En qué creemos</h2>
+      </div>
+      <ul class="cards cards--3 beliefs" data-draw>
+        {
+          beliefs.map((b) => (
+            <li class="card card--box draw-fade">
+              <span class="card__icon">
+                <Icon name={b.icon} />
+              </span>
+              <h3 class="card__title">{b.title}</h3>
+              <p class="card__body">{b.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Band tone="dark" id="uniquely" heading="Únicamente tú" icon="twin" flip>
+    <ul slot="figure" class="triad" data-draw>
+      {
+        triad.map((t) => (
+          <li class="triad__item draw-fade">
+            <span class="triad__icon"><Icon name={t.icon} size={30} /></span>
+            <span class="triad__label">{t.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="lede">
+      Para una persona, Unica es un gemelo que la recuerda como ella elige ser recordada. Para una organización, es un
+      registro que no se puede perder, un reglamento que no se puede eludir y un rastro de quién hizo qué, y con qué autoridad.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="run-on-it" eyebrow="Funcionamos con Unica" icon="shield" heading="Nuestro primer cliente somos nosotros.">
+    <StepTrace
+      slot="figure"
+      alt="Diagrama: cada cambio se propone, lo atacan revisores, lo aprueba una persona y queda registrado."
+      steps={[
+        { label: 'Propuesto', icon: 'assert' },
+        { label: 'Atacado', icon: 'find' },
+        { label: 'Aprobado', icon: 'fingerprint' },
+      ]}
+      end="Registrado"
+    />
+    <p class="lede">
+      Unica está construida por un equipo gobernado de personas y agentes de IA que trabaja dentro del mismo sustrato que
+      vendemos. Cada cambio se propone, lo atacan revisores, lo aprueba una persona y queda registrado. Esto no es un
+      documento de diseño; nuestra empresa ya funciona así.
+    </p>
+  </Band>
+
+  <section class="band band--paper band--flush-top" aria-labelledby="leadership">
+    <div class="wrap">
+      <div class="leadership">
+        <div class="leadership__head">
+          <h2 class="eyebrow" id="leadership">Dirección</h2>
+          <img
+            class="portrait"
+            src="/images/michael-cram-480.jpg"
+            srcset="/images/michael-cram-480.jpg 480w, /images/michael-cram-960.jpg 960w"
+            sizes="240px"
+            width="240"
+            height="300"
+            loading="lazy"
+            decoding="async"
+            alt="Michael Cram, fundador y CEO de Teipsum"
+          />
+        </div>
+        <div class="person">
+          <p class="person__name"><strong>Michael Cram</strong>, fundador y CEO.</p>
+          <p class="person__bio">{founderBio}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CloseCall />
+</Base>

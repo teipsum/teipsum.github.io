@@ -1,0 +1,68 @@
+---
+// Language switch: EN · ES. Each link goes to this page in that language; the
+// current language is marked with aria-current.
+import { LANGS, LANG_NAMES, UI, langOf, basePath, localize, type Lang } from '../i18n';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const lang = langOf(Astro.url);
+// The English 404 page has no address of its own; link its file.
+const here = basePath(Astro.url.pathname);
+const href = (l: Lang) => (here === '/404/' && l === 'en' ? '/404.html' : localize(here, l));
+---
+
+<nav class:list={['lang-switch', className]} aria-label={UI[lang].langNav} data-lang-switch>
+  {
+    LANGS.map((l, i) => (
+      <>
+        {i > 0 && <span aria-hidden="true">·</span>}
+        <a href={href(l)} lang={l} hreflang={l} aria-current={l === lang ? 'true' : undefined}>
+          {l.toUpperCase()}
+          <span class="visually-hidden"> {LANG_NAMES[l]}</span>
+        </a>
+      </>
+    ))
+  }
+</nav>
+
+<style>
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--paper-soft);
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    min-height: 44px;
+    padding-inline: 3px;
+    color: var(--paper-strong);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--paper);
+  }
+
+  /* The spoken names are never drawn. A system face keeps "Español" from
+     pulling the Spanish font file onto English pages. */
+  .visually-hidden {
+    font-family: sans-serif;
+  }
+
+  a[aria-current='true'] {
+    color: var(--warm);
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+</style>

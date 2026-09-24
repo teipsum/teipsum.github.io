@@ -1,12 +1,24 @@
 ---
 // Diagram: the three places most AI stops short. It forgets between
 // sessions, it leaves no proof, and it is kept away from the irreversible.
+import { pick } from '../../i18n';
+
+const t = pick(Astro.url, {
+  en: {
+    alt: 'Diagram: three gaps where most AI stops short. It forgets what it knew when a session ends, it leaves no proof of what it did or why, and it is kept away from anything irreversible.',
+    gaps: ['Forgets', 'No proof', 'Kept away'],
+  },
+  es: {
+    alt: 'Diagrama: tres puntos en los que la mayoría de la IA se queda corta. Olvida lo que sabía cuando termina una sesión, no deja pruebas de lo que hizo ni de por qué, y se la mantiene lejos de todo lo irreversible.',
+    gaps: ['Olvida', 'Sin pruebas', 'Al margen'],
+  },
+});
 ---
 
 <div
   class="dg gaps"
   role="img"
-  aria-label="Diagram: three gaps where most AI stops short. It forgets what it knew when a session ends, it leaves no proof of what it did or why, and it is kept away from anything irreversible."
+  aria-label={t.alt}
   data-draw
 >
   <div class="gap draw-fade">
@@ -20,7 +32,7 @@
       <circle class="gap__lost" cx="126" cy="38" r="5"></circle>
       <circle class="gap__lost" cx="148" cy="52" r="5"></circle>
     </svg>
-    <span class="dg-label"><span class="gap__n">01</span>Forgets</span>
+    <span class="dg-label"><span class="gap__n">01</span>{t.gaps[0]}</span>
   </div>
   <div class="gap draw-fade">
     <svg viewBox="0 0 160 96" fill="none" aria-hidden="true" focusable="false">
@@ -31,7 +43,7 @@
       <circle class="dg-dot" cx="146" cy="48" r="6"></circle>
       <text class="gap__q" x="80" y="54" text-anchor="middle">?</text>
     </svg>
-    <span class="dg-label"><span class="gap__n">02</span>No proof</span>
+    <span class="dg-label"><span class="gap__n">02</span>{t.gaps[1]}</span>
   </div>
   <div class="gap draw-fade">
     <svg viewBox="0 0 160 96" fill="none" aria-hidden="true" focusable="false">
@@ -41,7 +53,7 @@
       <rect class="gap__lost" x="122" y="34" width="28" height="28"></rect>
       <path class="gap__hair" d="M130 42l12 12M142 42l-12 12"></path>
     </svg>
-    <span class="dg-label"><span class="gap__n">03</span>Kept away</span>
+    <span class="dg-label"><span class="gap__n">03</span>{t.gaps[2]}</span>
   </div>
 </div>
 

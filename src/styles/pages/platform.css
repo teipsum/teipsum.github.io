@@ -1,0 +1,152 @@
+/* Styles for the platform page, shared by the English and Spanish versions.
+   Every selector starts with the data-page attribute the layout puts on <main>,
+   so these rules reach only this page. */
+
+[data-page='platform'] .loop-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--ink);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+[data-page='platform'] .loop-table th,
+[data-page='platform'] .loop-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 18px 24px 18px 0;
+  border-bottom: 1px solid var(--rule);
+}
+[data-page='platform'] .loop-table thead th {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-block: 16px 12px;
+}
+[data-page='platform'] .loop-table tbody th {
+  font-weight: 500;
+  width: 22%;
+}
+[data-page='platform'] .loop-table td {
+  color: var(--ink-strong);
+  width: 39%;
+}
+[data-page='platform'] .loop-table td:last-child {
+  color: var(--ink);
+  font-weight: 500;
+  border-left: 2px solid var(--accent);
+  padding-left: 20px;
+}
+[data-page='platform'] .loop-table th .chip {
+  display: flex;
+  margin-top: 8px;
+  white-space: nowrap;
+}
+[data-page='platform'] .loop-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 16px;
+  align-items: end;
+  margin-bottom: clamp(28px, 3.4vw, 44px);
+}
+[data-page='platform'] .loop-head .h2 {
+  grid-column: span 6;
+}
+[data-page='platform'] .loop-head .lede {
+  grid-column: 7 / span 6;
+}
+@media (max-width: 900px) {
+  [data-page='platform'] .loop-head .h2,
+  [data-page='platform'] .loop-head .lede {
+    grid-column: 1 / -1;
+  }
+}
+[data-page='platform'] .stage {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+[data-page='platform'] .stage .icon {
+  color: var(--accent);
+}
+/* The close line as a typographic moment. */
+[data-page='platform'] .loop-close {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.35em;
+  margin-top: clamp(32px, 4vw, 52px);
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px solid var(--accent);
+  font-size: clamp(2.25rem, 1.2rem + 4.2vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+[data-page='platform'] .loop-close span:last-child {
+  color: var(--accent);
+}
+@media (max-width: 720px) {
+  [data-page='platform'] .loop-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  [data-page='platform'] .loop-table,
+  [data-page='platform'] .loop-table tbody,
+  [data-page='platform'] .loop-table tr,
+  [data-page='platform'] .loop-table th,
+  [data-page='platform'] .loop-table td {
+    display: block;
+    width: auto;
+  }
+  [data-page='platform'] .loop-table tr {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  [data-page='platform'] .loop-table tbody th,
+  [data-page='platform'] .loop-table td {
+    border: 0;
+    padding: 0 0 12px;
+  }
+  [data-page='platform'] .loop-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  [data-page='platform'] .loop-table td:last-child {
+    border-left: 2px solid var(--accent);
+    padding: 0 0 0 14px;
+  }
+}
+[data-page='platform'] .os-close {
+  max-width: 40rem;
+  padding-top: 18px;
+  border-top: 1px solid var(--hair-dark);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--paper);
+}
+[data-page='platform'] .frame-card {
+  gap: 14px;
+}
+[data-page='platform'] .frame-card .vig {
+  max-width: none;
+  margin-top: 12px;
+}
+[data-page='platform'] .frame-card__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

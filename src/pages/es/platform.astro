@@ -1,0 +1,205 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import Callout from '../../components/Callout.astro';
+import CloseCall from '../../components/CloseCall.astro';
+import Icon from '../../components/Icon.astro';
+import OsLayer from '../../components/diagrams/OsLayer.astro';
+import InstanceSeal from '../../components/diagrams/InstanceSeal.astro';
+import FleetRow from '../../components/vignettes/FleetRow.astro';
+import NeedsYou from '../../components/vignettes/NeedsYou.astro';
+import TwinConversation from '../../components/vignettes/TwinConversation.astro';
+import PasskeyApproval from '../../components/vignettes/PasskeyApproval.astro';
+import RecordCard from '../../components/vignettes/RecordCard.astro';
+import Chip from '../../components/Chip.astro';
+import '../../styles/pages/platform.css';
+
+const sub =
+  'Unica le da a tu organización agentes de IA que trabajan dentro de las reglas que tú fijas, un gemelo de IA para cada persona y un registro firmado de todo lo que hacen.';
+
+const loop = [
+  {
+    stage: 'Identidad',
+    icon: 'fingerprint',
+    usually: 'Un producto de identidad de agentes: responsable, propósito, credenciales que vencen, última actividad, baja',
+    unica: 'Cada agente y cada persona es una identidad gobernada en el mismo registro',
+  },
+  {
+    stage: 'Acción gobernada',
+    icon: 'build',
+    usually: 'Un constructor de agentes: vista de la flota, barreras de protección, una cola de lo que requiere tu atención',
+    unica: 'Cada acto es un registro firmado y gobernado, no una línea en una bitácora',
+    status: 'early',
+  },
+  {
+    stage: 'Atestación humana',
+    icon: 'key',
+    usually: 'Aprobaciones dentro de cada herramienta, cada una con su propio inicio de sesión',
+    unica: 'Un toque del passkey, vinculado a la persona y al acto exacto',
+  },
+  {
+    stage: 'Evidencia verificable',
+    icon: 'evidence',
+    usually: 'Una herramienta de cumplimiento que junta capturas de pantalla y exportaciones',
+    unica: 'Evidencia que un auditor exporta y verifica sin tener que pedírnosla',
+    status: 'early',
+  },
+  {
+    stage: 'Contexto',
+    icon: 'brain',
+    usually: 'Copiado de una herramienta a otra',
+    unica: 'Un solo cerebro corporativo debajo de todo el ciclo',
+    status: 'early',
+  },
+  {
+    stage: 'Propiedad de los datos',
+    icon: 'areas',
+    usually: 'El silo propio de cada herramienta, o un único depósito compartido',
+    unica: 'Cada área de negocio es dueña de sus registros y los comparte por elección',
+    status: 'early',
+  },
+];
+---
+
+<Base page="platform" title="Plataforma" description={sub}>
+  <PageHero eyebrow="La plataforma Unica" title="Una plataforma. Cada agente rinde cuentas." sub={sub}>
+    <Chip status="early" />
+  </PageHero>
+
+  <Band tone="dark" id="why-os" eyebrow="Por qué un sistema operativo" heading="Las reglas viven por debajo, donde ninguna app puede alcanzarlas." icon="layers" ratio="7-5">
+    <OsLayer slot="figure" />
+    <p class="body">
+      En una computadora, una app puede pedir un archivo, pero solo el sistema operativo decide si lo obtiene. Unica
+      funciona igual para la IA de tu empresa. La identidad, los permisos, la memoria, las aprobaciones y el registro
+      están en una sola capa por debajo de cada agente y cada app, así que ninguno puede darse más autoridad de la que
+      se le concedió. Las apps de arriba pueden mostrar una decisión. Nunca pueden tomarla.
+    </p>
+    <p class="os-close">
+      Por eso, además, viene como un solo sistema. Nadie le compra su sistema de archivos, sus permisos y su bitácora de
+      auditoría a tres proveedores distintos.
+    </p>
+  </Band>
+
+  <section class="band band--paper" aria-labelledby="loop">
+    <div class="wrap">
+      <div class="loop-head">
+        <h2 class="h2" id="loop">El ciclo completo, no solo un arco.</h2>
+        <p class="lede">
+          La mayoría de las organizaciones armaría esto con un constructor de agentes, un producto de identidad de
+          agentes y una herramienta de evidencia de cumplimiento. Esto es lo que cambia cuando el ciclo es un solo
+          tejido.
+        </p>
+      </div>
+      <table class="loop-table">
+        <thead>
+          <tr>
+            <th scope="col">Etapa del ciclo</th>
+            <th scope="col">Normalmente se compra como</th>
+            <th scope="col">En Unica</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            loop.map((r) => (
+              <tr>
+                <th scope="row">
+                  <span class="stage">
+                    <Icon name={r.icon} size={22} />
+                    {r.stage}
+                  </span>
+                  {r.status === 'early' && <Chip status="early" />}
+                </th>
+                <td data-label="Normalmente se compra como">{r.usually}</td>
+                <td data-label="En Unica">{r.unica}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="loop-close" data-draw>
+        <span class="draw-fade">Un registro.</span>
+        <span class="draw-fade">Un reglamento.</span>
+        <span class="draw-fade">Un rastro.</span>
+      </p>
+    </div>
+  </section>
+
+  <Band tone="paper" id="agents" heading="Una fuerza de trabajo con descripciones de puesto." icon="build" status="early">
+    <FleetRow slot="figure" />
+    <p class="lede">
+      Cada agente tiene un rol, un alcance y un responsable humano. Solo llega a lo que su alcance permite y le devuelve a una persona todo lo privilegiado. Cuando termina su trabajo, puedes darlo de baja limpiamente: sus ejecuciones se detienen y sus llaves dejan de funcionar.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="twins" heading="Alguien de tu lado." status="early" icon="twin" flip>
+    <TwinConversation slot="figure" />
+    <p class="lede">
+      Un gemelo trabaja para una sola persona. Aprende cómo decide, redacta con su voz y actúa solo con su consentimiento. Sus palabras siguen siendo suyas: las puede leer esa persona y, cuando la ley lo exige, su auditor. Nadie más.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="approvals" heading="El sí correcto, de la persona correcta." icon="fingerprint">
+    <PasskeyApproval slot="figure" />
+    <p class="lede">
+      Las acciones privilegiadas van a las personas designadas que pueden aprobarlas. Una aprobación es un toque del passkey de esa persona, vinculado a ella y a esa acción exacta. No se puede reutilizar, reenviar ni pedir prestada.
+    </p>
+  </Band>
+
+  <section class="band band--dark" aria-labelledby="record">
+    <div class="wrap split split--flip">
+      <div class="split__text stack">
+        <h2 class="h2" id="record">Todo deja rastro.</h2>
+        <p class="lede">
+          Cada ejecución, respuesta y aprobación se convierte en un registro gobernado con sus fuentes, su autor y su
+          hora. Rastrea cualquier respuesta hasta su origen. Reproduce lo que se sabía en cualquier fecha.
+        </p>
+      </div>
+      <div class="split__figure">
+        <RecordCard />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--paper" aria-label="Consola y app">
+    <div class="wrap">
+      <div class="cards cards--2 frames">
+        <article class="card frame-card">
+          <span class="card__icon"><Icon name="roles" /></span>
+          <h2 class="card__title">Consola</h2>
+          <p class="card__body">Para Fideicomisarios, Administradores y Auditores. Personas, roles, aprobaciones, la pista de auditoría y el interruptor de apagado.</p>
+          <FleetRow
+            title="Consola"
+            status="early"
+            alt="Ilustración: la vista de agentes de la consola, cada uno con su área, su responsable y su última actividad, y un agente detenido."
+            agents={[
+              { name: 'Agente de recepción de facturas', owner: 'Dana Ortiz', area: 'Finanzas', idle: 'Ahora', state: 'working' },
+              { name: 'Agente de seguimiento de proveedores', owner: 'Lee Park', area: 'Operaciones', idle: '11:05', state: 'stopped' },
+            ]}
+          />
+        </article>
+        <article class="card frame-card">
+          <span class="card__icon"><Icon name="window" /></span>
+          <h2 class="card__title">App</h2>
+          <p class="card__body">Para todos. Lo que requiere tu atención, lo que están haciendo tus agentes y lo que redactó tu gemelo.</p>
+          <NeedsYou status="early" />
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <Band tone="dark" id="instance" heading="Solo tuya." icon="instance" flip>
+    <InstanceSeal slot="figure" />
+    <p class="lede">
+      Cada organización trabaja en su propia instancia dedicada de Unica, fundada por sus propios Fideicomisarios. Sin inquilinos compartidos, sin llaves prestadas.
+    </p>
+  </Band>
+
+  <Callout
+    icon="window"
+    lead="La app es una ventana. La autoridad vive debajo."
+    text="La consola y la app de Unica nunca deciden quién puede hacer qué. Muestran la decisión del sustrato. Cambia la app y todas las reglas siguen en pie."
+  />
+
+  <CloseCall />
+</Base>

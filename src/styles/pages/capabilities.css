@@ -1,0 +1,57 @@
+/* Styles for the capabilities page, shared by the English and Spanish versions.
+   Every selector starts with the data-page attribute the layout puts on <main>,
+   so these rules reach only this page. */
+
+[data-page='capabilities'] .points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+[data-page='capabilities'] .points li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  background: #fdfcf9;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink-strong);
+}
+@media (max-width: 560px) {
+  [data-page='capabilities'] .points {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+[data-page='capabilities'] .lede .chip {
+  vertical-align: middle;
+  margin-left: 6px;
+}
+[data-page='capabilities'] .rung-glance {
+  max-width: 380px;
+  margin-top: 8px;
+}
+[data-page='capabilities'] .tie-in {
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--ink);
+  max-width: 40rem;
+}
+[data-page='capabilities'] .roadmap-line {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hair-dark);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--paper-strong);
+  max-width: 40rem;
+}

@@ -2,39 +2,73 @@
 // Diagram: business areas as sovereign cells. Each keeps its own records;
 // links exist only where an area chose to share.
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
+
+const t = pick(Astro.url, {
+  en: {
+    alt: 'Diagram: four business areas, Finance, Legal, Operations and People, each a separate cell that keeps its own records. Finance shares contract terms with Legal and keeps its ledger to itself; Operations shares schedules with People.',
+    finance: 'Finance',
+    legal: 'Legal',
+    operations: 'Operations',
+    people: 'People',
+    ledger: 'Ledger',
+    terms: 'Contract terms',
+    cases: 'Case files',
+    suppliers: 'Suppliers',
+    schedules: 'Schedules',
+    reviews: 'Reviews',
+    shared: 'Shared by choice',
+    kept: 'Kept in the area',
+  },
+  es: {
+    alt: 'Diagrama: cuatro áreas de negocio, Finanzas, Legal, Operaciones y Personas, cada una en su propia celda con sus propios registros. Finanzas comparte con Legal los términos de los contratos y se reserva su libro mayor; Operaciones comparte los calendarios con Personas.',
+    finance: 'Finanzas',
+    legal: 'Legal',
+    operations: 'Operaciones',
+    people: 'Personas',
+    ledger: 'Libro mayor',
+    terms: 'Términos de contrato',
+    cases: 'Expedientes',
+    suppliers: 'Proveedores',
+    schedules: 'Calendarios',
+    reviews: 'Evaluaciones',
+    shared: 'Compartido por elección',
+    kept: 'Se queda en el área',
+  },
+});
 ---
 
 <div
   class="dg cells"
   role="img"
-  aria-label="Diagram: four business areas, Finance, Legal, Operations and People, each a separate cell that keeps its own records. Finance shares contract terms with Legal and keeps its ledger to itself; Operations shares schedules with People."
+  aria-label={t.alt}
   data-draw
 >
   <div class="cells__grid">
     <div class="cell draw-fade">
-      <span class="dg-label dg-label--signal">Finance</span>
-      <span class="rec rec--kept"><Icon name="lock" size={14} />Ledger</span>
-      <span class="rec rec--shared rec--right">Contract terms</span>
+      <span class="dg-label dg-label--signal">{t.finance}</span>
+      <span class="rec rec--kept"><Icon name="lock" size={14} />{t.ledger}</span>
+      <span class="rec rec--shared rec--right">{t.terms}</span>
     </div>
     <div class="cell draw-fade">
-      <span class="dg-label dg-label--signal">Legal</span>
-      <span class="rec rec--kept"><Icon name="lock" size={14} />Case files</span>
-      <span class="rec rec--in">Contract terms</span>
+      <span class="dg-label dg-label--signal">{t.legal}</span>
+      <span class="rec rec--kept"><Icon name="lock" size={14} />{t.cases}</span>
+      <span class="rec rec--in">{t.terms}</span>
     </div>
     <div class="cell draw-fade">
-      <span class="dg-label dg-label--signal">Operations</span>
-      <span class="rec rec--kept"><Icon name="lock" size={14} />Suppliers</span>
-      <span class="rec rec--shared rec--right">Schedules</span>
+      <span class="dg-label dg-label--signal">{t.operations}</span>
+      <span class="rec rec--kept"><Icon name="lock" size={14} />{t.suppliers}</span>
+      <span class="rec rec--shared rec--right">{t.schedules}</span>
     </div>
     <div class="cell draw-fade">
-      <span class="dg-label dg-label--signal">People</span>
-      <span class="rec rec--kept"><Icon name="lock" size={14} />Reviews</span>
-      <span class="rec rec--in">Schedules</span>
+      <span class="dg-label dg-label--signal">{t.people}</span>
+      <span class="rec rec--kept"><Icon name="lock" size={14} />{t.reviews}</span>
+      <span class="rec rec--in">{t.schedules}</span>
     </div>
   </div>
   <div class="cells__key" aria-hidden="true">
-    <span class="dg-label"><i class="key key--link"></i>Shared by choice</span>
-    <span class="dg-label"><Icon name="lock" size={14} />Kept in the area</span>
+    <span class="dg-label"><i class="key key--link"></i>{t.shared}</span>
+    <span class="dg-label"><Icon name="lock" size={14} />{t.kept}</span>
   </div>
 </div>
 

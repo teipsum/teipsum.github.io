@@ -1,7 +1,8 @@
 ---
 // Closing band with the waitlist button.
 import TraceRule from './TraceRule.astro';
-import { WAITLIST_HREF, CTA_LABEL } from '../config';
+import { WAITLIST_HREF } from '../config';
+import { UI, langOf, localize } from '../i18n';
 
 interface Props {
   heading?: string;
@@ -10,15 +11,17 @@ interface Props {
 }
 const { heading, body, smallPrint } = Astro.props;
 const id = heading ? 'close-heading' : undefined;
+const lang = langOf(Astro.url);
+const cta = UI[lang].cta;
 ---
 
-<section class="band band--dark close-band" aria-labelledby={id} aria-label={id ? undefined : CTA_LABEL}>
+<section class="band band--dark close-band" aria-labelledby={id} aria-label={id ? undefined : cta}>
   <div class="wrap close-call">
     <TraceRule />
     {heading && <h2 class="h2" id={id}>{heading}</h2>}
     {body && <p class="lede">{body}</p>}
     {smallPrint && <p class="small-print">{smallPrint}</p>}
-    <a class="btn btn--solid" href={WAITLIST_HREF}>{CTA_LABEL}</a>
+    <a class="btn btn--solid" href={localize(WAITLIST_HREF, lang)}>{cta}</a>
   </div>
 </section>
 

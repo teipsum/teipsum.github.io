@@ -1,0 +1,39 @@
+/* Styles for the privacy page, shared by the English and Spanish versions.
+   Every selector starts with the data-page attribute the layout puts on <main>,
+   so these rules reach only this page. */
+
+[data-page='privacy'] .privacy__col {
+  max-width: 44rem;
+}
+[data-page='privacy'] .privacy__head {
+  gap: 20px;
+  padding-bottom: clamp(24px, 3vw, 32px);
+  border-bottom: 1px solid var(--rule);
+}
+[data-page='privacy'] .privacy__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-block: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+[data-page='privacy'] .privacy__section:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+[data-page='privacy'] .privacy__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+[data-page='privacy'] .privacy .body a {
+  padding-block: 3px;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}

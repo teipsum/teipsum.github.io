@@ -1,6 +1,7 @@
 ---
 // Vignette: the queue of things waiting on one person.
 import Vignette from './Vignette.astro';
+import { pick } from '../../i18n';
 
 interface Item {
   title: string;
@@ -12,20 +13,34 @@ interface Props {
   alt?: string;
   status?: 'early' | 'roadmap';
 }
-const {
-  items = [
-    { title: 'Approve contract renewal', from: 'Procurement agent', action: 'Approve' },
-    { title: 'Reply to a supplier, drafted', from: 'Your twin', action: 'Review' },
-    { title: 'Q3 spend figures', from: 'Finance', action: 'Certify' },
-  ],
-  alt = 'Illustration: a short queue of items waiting on one person: an approval, a drafted reply to review, and figures to certify.',
-  status,
-} = Astro.props;
+const t = pick<{ items: Item[]; alt: string; title: string; waiting: string }>(Astro.url, {
+  en: {
+    items: [
+      { title: 'Approve contract renewal', from: 'Procurement agent', action: 'Approve' },
+      { title: 'Reply to a supplier, drafted', from: 'Your twin', action: 'Review' },
+      { title: 'Q3 spend figures', from: 'Finance', action: 'Certify' },
+    ],
+    alt: 'Illustration: a short queue of items waiting on one person: an approval, a drafted reply to review, and figures to certify.',
+    title: 'Needs you',
+    waiting: 'Waiting on you',
+  },
+  es: {
+    items: [
+      { title: 'Aprobar la renovación del contrato', from: 'Agente de compras', action: 'Aprobar' },
+      { title: 'Respuesta a un proveedor, redactada', from: 'Tu gemelo', action: 'Revisar' },
+      { title: 'Cifras de gasto del T3', from: 'Finanzas', action: 'Certificar' },
+    ],
+    alt: 'Ilustración: una cola corta de pendientes de una persona: una aprobación, una respuesta redactada para revisar y cifras para certificar.',
+    title: 'Requiere tu atención',
+    waiting: 'Te esperan',
+  },
+});
+const { items = t.items, alt = t.alt, status } = Astro.props;
 ---
 
-<Vignette title="Needs you" alt={alt} status={status}>
+<Vignette title={t.title} alt={alt} status={status}>
   <div class="v-row">
-    <span class="v-label">Waiting on you</span>
+    <span class="v-label">{t.waiting}</span>
     <span class="nq__count">{items.length}</span>
   </div>
   <ul class="v-list">

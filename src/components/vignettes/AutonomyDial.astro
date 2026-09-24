@@ -2,18 +2,34 @@
 // Vignette: one agent's autonomy setting, with the kill switch at the end.
 import Vignette from './Vignette.astro';
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
-const levels = ['Suggest only', 'Act with approval', 'Act and report'];
+const t = pick(Astro.url, {
+  en: {
+    title: 'Autonomy',
+    alt: 'Illustration: an autonomy dial for one agent, set to act with approval, between suggest only and act and report, with the kill switch at the end of the dial.',
+    agent: 'Invoice intake agent',
+    area: 'Payments',
+    levels: ['Suggest only', 'Act with approval', 'Act and report'],
+    kill: 'Kill switch',
+  },
+  es: {
+    title: 'Autonomía',
+    alt: 'Ilustración: el dial de autonomía de un agente, en «actuar con aprobación», entre «solo sugerir» y «actuar e informar», con el interruptor de apagado al final del dial.',
+    agent: 'Agente de recepción de facturas',
+    area: 'Pagos',
+    levels: ['Solo sugerir', 'Actuar con aprobación', 'Actuar e informar'],
+    kill: 'Interruptor de apagado',
+  },
+});
+const levels = t.levels;
 const current = 1;
 ---
 
-<Vignette
-  title="Autonomy"
-  alt="Illustration: an autonomy dial for one agent, set to act with approval, between suggest only and act and report, with the kill switch at the end of the dial."
->
+<Vignette title={t.title} alt={t.alt}>
   <div class="v-row">
-    <span class="v-strong">Invoice intake agent</span>
-    <span class="v-label">Payments</span>
+    <span class="v-strong">{t.agent}</span>
+    <span class="v-label">{t.area}</span>
   </div>
   <svg class="ad__arc" viewBox="0 0 320 156" fill="none" aria-hidden="true">
     <path class="ad__track" d="M30 140 A130 130 0 0 1 290 140"></path>
@@ -29,7 +45,7 @@ const current = 1;
   </svg>
   <ol class="ad__levels">
     {levels.map((l, i) => <li class:list={[i === current && 'is-set']}>{l}</li>)}
-    <li class="ad__kill"><Icon name="power" size={14} />Kill switch</li>
+    <li class="ad__kill"><Icon name="power" size={14} />{t.kill}</li>
   </ol>
 </Vignette>
 

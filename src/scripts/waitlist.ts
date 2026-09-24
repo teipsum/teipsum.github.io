@@ -1,32 +1,59 @@
 // Waitlist form: accessible client-side validation and submission.
 // Posts JSON to the configured endpoint. If no endpoint is configured, it says
 // so plainly and sends nothing; it never shows a success it did not get.
+// Messages follow the page language (<html lang>); the fields and the request
+// are the same in every language.
 
 type Check = (el: HTMLInputElement | HTMLSelectElement) => string;
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TIMEOUT_MS = 15000;
 
-const MESSAGES = {
-  notReady:
-    'The waitlist is not accepting requests online yet, so nothing was sent. Please check back soon.',
-  network: 'Something went wrong and your request was not sent. Please try again in a moment.',
-  rejected: 'We could not accept that request. Please check your details and try again.',
-  sending: 'Sending your request…',
+const COPY = {
+  en: {
+    notReady:
+      'The waitlist is not accepting requests online yet, so nothing was sent. Please check back soon.',
+    network: 'Something went wrong and your request was not sent. Please try again in a moment.',
+    rejected: 'We could not accept that request. Please check your details and try again.',
+    sending: 'Sending your request…',
+    emailEmpty: 'Enter your work email.',
+    emailInvalid: 'Enter an email address like name@company.com.',
+    name: 'Enter your name.',
+    organization: 'Enter your organization.',
+    role: 'Choose your role.',
+    size: 'Choose your organization size.',
+    consent: 'Please confirm we may contact you.',
+  },
+  es: {
+    notReady:
+      'La lista de espera todavía no recibe solicitudes en línea, así que no se envió nada. Vuelve a intentarlo pronto.',
+    network: 'Algo salió mal y tu solicitud no se envió. Inténtalo de nuevo en un momento.',
+    rejected: 'No pudimos aceptar esa solicitud. Revisa tus datos e inténtalo de nuevo.',
+    sending: 'Enviando tu solicitud…',
+    emailEmpty: 'Escribe tu correo de trabajo.',
+    emailInvalid: 'Escribe una dirección de correo como nombre@empresa.com.',
+    name: 'Escribe tu nombre.',
+    organization: 'Escribe el nombre de tu organización.',
+    role: 'Elige tu rol.',
+    size: 'Elige el tamaño de tu organización.',
+    consent: 'Confirma que podemos contactarte.',
+  },
 };
+
+const MESSAGES = document.documentElement.lang === 'es' ? COPY.es : COPY.en;
 
 const checks: Record<string, Check> = {
   email: (el) => {
     const v = el.value.trim();
-    if (!v) return 'Enter your work email.';
-    if (!EMAIL.test(v) || v.length > 254) return 'Enter an email address like name@company.com.';
+    if (!v) return MESSAGES.emailEmpty;
+    if (!EMAIL.test(v) || v.length > 254) return MESSAGES.emailInvalid;
     return '';
   },
-  name: (el) => (el.value.trim() ? '' : 'Enter your name.'),
-  organization: (el) => (el.value.trim() ? '' : 'Enter your organization.'),
-  role: (el) => (el.value ? '' : 'Choose your role.'),
-  size: (el) => (el.value ? '' : 'Choose your organization size.'),
-  consent: (el) => ((el as HTMLInputElement).checked ? '' : 'Please confirm we may contact you.'),
+  name: (el) => (el.value.trim() ? '' : MESSAGES.name),
+  organization: (el) => (el.value.trim() ? '' : MESSAGES.organization),
+  role: (el) => (el.value ? '' : MESSAGES.role),
+  size: (el) => (el.value ? '' : MESSAGES.size),
+  consent: (el) => ((el as HTMLInputElement).checked ? '' : MESSAGES.consent),
 };
 
 export function initWaitlist(): void {

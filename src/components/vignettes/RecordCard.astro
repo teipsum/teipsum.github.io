@@ -2,24 +2,45 @@
 // Vignette: one signed record, the whole product in one glance.
 import Vignette from './Vignette.astro';
 import Seal from '../Seal.astro';
+import { pick } from '../../i18n';
 
 // Signed records are in early access, so the card carries the chip.
-const rows = [
-  { label: 'Sources', value: '3 documents' },
-  { label: 'Acted', value: 'Procurement agent, for Dana Ortiz' },
-  { label: 'Approved', value: 'CFO, passkey' },
-  { label: 'Time', value: '14:02 UTC', mono: true },
-];
+const t = pick<{ title: string; alt: string; head: string; sealed: string; rows: { label: string; value: string; mono?: boolean }[] }>(
+  Astro.url,
+  {
+    en: {
+      title: 'Record',
+      alt: 'Illustration: a signed record of a contract renewal, showing its three source documents, the agent that acted and for whom, the approver, the time, and its seal.',
+      head: 'Contract renewal approved',
+      sealed: 'Sealed',
+      rows: [
+        { label: 'Sources', value: '3 documents' },
+        { label: 'Acted', value: 'Procurement agent, for Dana Ortiz' },
+        { label: 'Approved', value: 'CFO, passkey' },
+        { label: 'Time', value: '14:02 UTC', mono: true },
+      ],
+    },
+    es: {
+      title: 'Registro',
+      alt: 'Ilustración: el registro firmado de una renovación de contrato, con sus tres documentos fuente, el agente que actuó y en nombre de quién, quién lo aprobó, la hora y su sello.',
+      head: 'Renovación de contrato aprobada',
+      sealed: 'Sellado',
+      rows: [
+        { label: 'Fuentes', value: '3 documentos' },
+        { label: 'Actuó', value: 'Agente de compras, en nombre de Dana Ortiz' },
+        { label: 'Aprobó', value: 'CFO, passkey' },
+        { label: 'Hora', value: '14:02 UTC', mono: true },
+      ],
+    },
+  },
+);
+const rows = t.rows;
 ---
 
-<Vignette
-  title="Record"
-  status="early"
-  alt="Illustration: a signed record of a contract renewal, showing its three source documents, the agent that acted and for whom, the approver, the time, and its seal."
->
+<Vignette title={t.title} status="early" alt={t.alt}>
   <div class="v-row">
-    <span class="v-title">Contract renewal approved</span>
-    <span class="v-chip v-chip--solid"><Seal size={12} />Sealed</span>
+    <span class="v-title">{t.head}</span>
+    <span class="v-chip v-chip--solid"><Seal size={12} />{t.sealed}</span>
   </div>
   <dl class="rc">
     {

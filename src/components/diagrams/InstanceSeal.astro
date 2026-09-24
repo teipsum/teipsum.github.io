@@ -1,13 +1,25 @@
 ---
 // Diagram: one dedicated instance, brought to life by its Trustees' keys.
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
 interface Props {
   alt?: string;
 }
-const {
-  alt = 'Diagram: one dedicated instance with its own boundary, established by three Trustees, each with their own passkey.',
-} = Astro.props;
+const t = pick(Astro.url, {
+  en: {
+    alt: 'Diagram: one dedicated instance with its own boundary, established by three Trustees, each with their own passkey.',
+    trustee: 'Trustee',
+    instance: 'Your instance',
+  },
+  es: {
+    alt: 'Diagrama: una instancia dedicada con su propio límite, establecida por tres Fideicomisarios, cada uno con su propio passkey.',
+    // A soft hyphen lets the long word break when three labels share a phone width.
+    trustee: 'Fideico\u00ADmisario',
+    instance: 'Tu instancia',
+  },
+});
+const { alt = t.alt } = Astro.props;
 ---
 
 <div class="dg inst" role="img" aria-label={alt} data-draw>
@@ -16,7 +28,7 @@ const {
       [1, 2, 3].map(() => (
         <li class="draw-fade">
           <span class="inst__key"><Icon name="key" size={20} /></span>
-          <span class="dg-label">Trustee</span>
+          <span class="dg-label">{t.trustee}</span>
         </li>
       ))
     }
@@ -28,7 +40,7 @@ const {
   </svg>
   <div class="inst__box">
     <span class="inst__seal"><Icon name="instance" size={28} /></span>
-    <span class="dg-label dg-label--signal">Your instance</span>
+    <span class="dg-label dg-label--signal">{t.instance}</span>
     <span class="inst__edge" aria-hidden="true"></span>
   </div>
 </div>
@@ -50,6 +62,7 @@ const {
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    text-align: center;
   }
   .inst__key {
     display: grid;

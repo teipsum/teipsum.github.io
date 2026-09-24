@@ -1,0 +1,124 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import Chip from '../../components/Chip.astro';
+import Icon from '../../components/Icon.astro';
+import Callout from '../../components/Callout.astro';
+import CloseCall from '../../components/CloseCall.astro';
+import InstanceSeal from '../../components/diagrams/InstanceSeal.astro';
+import ReadAccess from '../../components/diagrams/ReadAccess.astro';
+import StepTrace from '../../components/diagrams/StepTrace.astro';
+import PasskeyApproval from '../../components/vignettes/PasskeyApproval.astro';
+import FleetRow from '../../components/vignettes/FleetRow.astro';
+import EvidenceExport from '../../components/vignettes/EvidenceExport.astro';
+import RecordCard from '../../components/vignettes/RecordCard.astro';
+import Duties from '../../components/diagrams/Duties.astro';
+import '../../styles/pages/trust.css';
+
+const sub =
+  'Unica está construida para que cada afirmación que hace sobre sí misma se pueda verificar: quién actuó, con qué autoridad y por qué.';
+
+---
+
+<Base page="trust" title="Confianza y gobernanza" description={sub}>
+  <PageHero eyebrow="Confianza y gobernanza" title="Confianza que puedes comprobar." sub={sub} />
+
+  <Band tone="paper" id="identity" eyebrow="Identidad" icon="fingerprint" heading="Sin contraseñas. Personas reales.">
+    <PasskeyApproval slot="figure" action="Conceder un nuevo alcance" requester="Agente de seguimiento de proveedores" approver="Dana Ortiz" approverRef="Dana Ortiz" />
+    <p class="lede">
+      Todos inician sesión con un passkey vinculado a su propio dispositivo. Las acciones privilegiadas piden
+      un nuevo toque, así que una sesión robada nunca basta.
+    </p>
+    <p class="lede">
+      Perder todos los dispositivos está previsto: la recuperación es parte de la fundación, no un ticket de soporte. <Chip status="early" />
+    </p>
+  </Band>
+
+  <Band tone="dark" id="founding" eyebrow="Fundación" icon="flag" heading="Fundada por tu gente." flip>
+    <InstanceSeal
+      slot="figure"
+      alt="Diagrama: una instancia cobra vida cuando sus Fideicomisarios la establecen, cada uno con su propio passkey."
+    />
+    <p class="lede">
+      Tu instancia de Unica cobra vida en una ceremonia de fundación. Tus Fideicomisarios la establecen con sus propios
+      passkeys, y la gobernanza les pertenece desde el primer minuto.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="duties" eyebrow="Separación de funciones" icon="roles" heading="Nadie tiene todas las llaves.">
+    <Duties slot="figure" />
+    <p class="lede">
+      Fideicomisarios, Administradores y Auditores tienen poderes distintos. Nadie puede otorgarse más, y no se puede
+      quitar por accidente a la última persona que ocupa un rol crítico.
+    </p>
+  </Band>
+
+  <Band tone="dark" id="kill-switch" eyebrow="Interruptor de apagado" icon="power" heading="Un gesto lo detiene. No se rearma solo." status="early" flip>
+    <FleetRow
+      slot="figure"
+      alt="Ilustración: un agente revocado, que aparece detenido, junto a un agente que sigue trabajando."
+      agents={[
+        { name: 'Agente de seguimiento de proveedores', owner: 'Lee Park', area: 'Operaciones', idle: '11:05', state: 'stopped' },
+        { name: 'Agente de recepción de facturas', owner: 'Dana Ortiz', area: 'Finanzas', idle: 'Ahora', state: 'working' },
+      ]}
+    />
+    <p class="lede">
+      Revoca un agente o una máquina y se detiene, en todas partes, hasta que una persona con la autoridad necesaria lo
+      reactive a propósito.
+    </p>
+  </Band>
+
+  <section class="band band--paper" aria-labelledby="evidence">
+    <div class="wrap">
+      <div class="split">
+        <div class="split__text stack evidence-text">
+          <p class="eyebrow evidence-eyebrow"><span class="card__icon"><Icon name="evidence" size={22} /></span>Evidencia</p>
+          <h2 class="h2" id="evidence">Evidencia, no bitácoras.</h2>
+          <p class="lede">
+            Cada acto está firmado y es atribuible, y los rechazos también quedan registrados. <Chip status="early" /> Los
+            auditores exportan evidencia que se sostiene por sí sola, meses después. <Chip status="early" />
+          </p>
+          <div class="evidence-record">
+            <RecordCard />
+          </div>
+        </div>
+        <div class="split__figure">
+          <EvidenceExport />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Band tone="dark" id="privacy" eyebrow="Privacidad" icon="lock" heading="Personal quiere decir personal." status="early" flip>
+    <ReadAccess slot="figure" />
+    <p class="lede">
+      Lo que una persona le dice a su gemelo lo pueden leer esa persona y su auditor. Un administrador, no.
+    </p>
+  </Band>
+
+  <Band tone="paper" id="build" eyebrow="Cómo lo construimos" icon="shield" heading="Atacado antes de salir.">
+    <StepTrace
+      slot="figure"
+      alt="Diagrama: cada cambio se propone, lo ataca un equipo de revisión y lo que encuentra se corrige antes de que el cambio se incorpore."
+      steps={[
+        { label: 'Propuesto', icon: 'assert' },
+        { label: 'Atacado', icon: 'find' },
+        { label: 'Corregido', icon: 'build' },
+      ]}
+      end="Incorporado"
+    />
+    <p class="lede">
+      Cada cambio en Unica lo ataca un equipo de revisión dedicado antes de incorporarse. Lo que encuentra se corrige, no
+      se deja pasar.
+    </p>
+  </Band>
+
+  <Callout
+    icon="shield"
+    lead="Un error en la app no puede conceder acceso."
+    text="Las reglas se aplican por debajo de la aplicación, en el sustrato, así que la interfaz solo puede mostrar una decisión. Nunca puede tomarla."
+  />
+
+  <CloseCall />
+</Base>

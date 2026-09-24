@@ -5,7 +5,8 @@
    Each Plex weight is split by unicode-range so a page only downloads what it
    shows: "core" (ASCII plus the punctuation the copy uses, subset from the
    latin file, kerning and ligatures kept), then the rest of latin, then
-   latin-ext. The DM Serif face is subset to the glyphs of "Scito te ipsum.". */
+   latin-ext. The DM Serif face is subset to the glyphs of "Scito te ipsum.".
+   Spanish pages add their own faces from public/fonts/es.css. */
 
 @font-face {
   font-family: 'IBM Plex Sans';

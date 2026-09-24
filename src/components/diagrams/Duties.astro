@@ -2,18 +2,36 @@
 // Diagram: separation of duties. Three roles, each with its own power; every
 // line toward "every key" stops short, because no one can grant themselves more.
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
-const roles = [
-  { name: 'Trustees', power: 'Govern', icon: 'key' },
-  { name: 'Administrators', power: 'Operate', icon: 'roles' },
-  { name: 'Auditors', power: 'Verify', icon: 'find' },
-] as const;
+const t = pick(Astro.url, {
+  en: {
+    alt: "Diagram: Trustees, Administrators and Auditors as three separate roles, each with its own power: Trustees govern, Administrators operate, Auditors verify. Each role's line toward every key stops short: none of them holds them all, and none can grant itself more.",
+    roles: [
+      ['Trustees', 'Govern'],
+      ['Administrators', 'Operate'],
+      ['Auditors', 'Verify'],
+    ],
+    core: 'Every key',
+  },
+  es: {
+    alt: 'Diagrama: Fideicomisarios, Administradores y Auditores como tres roles separados, cada uno con su propio poder: los Fideicomisarios gobiernan, los Administradores operan y los Auditores verifican. La línea de cada rol hacia todas las llaves se detiene antes de llegar: ninguno las tiene todas y ninguno puede otorgarse más.',
+    roles: [
+      ['Fideicomisarios', 'Gobiernan'],
+      ['Administradores', 'Operan'],
+      ['Auditores', 'Verifican'],
+    ],
+    core: 'Todas las llaves',
+  },
+});
+const icons = ['key', 'roles', 'find'] as const;
+const roles = t.roles.map(([name, power], i) => ({ name, power, icon: icons[i] }));
 ---
 
 <div
   class="dg duties"
   role="img"
-  aria-label="Diagram: Trustees, Administrators and Auditors as three separate roles, each with its own power: Trustees govern, Administrators operate, Auditors verify. Each role's line toward every key stops short: none of them holds them all, and none can grant itself more."
+  aria-label={t.alt}
   data-draw
 >
   <div class="duties__roles">
@@ -37,7 +55,7 @@ const roles = [
   </svg>
   <div class="duties__core draw-fade">
     <span class="duties__lock"><Icon name="lock" size={22} /></span>
-    <span class="dg-label">Every key</span>
+    <span class="dg-label">{t.core}</span>
   </div>
 </div>
 

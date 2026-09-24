@@ -2,10 +2,30 @@
 // Provenance trace figure: a decision node linked to three source nodes and a
 // signature mark. Decorative sample content. The bronze lines draw in once
 // unless reduced motion is requested.
+import { pick } from '../i18n';
+
 interface Props {
   label?: string;
 }
-const { label = 'Illustration: a decision traced back to its three sources and signed by a passkey.' } = Astro.props;
+const t = pick(Astro.url, {
+  en: {
+    label: 'Illustration: a decision traced back to its three sources and signed by a passkey.',
+    s1: 'SOURCE · MSA_2024.pdf',
+    s2: 'SOURCE · RENEWAL TERMS v3',
+    s3: 'SOURCE · Q3 SPEND',
+    decision: 'DECISION',
+    signed: 'SIGNED · CFO PASSKEY',
+  },
+  es: {
+    label: 'Ilustración: una decisión rastreada hasta sus tres fuentes y firmada con un passkey.',
+    s1: 'FUENTE · MARCO_2024.pdf',
+    s2: 'FUENTE · RENOVACIÓN v3',
+    s3: 'FUENTE · GASTO T3',
+    decision: 'DECISIÓN',
+    signed: 'FIRMA · PASSKEY DE CFO',
+  },
+});
+const { label = t.label } = Astro.props;
 ---
 
 <svg class="hero-trace" viewBox="0 0 520 560" fill="none" role="img" aria-label={label}>
@@ -46,11 +66,11 @@ const { label = 'Illustration: a decision traced back to its three sources and s
     <path d="M293 520 l5 5 l9 -10"></path>
   </g>
   <g class="ht-labels">
-    <text x="212" y="160">SOURCE · MSA_2024.pdf</text>
-    <text x="372" y="110" text-anchor="end" dx="146">SOURCE · RENEWAL TERMS v3</text>
-    <text x="412" y="386" text-anchor="end" dx="106">SOURCE · Q3 SPEND</text>
-    <text class="ht-label-warm" x="118" y="376">DECISION</text>
-    <text class="ht-label-warm" x="324" y="524">SIGNED · CFO PASSKEY</text>
+    <text x="212" y="160">{t.s1}</text>
+    <text x="372" y="110" text-anchor="end" dx="146">{t.s2}</text>
+    <text x="412" y="386" text-anchor="end" dx="106">{t.s3}</text>
+    <text class="ht-label-warm" x="118" y="376">{t.decision}</text>
+    <text class="ht-label-warm" x="324" y="524">{t.signed}</text>
   </g>
 </svg>
 

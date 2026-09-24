@@ -24,7 +24,7 @@ variables of the same name.
 | `PUBLIC_WAITLIST_ENDPOINT` | HTTPS URL the waitlist form posts to | The form says it is not accepting requests yet and sends nothing |
 | `PUBLIC_CF_BEACON_TOKEN` | Cloudflare Web Analytics token (overrides the default) | The site's own token, set in `src/config.ts` |
 | `PUBLIC_LINKEDIN_URL` | Company LinkedIn page | No footer link |
-| `PUBLIC_PRIVACY_EFFECTIVE_DATE` | Privacy notice effective date, as it should read (for example `October 1, 2026`); set at launch | `/privacy/` shows no date line |
+| `PUBLIC_PRIVACY_EFFECTIVE_DATE` | Privacy notice effective date, as it should read in English (for example `October 1, 2026`; `/es/privacy/` shows it as a Spanish date); set at launch | The privacy notices show no date line |
 
 The endpoint's origin is added to the page Content-Security-Policy
 (`connect-src`, `form-action`) automatically.
@@ -62,7 +62,29 @@ Set these repository variables before launch:
 - `PUBLIC_PRIVACY_EFFECTIVE_DATE`: until it is set, `/privacy/` has no effective date.
 - `PUBLIC_LINKEDIN_URL` (optional).
 
+## Languages
+
+The site is in English at the root and in Spanish under `/es/`. Each page in
+`src/pages/` has a Spanish counterpart at the same path in `src/pages/es/`, with
+the same structure and its own copy. Strings shared by the layout and
+components live in `src/i18n.ts`, or beside the component that uses them, keyed
+by language; the language comes from the page's path. The header switch
+(EN · ES) links each page to its counterpart, every indexed page carries
+`hreflang` alternates (x-default is English), and the sitemap lists both
+languages.
+
+Each pair of pages shares one stylesheet in `src/styles/pages/`, scoped by the
+`data-page` attribute the layout puts on `<main>` (`<Base page="…">`), so a
+style change is made once. A change to an English page's copy or markup needs
+the same change in its Spanish counterpart.
+
+Spanish pages use their own font files (`public/fonts/ibm-plex-*-es-*`), one
+per weight, holding the core characters and the Spanish letters, declared in
+`public/fonts/es.css`, which only Spanish pages link. If new Spanish copy needs a character outside that
+set, add it to those files, or the page falls back to a full latin file.
+
 ## Social card
 
-`public/og-card-v1.png` and `public/apple-touch-icon.png` are rendered from the
-HTML sources in `og/` with `og/render.sh` (headless Chrome).
+`public/og-card-v1.png`, `public/og-card-es-v1.png` and
+`public/apple-touch-icon.png` are rendered from the HTML sources in `og/` with
+`og/render.sh` (headless Chrome).

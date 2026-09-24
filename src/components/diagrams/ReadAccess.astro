@@ -1,23 +1,40 @@
 ---
 // Diagram: who can read a person's words to their twin.
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
+const t = pick(Astro.url, {
+  en: {
+    alt: "Diagram: a person's words to their twin can be read by that person and, where required, their auditor. An administrator cannot read them.",
+    head: 'Your words to your twin',
+    who: ['You', 'Your auditor, where required', 'Administrator'],
+    can: 'Can read',
+    cannot: 'Cannot read',
+  },
+  es: {
+    alt: 'Diagrama: lo que una persona le dice a su gemelo lo pueden leer esa persona y, cuando se exija, su auditor. Un administrador no puede leerlo.',
+    head: 'Lo que le dices a tu gemelo',
+    who: ['Tú', 'Tu auditor, cuando se exija', 'Administrador'],
+    can: 'Puede leer',
+    cannot: 'No puede leer',
+  },
+});
 const rows = [
-  { who: 'You', can: true },
-  { who: 'Your auditor, where required', can: true },
-  { who: 'Administrator', can: false },
+  { who: t.who[0], can: true },
+  { who: t.who[1], can: true },
+  { who: t.who[2], can: false },
 ];
 ---
 
 <div
   class="dg ra"
   role="img"
-  aria-label="Diagram: a person's words to their twin can be read by that person and, where required, their auditor. An administrator cannot read them."
+  aria-label={t.alt}
   data-draw
 >
   <div class="ra__head">
     <span class="ra__icon"><Icon name="lock" size={22} /></span>
-    <span class="dg-label dg-label--signal">Your words to your twin</span>
+    <span class="dg-label dg-label--signal">{t.head}</span>
   </div>
   <ul class="ra__rows">
     {
@@ -31,7 +48,7 @@ const rows = [
               <svg viewBox="0 0 20 20" width="20" height="20"><path d="M5 5l10 10M15 5L5 15" /></svg>
             )}
           </span>
-          <span class="dg-label">{r.can ? 'Can read' : 'Cannot read'}</span>
+          <span class="dg-label">{r.can ? t.can : t.cannot}</span>
         </li>
       ))
     }

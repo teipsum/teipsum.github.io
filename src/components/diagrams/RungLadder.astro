@@ -1,17 +1,29 @@
 ---
 // Diagram: the five rungs as a climb. Each rung links to its section.
 import Icon from '../Icon.astro';
+import { pick } from '../../i18n';
 
+const t = pick(Astro.url, {
+  en: {
+    nav: 'The five rungs',
+    labels: ['Connect', 'Your twin', 'The corporate brain', 'Departments build agents', 'Turn outward'],
+  },
+  es: {
+    nav: 'Los cinco peldaños',
+    // A soft hyphen lets the long word break inside its narrow rung.
+    labels: ['Conectar', 'Tu gemelo', 'El cerebro corporativo', 'Los depar\u00ADtamentos crean agentes', 'Hacia afuera'],
+  },
+});
 const rungs = [
-  { n: '01', label: 'Connect', href: '#connect', icon: 'connect' },
-  { n: '02', label: 'Your twin', href: '#twin', icon: 'twin' },
-  { n: '03', label: 'The corporate brain', href: '#brain', icon: 'brain' },
-  { n: '04', label: 'Departments build agents', href: '#departments', icon: 'build' },
-  { n: '05', label: 'Turn outward', href: '#outward', icon: 'circles', later: true },
+  { n: '01', label: t.labels[0], href: '#connect', icon: 'connect' },
+  { n: '02', label: t.labels[1], href: '#twin', icon: 'twin' },
+  { n: '03', label: t.labels[2], href: '#brain', icon: 'brain' },
+  { n: '04', label: t.labels[3], href: '#departments', icon: 'build' },
+  { n: '05', label: t.labels[4], href: '#outward', icon: 'circles', later: true },
 ] as const;
 ---
 
-<nav class="dg ladder" aria-label="The five rungs" data-draw>
+<nav class="dg ladder" aria-label={t.nav} data-draw>
   <ol>
     {
       rungs.map((r) => (

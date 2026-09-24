@@ -1,0 +1,227 @@
+/* Styles for the waitlist page, shared by the English and Spanish versions.
+   Every selector starts with the data-page attribute the layout puts on <main>,
+   so these rules reach only this page. */
+
+[data-page='waitlist'] .waitlist {
+  padding-block: clamp(40px, 2rem + 3.4vw, 80px);
+}
+[data-page='waitlist'] .waitlist__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 48px;
+  align-items: start;
+}
+[data-page='waitlist'] .waitlist__intro {
+  grid-column: span 5;
+  position: sticky;
+  top: calc(var(--header-h) + 48px);
+}
+[data-page='waitlist'] .form-card {
+  grid-column: 7 / span 6;
+}
+@media (max-width: 960px) {
+  [data-page='waitlist'] .waitlist__intro,
+  [data-page='waitlist'] .form-card {
+    grid-column: 1 / -1;
+    position: static;
+  }
+}
+[data-page='waitlist'] .form-card {
+  --focus: var(--accent);
+  background: var(--paper);
+  color: var(--ink);
+  padding: clamp(24px, 4vw, 48px);
+  border-top: 2px solid var(--warm);
+}
+[data-page='waitlist'] .form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+[data-page='waitlist'] .form__hint {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+[data-page='waitlist'] .field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+[data-page='waitlist'] .field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px var(--col-gap);
+}
+@media (max-width: 560px) {
+  [data-page='waitlist'] .field-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+[data-page='waitlist'] label {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+[data-page='waitlist'] .optional {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+[data-page='waitlist'] input[type='text'],
+[data-page='waitlist'] input[type='email'],
+[data-page='waitlist'] select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--ink-soft);
+  border-radius: 0;
+}
+[data-page='waitlist'] input[type='text']:focus-visible,
+[data-page='waitlist'] input[type='email']:focus-visible,
+[data-page='waitlist'] select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+[data-page='waitlist'] [aria-invalid='true'] {
+  border: 2px solid var(--accent) !important;
+}
+[data-page='waitlist'] .select {
+  position: relative;
+}
+[data-page='waitlist'] .select select {
+  appearance: none;
+  padding-right: 44px;
+  cursor: pointer;
+}
+[data-page='waitlist'] .select::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+[data-page='waitlist'] .field--check {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  column-gap: 14px;
+  row-gap: 8px;
+}
+[data-page='waitlist'] .field--check input {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+[data-page='waitlist'] .field--check label {
+  font-weight: 400;
+}
+[data-page='waitlist'] .field__check-text {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+[data-page='waitlist'] .field__check-text a {
+  padding-block: 3px;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+[data-page='waitlist'] .field--check .field__error {
+  grid-column: 1 / -1;
+}
+[data-page='waitlist'] .field__error {
+  display: flex;
+  gap: 6px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+[data-page='waitlist'] .field__error::before {
+  content: '!';
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--paper);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+[data-page='waitlist'] .hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+[data-page='waitlist'] .error-summary {
+  padding: 16px 20px;
+  border: 2px solid var(--accent);
+}
+[data-page='waitlist'] .error-summary__title {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+[data-page='waitlist'] .error-summary__list {
+  margin: 0;
+  padding-left: 20px;
+}
+[data-page='waitlist'] .error-summary__list a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+[data-page='waitlist'] .form__submit .btn {
+  width: 100%;
+  font-size: 1.0625rem;
+}
+[data-page='waitlist'] .form__submit .btn[aria-disabled='true'] {
+  opacity: 0.7;
+  cursor: progress;
+}
+[data-page='waitlist'] .form__status:empty {
+  display: none;
+}
+[data-page='waitlist'] .form__status {
+  padding: 14px 16px;
+  border-left: 2px solid var(--accent);
+  background: rgba(139, 94, 60, 0.06);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+[data-page='waitlist'] .confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+[data-page='waitlist'] .confirmation[hidden] {
+  display: none;
+}
+[data-page='waitlist'] .confirmation__body {
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+  color: var(--ink-strong);
+}
+[data-page='waitlist'] .form-card__note {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}

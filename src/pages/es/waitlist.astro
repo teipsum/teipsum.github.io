@@ -1,0 +1,177 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cohort from '../../components/diagrams/Cohort.astro';
+import { WAITLIST_ENDPOINT, PRIVACY_HREF } from '../../config';
+import { localize } from '../../i18n';
+import WaitlistScript from '../../components/WaitlistScript.astro';
+import '../../styles/pages/waitlist.css';
+
+const sub =
+  'Unica está admitiendo organizaciones por oleadas. Cada oleada recibe una incorporación personalizada y una línea directa con las personas que la construyen.';
+
+const roles = [
+  ['executive', 'Dirección ejecutiva'],
+  ['it-security', 'TI o seguridad'],
+  ['operations', 'Operaciones'],
+  ['compliance-risk', 'Cumplimiento o riesgos'],
+  ['engineering', 'Ingeniería'],
+  ['other', 'Otro'],
+];
+
+// The values are the ones the endpoint expects; only the labels change.
+const sizes = ['1–10', '11–50', '51–250', '251–1,000', '1,000+'];
+
+const industries = [
+  ['financial-services', 'Servicios financieros'],
+  ['healthcare', 'Salud'],
+  ['legal-professional', 'Servicios legales y profesionales'],
+  ['public-sector', 'Sector público'],
+  ['other', 'Otro'],
+];
+---
+
+<Base page="waitlist" title="Únete a la lista de espera" description={sub}>
+  <section class="band--dark waitlist" aria-labelledby="page-title">
+    <div class="wrap waitlist__grid">
+      <div class="waitlist__intro stack stack--lg">
+        <p class="eyebrow">Acceso anticipado</p>
+        <h1 class="display" id="page-title">Únete a la cohorte fundadora.</h1>
+        <p class="lede">{sub}</p>
+        <Cohort />
+      </div>
+
+      <div class="form-card card-paper">
+        <form
+          id="waitlist-form"
+          class="form"
+          method="post"
+          action={WAITLIST_ENDPOINT || undefined}
+          data-endpoint={WAITLIST_ENDPOINT}
+          aria-labelledby="form-title"
+        >
+          <h2 class="visually-hidden" id="form-title">Solicita acceso anticipado</h2>
+
+          <div class="error-summary" id="error-summary" tabindex="-1" hidden>
+            <h3 class="error-summary__title">Revisa los campos marcados.</h3>
+            <ul class="error-summary__list"></ul>
+          </div>
+
+          <p class="form__hint">Todos los campos son obligatorios, salvo los marcados como opcionales.</p>
+
+          <div class="field">
+            <label for="f-email">Correo de trabajo</label>
+            <input
+              id="f-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              inputmode="email"
+              spellcheck="false"
+              maxlength="254"
+              required
+              aria-describedby="f-email-error"
+            />
+            <p class="field__error" id="f-email-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="f-name">Nombre</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" maxlength="200" required aria-describedby="f-name-error" />
+            <p class="field__error" id="f-name-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="f-org">Organización</label>
+            <input
+              id="f-org"
+              name="organization"
+              type="text"
+              autocomplete="organization"
+              maxlength="200"
+              required
+              aria-describedby="f-org-error"
+            />
+            <p class="field__error" id="f-org-error" hidden></p>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="f-role">Rol</label>
+              <div class="select">
+                <select id="f-role" name="role" required aria-describedby="f-role-error">
+                  <option value="">Elige…</option>
+                  {roles.map(([value, label]) => <option value={value}>{label}</option>)}
+                </select>
+              </div>
+              <p class="field__error" id="f-role-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="f-size">Tamaño de la organización</label>
+              <div class="select">
+                <select id="f-size" name="size" required aria-describedby="f-size-error">
+                  <option value="">Elige…</option>
+                  {sizes.map((s) => <option value={s}>{s.replace(/,/g, '.')}</option>)}
+                </select>
+              </div>
+              <p class="field__error" id="f-size-error" hidden></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-industry">Sector <span class="optional">(opcional)</span></label>
+            <div class="select">
+              <select id="f-industry" name="industry">
+                <option value="">Elige…</option>
+                {industries.map(([value, label]) => <option value={value}>{label}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-first">¿Qué le confiarías primero a Unica? <span class="optional">(opcional)</span></label>
+            <input id="f-first" name="first_use" type="text" maxlength="280" autocomplete="off" />
+          </div>
+
+          <div class="field field--check">
+            <input id="f-consent" name="consent" type="checkbox" value="true" required aria-describedby="f-consent-error" />
+            <p class="field__check-text">
+              <label for="f-consent">Acepto que me contacten sobre el acceso anticipado.</label>{' '}
+              <a href={localize(PRIVACY_HREF, 'es')}>Aviso de privacidad</a>
+            </p>
+            <p class="field__error" id="f-consent-error" hidden></p>
+          </div>
+
+          <div class="hp" aria-hidden="true">
+            <label for="f-website">Deja este campo vacío</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="form__submit">
+            <button class="btn btn--solid" type="submit">Solicita acceso anticipado</button>
+          </div>
+
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+
+          <noscript>
+            <p class="form__status form__status--notice">Este formulario necesita JavaScript para enviar tu solicitud.</p>
+          </noscript>
+        </form>
+
+        <div class="confirmation" id="confirmation" hidden>
+          <h2 class="h2" id="confirmation-title" tabindex="-1">Ya estás en la lista.</h2>
+          <p class="confirmation__body">
+            Una persona de nuestro equipo lee cada solicitud. Cuando empiece tu oleada, te escribiremos directamente
+            nosotros, no una respuesta automática.
+          </p>
+        </div>
+
+        <p class="form-card__note">
+          <em>¿Eres inversor o analista? Dilo en el último campo y te llevaremos a la conversación adecuada.</em>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<WaitlistScript />
