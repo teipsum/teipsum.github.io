@@ -35,7 +35,7 @@ const pillars = [
     label: 'Gobernada',
     icon: 'key',
     title: 'La autoridad, el alcance y las aprobaciones los hace cumplir la propia plataforma.',
-    body: 'Las acciones privilegiadas piden un nuevo toque de la llave de acceso. El interruptor de apagado no se rearma solo.',
+    body: 'Las acciones privilegiadas piden un nuevo toque del passkey. El interruptor de apagado no se rearma solo.',
     status: 'early',
   },
   {
@@ -103,11 +103,11 @@ const outcomes = [
     body: 'Tu gente fija las reglas y firma lo que importa. La IA hace el resto, dentro de esas reglas.',
     glance: {
       title: 'Aprobación',
-      alt: 'Ilustración: una tanda de pagos que preparó un agente, a la espera de que una persona la apruebe con su llave de acceso.',
+      alt: 'Ilustración: una tanda de pagos que preparó un agente, a la espera de que una persona la apruebe con su passkey.',
       head: 'Tanda de pagos, 12 facturas',
       state: { label: 'Te espera', tone: 'quiet' },
       facts: [{ label: 'Preparada por', value: 'Agente de recepción de facturas' }],
-      action: 'Aprobar con llave de acceso',
+      action: 'Aprobar con passkey',
     },
   },
 ];
@@ -133,7 +133,7 @@ const ratioSource: {
 const steps = [
   {
     title: 'Funda tu organización.',
-    body: 'Tus Fideicomisarios establecen tu instancia de Unica en una ceremonia de fundación, cada uno con su propia llave de acceso.',
+    body: 'Tus Fideicomisarios establecen tu instancia de Unica en una ceremonia de fundación, cada uno con su propio passkey.',
     visual: 'found',
   },
   {
@@ -317,12 +317,12 @@ const steps = [
           slot="end"
           title="Registro"
           status="early"
-          alt="Ilustración: el trabajo queda como el registro sellado de una renovación de contrato, con sus tres fuentes y la aprobación de la CFO con su llave de acceso."
+          alt="Ilustración: el trabajo queda como el registro sellado de una renovación de contrato, con sus tres fuentes y la aprobación de la CFO con su passkey."
           head="Renovación de contrato aprobada"
           state={{ label: 'Sellado', tone: 'sealed' }}
           facts={[
             { label: 'Fuentes', value: '3 documentos' },
-            { label: 'Aprobó', value: 'CFO, llave de acceso' },
+            { label: 'Aprobó', value: 'CFO, passkey' },
             { label: 'Hora', value: '14:02 UTC' },
           ]}
         />

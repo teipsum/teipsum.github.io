@@ -20,13 +20,13 @@ const {
 } = Astro.props;
 const t = es
   ? {
-      alt: `Ilustración: una solicitud de aprobación de «${action}», iniciada por el ${requester.charAt(0).toLowerCase()}${requester.slice(1)} y a la espera de que ${approverRef} toque su llave de acceso.`,
+      alt: `Ilustración: una solicitud de aprobación de «${action}», iniciada por el ${requester.charAt(0).toLowerCase()}${requester.slice(1)} y a la espera de que ${approverRef} toque su passkey.`,
       title: 'Aprobación',
       needs: 'Requiere tu aprobación',
       privileged: 'Privilegiada',
       requestedBy: 'Solicita',
       approver: 'Aprueba',
-      cta: 'Aprobar con llave de acceso',
+      cta: 'Aprobar con passkey',
       only: 'Solo para esta acción',
     }
   : {
