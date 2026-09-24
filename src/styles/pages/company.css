@@ -1,0 +1,93 @@
+/* Styles for the company page, shared by the English and Spanish versions.
+   Every selector starts with the data-page attribute the layout puts on <main>,
+   so these rules reach only this page. */
+
+[data-page='company'] .motto {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--warm);
+}
+[data-page='company'] .leadership {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 20px;
+  padding-top: var(--band-y);
+  border-top: 1px solid var(--rule);
+}
+[data-page='company'] .leadership__head {
+  grid-column: span 5;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+[data-page='company'] .portrait {
+  display: block;
+  width: 240px;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--accent);
+  outline: 1px solid var(--rule);
+  outline-offset: 6px;
+}
+[data-page='company'] .triad {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 480px;
+}
+[data-page='company'] .triad__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 10px;
+  border: 1px solid var(--hair-dark);
+  border-top: 2px solid var(--warm);
+}
+[data-page='company'] .triad__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--warm);
+  border-radius: 50%;
+}
+[data-page='company'] .triad__label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--warm);
+}
+[data-page='company'] .person {
+  grid-column: 7 / span 6;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+[data-page='company'] .person__name {
+  font-size: var(--fs-h3);
+  line-height: 1.3;
+}
+[data-page='company'] .person__name strong {
+  font-weight: 500;
+}
+[data-page='company'] .person__bio {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--ink-strong);
+}
+@media (max-width: 900px) {
+  [data-page='company'] .leadership__head,
+  [data-page='company'] .person {
+    grid-column: 1 / -1;
+  }
+}

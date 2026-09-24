@@ -1,0 +1,69 @@
+/* Styles for the technology page, shared by the English and Spanish versions.
+   Every selector starts with the data-page attribute the layout puts on <main>,
+   so these rules reach only this page. */
+
+[data-page='technology'] .band-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+[data-page='technology'] .band-eyebrow .card__icon {
+  width: 44px;
+  height: 44px;
+}
+[data-page='technology'] .standings {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 480px;
+}
+[data-page='technology'] .standing {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--rule);
+  background: #fdfcf9;
+}
+[data-page='technology'] .standing--on {
+  border-color: var(--accent);
+  border-left-width: 3px;
+}
+[data-page='technology'] .standing__label {
+  font-weight: 500;
+}
+[data-page='technology'] .primitives {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+[data-page='technology'] .primitives .card__title {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--ink-strong);
+}
+[data-page='technology'] .primitives .term {
+  font-weight: 500;
+  color: var(--ink);
+}
+@media (max-width: 900px) {
+  [data-page='technology'] .primitives {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  [data-page='technology'] .primitives {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 400px) {
+  [data-page='technology'] .standing {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+  [data-page='technology'] .standing .card__icon {
+    width: 40px;
+    height: 40px;
+  }
+}

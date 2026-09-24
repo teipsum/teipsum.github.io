@@ -5,7 +5,7 @@
    Each Plex weight is split by unicode-range so a page only downloads what it
    shows: "core" (ASCII plus the punctuation the copy uses, subset from the
    latin file, kerning and ligatures kept), then the rest of latin, then
-   latin-ext, and a small "es" file with the Spanish letters. The DM Serif face is subset to the glyphs of "Scito te ipsum.". */
+   latin-ext. The DM Serif face is subset to the glyphs of "Scito te ipsum.". */
 
 @font-face {
   font-family: 'IBM Plex Sans';
@@ -142,52 +142,65 @@
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 
-/* Spanish letters and punctuation, subset from the latin files. Declared after
-   the latin faces so these small files win for the characters they share, and a
-   Spanish page does not need the whole latin file for its accents. */
+/* Spanish pages. One file per weight holds the "core" characters and the
+   Spanish letters together, so a Spanish page loads as many font files as an
+   English one. The files are subset from the latin files, like "core", but
+   without TrueType hinting (macOS, iOS and Android ignore it), which keeps them
+   smaller than "core". U+2010 and U+2011 map to the hyphen glyph, which a
+   browser may draw where a soft hyphen breaks a word. The soft hyphen itself
+   is here too: a browser hides it with the space glyph of the same face, so a
+   face without the space in its range would send it on to the latin file.
+   These families come first in the font stacks only under lang="es" (below),
+   so English pages never download them; any other character falls through to
+   the Plex faces above. */
 @font-face {
-  font-family: 'IBM Plex Sans';
+  font-family: 'IBM Plex Sans ES';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
   src: url('/fonts/ibm-plex-sans-es-300-normal.woff2') format('woff2');
-  unicode-range: U+00A1,U+00AB,U+00AD,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC;
+  unicode-range: U+0020-007E,U+00A0-00A1,U+00AB,U+00AD,U+00B7,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC,U+2010-2011,U+2013-2014,U+2018-2019,U+201C-201D,U+2026;
 }
 
 @font-face {
-  font-family: 'IBM Plex Sans';
+  font-family: 'IBM Plex Sans ES';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url('/fonts/ibm-plex-sans-es-400-normal.woff2') format('woff2');
-  unicode-range: U+00A1,U+00AB,U+00AD,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC;
+  unicode-range: U+0020-007E,U+00A0-00A1,U+00AB,U+00AD,U+00B7,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC,U+2010-2011,U+2013-2014,U+2018-2019,U+201C-201D,U+2026;
 }
 
 @font-face {
-  font-family: 'IBM Plex Sans';
+  font-family: 'IBM Plex Sans ES';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
   src: url('/fonts/ibm-plex-sans-es-500-normal.woff2') format('woff2');
-  unicode-range: U+00A1,U+00AB,U+00AD,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC;
+  unicode-range: U+0020-007E,U+00A0-00A1,U+00AB,U+00AD,U+00B7,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC,U+2010-2011,U+2013-2014,U+2018-2019,U+201C-201D,U+2026;
 }
 
 @font-face {
-  font-family: 'IBM Plex Mono';
+  font-family: 'IBM Plex Mono ES';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url('/fonts/ibm-plex-mono-es-400-normal.woff2') format('woff2');
-  unicode-range: U+00A1,U+00AB,U+00AD,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC;
+  unicode-range: U+0020-007E,U+00A0-00A1,U+00AB,U+00AD,U+00B7,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC,U+2010-2011,U+2013-2014,U+2018-2019,U+201C-201D,U+2026;
 }
 
 @font-face {
-  font-family: 'IBM Plex Mono';
+  font-family: 'IBM Plex Mono ES';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
   src: url('/fonts/ibm-plex-mono-es-500-normal.woff2') format('woff2');
-  unicode-range: U+00A1,U+00AB,U+00AD,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC;
+  unicode-range: U+0020-007E,U+00A0-00A1,U+00AB,U+00AD,U+00B7,U+00BB,U+00BF,U+00C1,U+00C9,U+00CD,U+00D1,U+00D3,U+00DA,U+00DC,U+00E1,U+00E9,U+00ED,U+00F1,U+00F3,U+00FA,U+00FC,U+2010-2011,U+2013-2014,U+2018-2019,U+201C-201D,U+2026;
+}
+
+:root:lang(es) {
+  --font-sans: 'IBM Plex Sans ES', 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono ES', 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 }
 
 @font-face {

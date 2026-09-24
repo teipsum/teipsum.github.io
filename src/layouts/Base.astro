@@ -13,9 +13,11 @@ interface Props {
   /** Page shows the serif motto. The face is declared site-wide and only downloads where it is used. */
   serif?: boolean;
   noindex?: boolean;
+  /** Names the page's shared stylesheet in src/styles/pages/, which is scoped to it. */
+  page?: string;
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, page } = Astro.props;
 
 const path = Astro.url.pathname;
 const lang = langOf(Astro.url);
@@ -45,12 +47,10 @@ const csp = [
   'upgrade-insecure-requests',
 ].join('; ');
 
-// Above the fold: the display headline (500) and the lede (300).
-const preloadFonts = ['/fonts/ibm-plex-sans-core-500-normal.woff2', '/fonts/ibm-plex-sans-core-300-normal.woff2'];
-// Spanish copy also needs its accented letters, in the small "es" subset.
-if (lang === 'es') {
-  preloadFonts.push('/fonts/ibm-plex-sans-es-500-normal.woff2', '/fonts/ibm-plex-sans-es-300-normal.woff2');
-}
+// Above the fold: the display headline (500) and the lede (300). Spanish pages
+// use their own files, which also hold the Spanish letters (see fonts.css).
+const fontSet = lang === 'es' ? 'es' : 'core';
+const preloadFonts = [`/fonts/ibm-plex-sans-${fontSet}-500-normal.woff2`, `/fonts/ibm-plex-sans-${fontSet}-300-normal.woff2`];
 ---
 
 <!doctype html>
@@ -99,7 +99,7 @@ if (lang === 'es') {
   <body>
     <a class="skip-link" href="#main">{t.skip}</a>
     <Header />
-    <main id="main" tabindex="-1">
+    <main id="main" tabindex="-1" data-page={page}>
       <slot />
     </main>
     <Footer />

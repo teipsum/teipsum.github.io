@@ -10,6 +10,7 @@ import NeedsYou from '../../components/vignettes/NeedsYou.astro';
 import PasskeyApproval from '../../components/vignettes/PasskeyApproval.astro';
 import Glance from '../../components/vignettes/Glance.astro';
 import Chip from '../../components/Chip.astro';
+import '../../styles/pages/solutions.css';
 
 const sub =
   'Unica le da a una firma pequeña el alcance de un gran equipo y a una gran empresa los controles que esperan sus auditores, sobre la misma base gobernada.';
@@ -82,7 +83,7 @@ const sectors = [
 ] as const;
 ---
 
-<Base title="Soluciones" description={sub}>
+<Base page="solutions" title="Soluciones" description={sub}>
   <PageHero eyebrow="Soluciones" title="De diez personas a diez mil. La misma prueba." sub={sub}>
     <div slot="figure" class="scale" aria-hidden="true" data-draw>
       <div class="scale__fig draw-fade">
@@ -158,61 +159,3 @@ const sectors = [
     body="La lista de espera hace una sola pregunta sobre tu primer caso de uso, para que la cohorte fundadora empiece donde importa."
   />
 </Base>
-
-<style>
-  .lede :global(.chip) {
-    vertical-align: middle;
-    margin-left: 6px;
-  }
-  .sector__glance {
-    margin-top: auto;
-    padding-top: 8px;
-  }
-  .sector__title {
-    font-size: 1.25rem;
-  }
-  .scale {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    max-width: 420px;
-    margin-left: auto;
-  }
-  .scale__fig {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .scale__n {
-    font-size: clamp(2.75rem, 1.6rem + 3.6vw, 4.75rem);
-    line-height: 0.95;
-    font-weight: 300;
-    letter-spacing: -0.04em;
-    color: var(--paper);
-  }
-  .scale__bar {
-    display: block;
-    height: 6px;
-    background: var(--warm);
-  }
-  .scale__bar--s {
-    width: 14%;
-  }
-  .scale__seal {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-top: 14px;
-    border-top: 1px solid var(--hair-warm);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--warm);
-  }
-  @media (max-width: 900px) {
-    .scale {
-      margin-left: 0;
-    }
-  }
-</style>

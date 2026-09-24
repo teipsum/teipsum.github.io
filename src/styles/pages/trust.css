@@ -1,0 +1,26 @@
+/* Styles for the trust page, shared by the English and Spanish versions.
+   Every selector starts with the data-page attribute the layout puts on <main>,
+   so these rules reach only this page. */
+
+[data-page='trust'] .lede .chip {
+  vertical-align: middle;
+  margin-left: 6px;
+}
+[data-page='trust'] .evidence-text {
+  gap: 18px;
+}
+[data-page='trust'] .evidence-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+[data-page='trust'] .evidence-eyebrow .card__icon {
+  width: 44px;
+  height: 44px;
+}
+[data-page='trust'] .evidence-record {
+  margin-top: 12px;
+}
+[data-page='trust'] .evidence-record .vig {
+  margin-inline: 0;
+}

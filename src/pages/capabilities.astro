@@ -17,12 +17,13 @@ import TwinConversation from '../components/vignettes/TwinConversation.astro';
 import FleetRow from '../components/vignettes/FleetRow.astro';
 import AutonomyDial from '../components/vignettes/AutonomyDial.astro';
 import Glance from '../components/vignettes/Glance.astro';
+import '../styles/pages/capabilities.css';
 
 const sub =
   'Unica starts with one person and one team, and grows from the inside out. Every capability you add makes every other one smarter.';
 ---
 
-<Base title="Capabilities" description={sub}>
+<Base page="capabilities" title="Capabilities" description={sub}>
   <PageHero eyebrow="CAPABILITIES" title="Empower yourself. Then your whole organization." sub={sub}>
     <RungLadder slot="figure" />
   </PageHero>
@@ -222,59 +223,3 @@ const sub =
 
   <CloseCall />
 </Base>
-
-<style>
-  .points {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-  .points li {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px;
-    border: 1px solid var(--rule);
-    background: #fdfcf9;
-    font-size: 1rem;
-    line-height: 1.55;
-    color: var(--ink-strong);
-  }
-  @media (max-width: 560px) {
-    .points {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-  .lede :global(.chip) {
-    vertical-align: middle;
-    margin-left: 6px;
-  }
-  .rung-glance {
-    max-width: 380px;
-    margin-top: 8px;
-  }
-  .tie-in {
-    padding-top: 18px;
-    border-top: 1px solid var(--rule);
-    font-size: var(--fs-body);
-    line-height: 1.6;
-    font-weight: 500;
-    color: var(--ink);
-    max-width: 40rem;
-  }
-  .roadmap-line {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding-top: 18px;
-    border-top: 1px solid var(--hair-dark);
-    font-size: var(--fs-body);
-    line-height: 1.6;
-    font-weight: 300;
-    color: var(--paper-strong);
-    max-width: 40rem;
-  }
-</style>

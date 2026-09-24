@@ -1,0 +1,127 @@
+/* Styles for the home page, shared by the English and Spanish versions.
+   Every selector starts with the data-page attribute the layout puts on <main>,
+   so these rules reach only this page. */
+
+[data-page='home'] .hero {
+  padding-block: clamp(40px, 2rem + 3.4vw, 80px);
+}
+[data-page='home'] .hero .display {
+  max-width: 14ch;
+}
+[data-page='home'] .hero__figure {
+  max-width: 520px;
+  width: 100%;
+  justify-self: end;
+}
+[data-page='home'] .changes-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 20px;
+  align-items: end;
+  margin-bottom: clamp(28px, 3.4vw, 44px);
+}
+[data-page='home'] .changes-head__title {
+  grid-column: span 7;
+  gap: 16px;
+}
+[data-page='home'] .changes-head__body {
+  grid-column: 8 / span 5;
+}
+@media (max-width: 900px) {
+  [data-page='home'] .changes-head__title,
+  [data-page='home'] .changes-head__body {
+    grid-column: 1 / -1;
+  }
+}
+[data-page='home'] .outcome__title {
+  font-size: 1.25rem;
+}
+[data-page='home'] .outcome__glance {
+  margin-top: auto;
+  padding-top: 8px;
+}
+[data-page='home'] .ratio {
+  margin-top: clamp(32px, 4vw, 52px);
+}
+[data-page='home'] .ratio__text {
+  max-width: 52rem;
+  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--ink);
+}
+[data-page='home'] .ratio__text .chip {
+  vertical-align: middle;
+  margin-left: 6px;
+}
+[data-page='home'] .ratio__text sup {
+  font-size: 0.6em;
+  line-height: 0;
+}
+[data-page='home'] .ratio__text sup a,
+[data-page='home'] .ratio__note a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* 24 px target from padding; the negative margin keeps the text spacing. */
+[data-page='home'] .ratio__text sup a {
+  padding: 6px 9px;
+  margin-inline: -9px;
+}
+[data-page='home'] .ratio__note a {
+  padding-block: 3px;
+}
+[data-page='home'] .ratio__note .ratio__back {
+  display: inline-block;
+  min-width: 24px;
+  min-height: 24px;
+  padding-block: 0;
+  text-align: center;
+}
+[data-page='home'] .ratio__note {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+[data-page='home'] .ratio__mark {
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+[data-page='home'] .changes-close {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 56rem;
+  margin-top: clamp(32px, 4vw, 52px);
+}
+[data-page='home'] .changes-close__line {
+  font-size: clamp(1.625rem, 1.1rem + 1.9vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+[data-page='home'] .pillar__label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+[data-page='home'] .record-caption {
+  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
+  line-height: 1.45;
+  color: var(--ink-strong);
+  max-width: 30rem;
+}
+[data-page='home'] .moat {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+@media (max-width: 900px) {
+  [data-page='home'] .hero__figure {
+    justify-self: center;
+    max-width: 440px;
+  }
+}

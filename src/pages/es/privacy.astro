@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { PRIVACY_EFFECTIVE_DATE } from '../../config';
+import '../../styles/pages/privacy.css';
 
 const contact = 'contact@teipsum.com';
 
@@ -62,7 +63,7 @@ const sections = [
 ];
 ---
 
-<Base title="Privacidad" description="Este aviso cubre teipsum.com y la lista de espera de Unica, gestionadas por Teipsum SA.">
+<Base page="privacy" title="Privacidad" description="Este aviso cubre teipsum.com y la lista de espera de Unica, gestionadas por Teipsum SA.">
   <section class="band band--paper privacy" aria-labelledby="page-title">
     <div class="wrap">
       <div class="privacy__col">
@@ -94,41 +95,3 @@ const sections = [
     </div>
   </section>
 </Base>
-
-<style>
-  .privacy__col {
-    max-width: 44rem;
-  }
-  .privacy__head {
-    gap: 20px;
-    padding-bottom: clamp(24px, 3vw, 32px);
-    border-bottom: 1px solid var(--rule);
-  }
-  .privacy__section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-block: 20px;
-    border-bottom: 1px solid var(--rule);
-  }
-  .privacy__section:last-child {
-    border-bottom: 0;
-    padding-bottom: 0;
-  }
-  .privacy__label {
-    font-family: var(--font-mono);
-    font-size: var(--fs-eyebrow);
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    line-height: 1.5;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .privacy .body a {
-    padding-block: 3px;
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    overflow-wrap: anywhere;
-  }
-</style>

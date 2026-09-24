@@ -14,13 +14,14 @@ import FleetRow from '../components/vignettes/FleetRow.astro';
 import EvidenceExport from '../components/vignettes/EvidenceExport.astro';
 import RecordCard from '../components/vignettes/RecordCard.astro';
 import Duties from '../components/diagrams/Duties.astro';
+import '../styles/pages/trust.css';
 
 const sub =
   'Unica is built so that every claim it makes about itself can be verified: who acted, on whose authority, and why.';
 
 ---
 
-<Base title="Trust and governance" description={sub}>
+<Base page="trust" title="Trust and governance" description={sub}>
   <PageHero eyebrow="TRUST AND GOVERNANCE" title="Trust you can check." sub={sub} />
 
   <Band tone="paper" id="identity" eyebrow="Identity" icon="fingerprint" heading="No passwords. Real people.">
@@ -121,28 +122,3 @@ const sub =
 
   <CloseCall />
 </Base>
-
-<style>
-  .lede :global(.chip) {
-    vertical-align: middle;
-    margin-left: 6px;
-  }
-  .evidence-text {
-    gap: 18px;
-  }
-  .evidence-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .evidence-eyebrow .card__icon {
-    width: 44px;
-    height: 44px;
-  }
-  .evidence-record {
-    margin-top: 12px;
-  }
-  .evidence-record :global(.vig) {
-    margin-inline: 0;
-  }
-</style>

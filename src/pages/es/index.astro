@@ -16,6 +16,7 @@ import Glance from '../../components/vignettes/Glance.astro';
 import StepTrace from '../../components/diagrams/StepTrace.astro';
 import { WAITLIST_HREF } from '../../config';
 import { UI, localize } from '../../i18n';
+import '../../styles/pages/home.css';
 
 const CTA_LABEL = UI.es.cta;
 const waitlistHref = localize(WAITLIST_HREF, 'es');
@@ -149,7 +150,7 @@ const steps = [
 ] as const;
 ---
 
-<Base title="TEIPSUM · Unica: IA que trabaja para tu empresa y le rinde cuentas." description={sub}>
+<Base page="home" title="TEIPSUM · Unica: IA que trabaja para tu empresa y le rinde cuentas." description={sub}>
   <section class="band--dark hero" aria-labelledby="page-title">
     <div class="wrap split split--7-5">
       <div class="split__text stack stack--lg">
@@ -366,129 +367,3 @@ const steps = [
     body="Estamos admitiendo un número limitado de organizaciones por oleadas, para que cada una reciba una incorporación personalizada. Únete a la lista de espera para reservar tu lugar."
   />
 </Base>
-
-<style>
-  .hero {
-    padding-block: clamp(40px, 2rem + 3.4vw, 80px);
-  }
-  .hero .display {
-    max-width: 14ch;
-  }
-  .hero__figure {
-    max-width: 520px;
-    width: 100%;
-    justify-self: end;
-  }
-  .changes-head {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--col-gap);
-    row-gap: 20px;
-    align-items: end;
-    margin-bottom: clamp(28px, 3.4vw, 44px);
-  }
-  .changes-head__title {
-    grid-column: span 7;
-    gap: 16px;
-  }
-  .changes-head__body {
-    grid-column: 8 / span 5;
-  }
-  @media (max-width: 900px) {
-    .changes-head__title,
-    .changes-head__body {
-      grid-column: 1 / -1;
-    }
-  }
-  .outcome__title {
-    font-size: 1.25rem;
-  }
-  .outcome__glance {
-    margin-top: auto;
-    padding-top: 8px;
-  }
-  .ratio {
-    margin-top: clamp(32px, 4vw, 52px);
-  }
-  .ratio__text {
-    max-width: 52rem;
-    font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
-    line-height: 1.4;
-    font-weight: 400;
-    color: var(--ink);
-  }
-  .ratio__text :global(.chip) {
-    vertical-align: middle;
-    margin-left: 6px;
-  }
-  .ratio__text sup {
-    font-size: 0.6em;
-    line-height: 0;
-  }
-  .ratio__text sup a,
-  .ratio__note a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  /* 24 px target from padding; the negative margin keeps the text spacing. */
-  .ratio__text sup a {
-    padding: 6px 9px;
-    margin-inline: -9px;
-  }
-  .ratio__note a {
-    padding-block: 3px;
-  }
-  .ratio__note .ratio__back {
-    display: inline-block;
-    min-width: 24px;
-    min-height: 24px;
-    padding-block: 0;
-    text-align: center;
-  }
-  .ratio__note {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--ink-soft);
-  }
-  .ratio__mark {
-    font-family: var(--font-mono);
-    color: var(--accent);
-  }
-  .changes-close {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    max-width: 56rem;
-    margin-top: clamp(32px, 4vw, 52px);
-  }
-  .changes-close__line {
-    font-size: clamp(1.625rem, 1.1rem + 1.9vw, 2.5rem);
-    line-height: 1.15;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    text-wrap: balance;
-  }
-  .pillar__label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .record-caption {
-    font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem);
-    line-height: 1.45;
-    color: var(--ink-strong);
-    max-width: 30rem;
-  }
-  .moat {
-    font-size: var(--fs-body);
-    line-height: 1.6;
-    color: var(--ink-soft);
-  }
-  @media (max-width: 900px) {
-    .hero__figure {
-      justify-self: center;
-      max-width: 440px;
-    }
-  }
-</style>

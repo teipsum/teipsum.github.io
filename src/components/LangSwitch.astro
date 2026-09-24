@@ -54,6 +54,12 @@ const href = (l: Lang) => (here === '/404/' && l === 'en' ? '/404.html' : locali
     color: var(--paper);
   }
 
+  /* The spoken names are never drawn. A system face keeps "Español" from
+     pulling the Spanish font file onto English pages. */
+  .visually-hidden {
+    font-family: sans-serif;
+  }
+
   a[aria-current='true'] {
     color: var(--warm);
     text-decoration: underline;
