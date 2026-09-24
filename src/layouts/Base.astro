@@ -86,6 +86,7 @@ const preloadFonts = [`/fonts/ibm-plex-sans-${fontSet}-500-normal.woff2`, `/font
     <meta name="twitter:image" content={ogImage} />
 
     {preloadFonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
+    {lang === 'es' && <link rel="stylesheet" href="/fonts/es.css" />}
     {
       CF_BEACON_TOKEN && (
         <script

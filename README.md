@@ -79,8 +79,8 @@ style change is made once. A change to an English page's copy or markup needs
 the same change in its Spanish counterpart.
 
 Spanish pages use their own font files (`public/fonts/ibm-plex-*-es-*`), one
-per weight, holding the core characters and the Spanish letters (see
-`src/styles/fonts.css`). If new Spanish copy needs a character outside that
+per weight, holding the core characters and the Spanish letters, declared in
+`public/fonts/es.css`, which only Spanish pages link. If new Spanish copy needs a character outside that
 set, add it to those files, or the page falls back to a full latin file.
 
 ## Social card
