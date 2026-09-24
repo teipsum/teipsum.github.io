@@ -69,11 +69,19 @@ The site is in English at the root and in Spanish under `/es/`. Each page in
 the same structure and its own copy. Strings shared by the layout and
 components live in `src/i18n.ts`, or beside the component that uses them, keyed
 by language; the language comes from the page's path. The header switch
-(EN · ES) links each page to its counterpart, every page carries `hreflang`
-alternates (x-default is English), and the sitemap lists both languages.
+(EN · ES) links each page to its counterpart, every indexed page carries
+`hreflang` alternates (x-default is English), and the sitemap lists both
+languages.
 
-A change to an English page's copy or layout needs the same change in its
-Spanish counterpart.
+Each pair of pages shares one stylesheet in `src/styles/pages/`, scoped by the
+`data-page` attribute the layout puts on `<main>` (`<Base page="…">`), so a
+style change is made once. A change to an English page's copy or markup needs
+the same change in its Spanish counterpart.
+
+Spanish pages use their own font files (`public/fonts/ibm-plex-*-es-*`), one
+per weight, holding the core characters and the Spanish letters (see
+`src/styles/fonts.css`). If new Spanish copy needs a character outside that
+set, add it to those files, or the page falls back to a full latin file.
 
 ## Social card
 

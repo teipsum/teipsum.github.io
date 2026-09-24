@@ -25,6 +25,7 @@ const t = UI[lang];
 const canonical = new URL(path, SITE_URL).href;
 const fullTitle = basePath(path) === '/' ? title : `${title} · ${SITE_NAME}`;
 // The same page in each language, for search engines; x-default is English.
+// Pages kept out of search (the 404s) list none.
 const alternates = [
   ...LANGS.map((l) => ({ hreflang: l, href: new URL(localize(basePath(path), l), SITE_URL).href })),
   { hreflang: 'x-default', href: new URL(localize(basePath(path), DEFAULT_LANG), SITE_URL).href },
@@ -62,7 +63,7 @@ const preloadFonts = [`/fonts/ibm-plex-sans-${fontSet}-500-normal.woff2`, `/font
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    {!noindex && alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#1a1a1a" />

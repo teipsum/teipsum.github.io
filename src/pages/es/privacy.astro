@@ -6,18 +6,25 @@ import '../../styles/pages/privacy.css';
 const contact = 'contact@teipsum.com';
 
 // The effective date is set once, in English (for example "October 1, 2026");
-// here it reads as a Spanish date.
+// here it reads as a Spanish date. The calendar date is taken as written,
+// whatever the build machine's time zone: an ISO date ("2026-10-01") parses as
+// UTC midnight, a written one as local midnight.
 const effectiveDate = (() => {
   if (!PRIVACY_EFFECTIVE_DATE) return '';
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(PRIVACY_EFFECTIVE_DATE.trim());
   const d = new Date(PRIVACY_EFFECTIVE_DATE);
-  return Number.isNaN(d.getTime()) ? PRIVACY_EFFECTIVE_DATE : new Intl.DateTimeFormat('es', { dateStyle: 'long' }).format(d);
+  if (!iso && Number.isNaN(d.getTime())) return PRIVACY_EFFECTIVE_DATE;
+  const day = iso
+    ? Date.UTC(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]))
+    : Date.UTC(d.getFullYear(), d.getMonth(), d.getDate());
+  return new Intl.DateTimeFormat('es', { dateStyle: 'long', timeZone: 'UTC' }).format(day);
 })();
 
 const sections = [
   {
     id: 'who',
     label: 'Quiénes somos',
-    body: 'Este aviso cubre teipsum.com y la lista de espera de Unica, gestionadas por Teipsum SA («TEIPSUM», «nosotros»).',
+    body: 'Este aviso cubre el sitio teipsum.com y la lista de espera de Unica, gestionados por Teipsum SA («TEIPSUM», «nosotros»).',
   },
   {
     id: 'what',
@@ -63,7 +70,7 @@ const sections = [
 ];
 ---
 
-<Base page="privacy" title="Privacidad" description="Este aviso cubre teipsum.com y la lista de espera de Unica, gestionadas por Teipsum SA.">
+<Base page="privacy" title="Privacidad" description="Este aviso cubre el sitio teipsum.com y la lista de espera de Unica, gestionados por Teipsum SA.">
   <section class="band band--paper privacy" aria-labelledby="page-title">
     <div class="wrap">
       <div class="privacy__col">

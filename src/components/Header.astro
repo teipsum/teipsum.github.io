@@ -10,6 +10,8 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
 const isCurrent = (href: string) => path === href;
 const nav = NAV.map((item) => ({ href: localize(item.href, lang), label: t.nav[item.href] }));
 const waitlistHref = localize(WAITLIST_HREF, lang);
+// Where the header button is shortened, the rest of the label shows on wide screens.
+const ctaRest = t.cta.startsWith(t.ctaHeader) ? t.cta.slice(t.ctaHeader.length) : '';
 ---
 
 <header class="site-header">
@@ -35,7 +37,8 @@ const waitlistHref = localize(WAITLIST_HREF, lang);
       <a
         class="btn btn--outline site-header__cta"
         href={waitlistHref}
-        aria-current={isCurrent(waitlistHref) ? 'page' : undefined}>{t.ctaHeader}</a
+        aria-current={isCurrent(waitlistHref) ? 'page' : undefined}
+        >{t.ctaHeader}{ctaRest && <span class="site-header__cta-rest">{ctaRest}</span>}</a
       >
 
       <details class="nav-mobile">
@@ -133,6 +136,19 @@ const waitlistHref = localize(WAITLIST_HREF, lang);
     font-size: 0.875rem;
     letter-spacing: 0.04em;
     white-space: nowrap;
+  }
+
+  .site-header__cta-rest {
+    display: none;
+  }
+
+  /* The button lays its label out as flex items, which would drop the space
+     that starts this part; pre keeps it. */
+  @media (min-width: 1280px) {
+    .site-header__cta-rest {
+      display: inline;
+      white-space: pre;
+    }
   }
 
   .site-header__cta[aria-current='page'] {

@@ -63,7 +63,8 @@ export const UI = {
     langNav: 'Idioma',
     home: 'TEIPSUM Unica, inicio',
     cta: 'Únete a la lista de espera',
-    // The pinned header button, shortened to fit beside the menu on phones.
+    // The pinned header button, shortened to fit beside the menu; from 1280 px
+    // the header shows the rest of `cta` after it.
     ctaHeader: 'Únete a la lista',
     privacy: 'Privacidad',
     motto: 'Teipsum SA · Scito te ipsum',

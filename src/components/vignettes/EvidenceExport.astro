@@ -11,7 +11,8 @@ const t = pick(Astro.url, {
     head: 'Q3 evidence',
     period: 'Jul 1 – Sep 30',
     parts: ['Signed acts', 'Approvals', 'Refusals'],
-    included: 'Included',
+    // One per part, so each can agree with its noun in Spanish.
+    included: ['Included', 'Included', 'Included'],
     export: 'Export',
     verified: 'Verified',
   },
@@ -21,9 +22,9 @@ const t = pick(Astro.url, {
     head: 'Evidencia del T3',
     period: '1 jul – 30 sep',
     parts: ['Actos firmados', 'Aprobaciones', 'Rechazos'],
-    included: 'Incluido',
+    included: ['Incluidos', 'Incluidas', 'Incluidos'],
     export: 'Exportar',
-    verified: 'Verificado',
+    verified: 'Verificada',
   },
 });
 const parts = t.parts;
@@ -36,10 +37,10 @@ const parts = t.parts;
   </div>
   <ul class="v-list ev">
     {
-      parts.map((p) => (
+      parts.map((p, i) => (
         <li class="v-row">
           <span>{p}</span>
-          <span class="ev__ok"><Seal size={16} /><span class="v-label">{t.included}</span></span>
+          <span class="ev__ok"><Seal size={16} /><span class="v-label">{t.included[i]}</span></span>
         </li>
       ))
     }

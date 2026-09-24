@@ -30,7 +30,7 @@ const COPY = {
     network: 'Algo salió mal y tu solicitud no se envió. Inténtalo de nuevo en un momento.',
     rejected: 'No pudimos aceptar esa solicitud. Revisa tus datos e inténtalo de nuevo.',
     sending: 'Enviando tu solicitud…',
-    emailEmpty: 'Escribe tu correo del trabajo.',
+    emailEmpty: 'Escribe tu correo de trabajo.',
     emailInvalid: 'Escribe una dirección de correo como nombre@empresa.com.',
     name: 'Escribe tu nombre.',
     organization: 'Escribe el nombre de tu organización.',
